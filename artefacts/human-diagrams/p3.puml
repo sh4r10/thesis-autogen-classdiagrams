@@ -1,0 +1,74 @@
+@startuml
+
+class BaseUi {
+  + show(): void
+  + shouwHeader(): void
+  + showContent(): void
+  + showFooter(): void
+  + buildBaseController(): BaseController  
+  + getTitle(): String
+}
+
+class BaseController {
+  + getBalance(): BigDecimal
+  + buildCheckingAccount(): CheckingAccount
+  + getWeeklyExpense(): BigDecimal
+}
+
+class RegisterIncomeUI {
+  controller: RegisterIncomeController
+  listIncomeType: List<IncomeType>
+  + buildBaseController(): BaseController
+  getTitle(): String
+  showContent(): void
+  - readAmount(): BigDecimal
+  - readDate(): Date
+  - readDescription(): String
+  - selectIncomeType(): 
+}
+
+class RegisterIncomeController {
+  incomeTypeRepository: IncomeTypeRepository
+  buildCheckingAccount(): CheckingAccount
+  getIncomeTypes(): IncomeTypes
+}
+
+class Income {
+  - incomeType: IncomeType
+  - dateOcurred: Date
+  + getIncomeType(): IncomeType
+  + setDateOccurred(Date): void
+  + setIncomeType(IncomeType): void
+  + getDateOcurred: Date
+}
+
+class IncomeTypeRepository {
+  - list: List<IncomeType>
+  + getIncomeTypes(): list
+}
+
+class CheckingAccount {
+  + getBalance(): BigDecimal
+  + getExpensesTotal(): BigDecimal
+  + getIncomesTotal(): BigDecimal
+  + add(Income): void
+  + add(Expense): void
+}
+
+class IncomeRepository {
+  listIncome: List<Income>
+  + save(Income): 
+  + getListIncome(): List<Income>
+}
+
+BaseUi .r.> BaseController: <<use>>
+RegisterIncomeUI --u|> BaseUi
+RegisterIncomeController --u|> BaseController
+RegisterIncomeUI .r.> RegisterIncomeController: <<create>>
+RegisterIncomeController "1" -d-> IncomeTypeRepository
+RegisterIncomeController "1" -d-> CheckingAccount
+CheckingAccount "1" o-r-IncomeRepository: \t
+CheckingAccount "1" -u-> Income
+IncomeRepository "1" -u-> Income
+
+@enduml

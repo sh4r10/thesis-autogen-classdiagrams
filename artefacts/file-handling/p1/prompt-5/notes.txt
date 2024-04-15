@@ -1,0 +1,7 @@
+-   Seeing the significant decline the diagram quality in the last iteration
+    a new prompt with a different approach was designed
+
+[Potential Improvments]
+-   Too sparse in details such as number of methods, attributes, method
+    parameters
+-   Incorrect visibility modifiers

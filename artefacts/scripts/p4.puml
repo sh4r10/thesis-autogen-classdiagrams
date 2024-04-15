@@ -1,0 +1,72 @@
+@startuml
+' Class declarations
+class Project {
+  - id
+  - name
+  + getName()
+  + getId()
+}
+
+
+
+class POIGenerator {
+  + generateDoc()
+  - generateWeek()
+}
+
+class Phase {
+  - id
+  - name
+  + getID()
+  + setProject()
+}
+
+class Employee {
+  - id
+  - name
+  - position 
+  + addSchedule()
+}
+
+class Schedule {
+  - id 
+  - start_date
+  - end_date
+  + getPattern()
+  + getEmployee()
+}
+
+class Pattern {
+  - noOfHours
+  + getPhaseLabor()
+  + getNoOfHours()
+  + setNoOfHours()
+}
+
+class PhaseLabor {
+  - id 
+  - percentage
+  + getPercentage()
+  + getPhase()
+  + getLaborBilling()
+}
+
+class LaborBilling {
+  - id 
+  - name
+  + getID()
+  + getName()
+}
+
+circle Generator
+
+' Relationships
+Project "+forProject\n1" -l-  "+PhaseArray\n0..*" Phase : \t\t\t\t\t\t
+Generator -d- POIGenerator
+POIGenerator -r--> "-e\n1" Employee: \t\t\t
+Employee "-schedFor\n1" -d- "0..*\n-schedList" Schedule: \n\n\n
+Schedule "0..*" -l-> "1\n-p" Pattern: \t\t\t
+Pattern "0..1" -l-> "1..*\n-PhLArray" PhaseLabor: \t\t\t
+PhaseLabor "0..*" -l-> "1\n-lb" LaborBilling: \t\t\t
+PhaseLabor "0..*" -u-> "-p\n1" Phase
+@enduml

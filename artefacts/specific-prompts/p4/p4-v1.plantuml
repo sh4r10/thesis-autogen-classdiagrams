@@ -1,0 +1,62 @@
+@startuml
+
+class Employee {
+    +String name
+    +String id
+    +getEmployeeId()
+    +setEmployeeId()
+}
+
+class Project {
+    +String projectId
+    +String projectName
+    +getProjectId()
+    +setProjectId()
+    +getProjectName()
+    +setProjectName()
+}
+
+class Phase {
+    +String phaseId
+    +String phaseName
+    +getPhaseId()
+    +setPhaseId()
+    +getPhaseName()
+    +setPhaseName()
+}
+
+class PhaseLabor {
+    +String laborId
+    +int hours
+    +getLaborId()
+    +setLaborId()
+    +getHours()
+    +setHours()
+}
+
+class LaborBilling {
+    +String billingId
+    +double rate
+    +getBillingId()
+    +setBillingId()
+    +getRate()
+    +setRate()
+}
+
+class Schedule {
+    +String scheduleId
+    +String timeline
+    +getScheduleId()
+    +setScheduleId()
+    +getTimeline()
+    +setTimeline()
+}
+
+Project "1" -- "0..*" Phase
+Phase "1" -- "0..*" PhaseLabor : contains >
+Employee "0..*" -- "0..*" PhaseLabor : logs >
+LaborBilling "0..*" -- "0..*" PhaseLabor : bills >
+Project "1" -- "1" Schedule : schedules >
+
+@enduml
+

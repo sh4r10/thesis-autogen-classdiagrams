@@ -1,0 +1,5 @@
+[Potential Improvements]
+-   Exclude classes imported from third-party libraries and any relationships 
+    to them
+-   Exclude enums and interfaces
+-   Provide more detail in the relationships

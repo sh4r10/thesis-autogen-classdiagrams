@@ -1,0 +1,130 @@
+@startuml
+
+class WordData {
+    -id: long
+    -word: String
+    +getId(): long
+    +setId(long): void
+    +getWord(): String
+    +setWord(String): void
+    +equals(Object): boolean
+    +hashCode(): int
+    +toString(): String
+}
+
+class WordDBHelper {
+    -DATABASE_NAME: String
+    -DATABASE_TABLE: String
+    -DATABASE_VERSION: int
+    -KEY_ID: String
+    -KEY_WORDDATA: String
+    -KEY_DIFFICULTY: String
+    +WordDBHelper(Context)
+    +onCreate(SQLiteDatabase): void
+    +onUpgrade(SQLiteDatabase, int, int): void
+}
+
+class TypingWordDB {
+    -configProps: Properties
+    -DBDriver: String
+    -DBUrl: String
+    -DBUser: String
+    -DBPassword: String
+    -DBcon: Connection
+    -getStatement: PreparedStatement
+    +openConnection(): void
+    +closeConnection(): void
+    +prepareStatements(): void
+    +getSomething(): String
+}
+
+class TitlePage {
+    +onCreate(Bundle): void
+    +onCreateOptionsMenu(Menu): boolean
+    +goToPreGameSelection(View): void
+    +goToPreGameSelectionMulti(View): void
+    +goToLeaderboard(View): void
+    +goToOptions(View): void
+    +onBackPressed(): void
+}
+
+enum States {
+    difficulty
+    update
+}
+
+class SinglePlayerModel {
+    -numWordsDisplayed: int
+    -wordsList: String[]
+    -wordsDisplayed: int[]
+    -currWordIndex: int
+    -currLetterIndex: int
+    -nextWordIndex: int
+    -score: int
+    -am: AssetManager
+    -currFirstLetters: Set<Character>
+    +SinglePlayerModel(States.difficulty, AssetManager, int)
+    +populateDisplayedList(): void
+    +typedLetter(char): void
+    +getScore(): int
+    +getCurrWord(): String
+    +getCurrWordIndex(): int
+    +getCurrLetterIndex(): int
+}
+
+class SinglePlayer {
+    -model: SinglePlayerModel
+    -NUM_WORDS: int
+    -bg: int
+    -ppw: PopupWindow
+    -popUpParams: LayoutParams
+    -popUpLayout: LinearLayout
+    -currentTime: long
+    -pausedTime: long
+    -gameTimer: GameTimer
+    -INTERVAL: long
+    -START_TIME: long
+    -paused: boolean
+    +onCreate(Bundle): void
+    +onCreateOptionsMenu(Menu): boolean
+    +onKeyDown(int, KeyEvent): boolean
+    +onPause(): void
+    +initialDisplay(Drawable, Drawable): void
+    +displayWord(int, String): void
+    +displayTime(long): void
+    +displayScore(int): void
+    +highlightWord(int, String, int): void
+    +update(Observable, Object): void
+    +keyboardButton(View): void
+    +goToPostGame(): void
+    +getByStringId(String): View
+    +pauseGame(View): void
+    +pausedContinue(View): void
+    +pausedNewGame(View): void
+    +pausedMainMenu(View): void
+}
+
+class PreGameSelectionMulti {
+    +onCreate(Bundle): void
+    +onCreateOptionsMenu(Menu): boolean
+}
+
+class Options {
+    +onCreate(Bundle): void
+    +onCreateOptionsMenu(Menu): boolean
+}
+
+class Leaderboard {
+    +onCreate(Bundle): void
+    +onCreateOptionsMenu(Menu): boolean
+}
+
+WordDBHelper "1" -- "1" WordData
+TitlePage ..> PreGameSelectionMulti : navigates >
+TitlePage ..> Options : navigates >
+TitlePage ..> Leaderboard : navigates >
+SinglePlayer -right-> SinglePlayerModel : observes >
+SinglePlayerModel ..> States : uses >
+
+@enduml
+

@@ -1,0 +1,119 @@
+@startuml
+
+package freedays.timesheet {
+
+    class PhaseLabor {
+        - id: String
+        - lb: LaborBilling
+        - ph: Phase
+        - percentage: Float
+        + PhaseLabor(id: String, l: LaborBilling, p: Phase, perc: Float)
+        + getPhase(): Phase
+        + getLaborBilling(): LaborBilling
+        + getPercentage(): Float
+    }
+
+    class Project {
+        - id: String
+        - name: String
+        - phList: ArrayList<Phase>
+        + Project(ID: String, name: String)
+        + addPhase(newPhase: Phase): void
+        + getName(): String
+        + getID(): String
+    }
+
+    class Schedule {
+        - id: Integer
+        - start_date: Date
+        - end_date: Date
+        - p: Pattern
+        - e: Employee
+        + Schedule(a: Date, b: Date, sablon: Pattern, k: Employee)
+        + getStartDate(): Calendar
+        + getEndDate(): Calendar
+        + getPattern(): Pattern
+        + getEmployee(): Employee
+    }
+
+    class Phase {
+        - name: String
+        - id: String
+        - p: Project
+        + Phase(name: String, ID: String, p: Project)
+        + getProject(): Project
+        + setProject(proj: Project): void
+        + getName(): String
+        + getID(): String
+    }
+
+    class Employee {
+        - id: Integer
+        - name: String
+        - position: String
+        - schedList: ArrayList<Schedule>
+        + Employee(id: Integer, nm: String, position: String)
+        + addSchedule(sch: Schedule): void
+    }
+
+    class LaborBilling {
+        - id: String
+        - name: String
+        + LaborBilling(id: String, name: String)
+        + getName(): String
+        + getId(): String
+    }
+
+    interface TimesheetGenerator {
+        + generateDoc(wbname: String, year: int, month: int): void
+    }
+
+    class POIGenerator {
+        - pEmp: Employee
+        - wb: Workbook
+        - sablon: Pattern
+        - month: int
+        - year: int
+        - schedEmp: ArrayList<Schedule>
+        - fileOut: FileOutputStream
+        - sheet1: Sheet
+        - createHelper: CreationHelper
+        - underFont: Font
+        - style: CellStyle
+        - tablestyle: CellStyle
+        - tableheadstyle: CellStyle
+        - tableweekendstyle: CellStyle
+        - datestyle: CellStyle
+        - PhLArray: ArrayList<PhaseLabor>
+        + POIGenerator(pEmp: Employee)
+        + generateDoc(workbookname: String, genmonth: int, genyear: int): void
+    }
+
+    class Pattern {
+        - plArray: ArrayList<PhaseLabor>
+        - noOfHours: Integer
+        + Pattern(noh: int)
+        + addPhL(x: PhaseLabor): void
+        + getPhL(ind: int): PhaseLabor
+        + getArrayPhaseLabor(): ArrayList<PhaseLabor>
+        + getNoOfHours(): Integer
+        + setNoOfHours(noh: Integer): void
+        + getPhaseLabor(lbS: LaborBilling, phS: Phase): PhaseLabor
+    }
+
+    PhaseLabor "1" -- "1" LaborBilling
+    PhaseLabor "1" -- "1" Phase
+    Phase "1" -- "1" Project
+    Schedule "1" -- "1" Pattern
+    Schedule "1" -- "1" Employee
+    Project "1" -- "*" Phase
+    Employee "1" -- "*" Schedule
+    Pattern "1" -- "*" PhaseLabor
+    POIGenerator ..> Employee
+    POIGenerator ..> Pattern
+    POIGenerator ..> PhaseLabor
+    POIGenerator ..> TimesheetGenerator : implements
+
+}
+
+@enduml

@@ -1,0 +1,7 @@
+- Like Project 5
+- More detail in attributes/methods
+- More basic relationships such as association and inheritance
+- Class Exclusion similar to p5
+- Include all attributes (apart from instance tracking attributes)
+- Method abstractions are performed
+- Exclude constructors

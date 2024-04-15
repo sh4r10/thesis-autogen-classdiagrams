@@ -1,0 +1,4 @@
+- emphasis on the controllers and the models, not so much the views
+- detailed relationships, inc. inheritance composition aggregation association
+- exclusion of classes high
+- use packages as categories of classes and not actual packages

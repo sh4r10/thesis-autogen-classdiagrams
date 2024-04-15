@@ -1,0 +1,94 @@
+@startuml
+class TitlePage {
+    #onCreate(Bundle): void
+    #onCreateOptionsMenu(Menu): boolean
+    #goToPreGameSelection(View): void
+    #goToPreGameSelectionMulti(View): void
+    #goToLeaderboard(View): void
+    #goToOptions(View): void
+    #onBackPressed(): void
+}
+
+class PostGameScreen {
+    #onCreate(Bundle): void
+    #onBackPressed(): void
+    #onCreateOptionsMenu(Menu): boolean
+    #goToTitlePage(View): void
+    #goToPreGameSelection(View): void
+}
+
+class PreGameSelection {
+    -HIGHTLIGHT_COLOR: int
+    -diff: View
+    -animal: View
+    -background: View
+    #onCreate(Bundle): void
+    #onCreateOptionsMenu(Menu): boolean
+    #setDiff(View): void
+    #setAnimal(View): void
+    #setBackground(View): void
+    #goToSinglePlayer(View): void
+    #goToTitlePage(View): void
+    #onBackPressed(): void
+}
+
+class SinglePlayerModel {
+    -numWordsDisplayed: int
+    -wordsList: String[]
+    -wordsDisplayed: int[]
+    -currWordIndex: int
+    -currLetterIndex: int
+    -nextWordIndex: int
+    -score: int
+    -am: AssetManager
+    -currFirstLetters: Set<Character>
+    +SinglePlayerModel(difficulty, AssetManager, int): void
+    +populateDisplayedList(): void
+    +typedLetter(char): void
+    #getWordsList(difficulty): void
+    #updateWordsDisplayed(): void
+    +getScore(): int
+    +getCurrWord(): String
+    +getCurrWordIndex(): int
+    +getCurrLetterIndex(): int
+}
+
+class SinglePlayer {
+    -model: SinglePlayerModel
+    -NUM_WORDS: int = 5
+    -bg: int
+    -ppw: PopupWindow
+    -popUpParams: LayoutParams
+    -popUpLayout: LinearLayout
+    -currentTime: long
+    -pausedTime: long
+    -gameTimer: GameTimer
+    -INTERVAL: long
+    -START_TIME: long
+    -paused: boolean
+    #onCreate(Bundle): void
+    #onCreateOptionsMenu(Menu): boolean
+    #onKeyDown(int, KeyEvent): boolean
+    #onPause(): void
+    #initialDisplay(Drawable, Drawable): void
+    #displayWord(int, String): void
+    #displayTime(long): void
+    #displayScore(int): void
+    #highlightWord(int, String, int): void
+    #update(Observable, Object): void
+    #keyboardButton(View): void
+    #goToPostGame(): void
+    #getByStringId(String): View
+    #pauseGame(View): void
+    #pausedContinue(View): void
+    #pausedNewGame(View): void
+    #pausedMainMenu(View): void
+    -GameTimer
+}
+
+TitlePage --> "navigates" PreGameSelection : navigates
+PreGameSelection --> "navigates" SinglePlayer : navigates
+PostGameScreen --> "navigates" TitlePage : navigates
+SinglePlayer -right-> SinglePlayerModel : "updates / observes"
+@enduml
+

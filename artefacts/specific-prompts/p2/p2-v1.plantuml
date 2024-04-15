@@ -1,0 +1,147 @@
+@startuml
+package "raisemeup.model.beans" {
+    class Pet {
+        -int owner
+        -String name
+        -String type
+        -String variant
+        -int hunger
+        -int energy
+        -int fun
+        -int hygiene
+        -int age
+        -String image
+        -Map<Item, Integer> owneditems
+        -Map<Job, Integer> ownedjobs
+        -int money
+        +Pet(int owner, String name, String type, String variant, String image)
+        +setOwner(int owner): void
+        +setType(String type): void
+        +setVariant(String variant): void
+        +setImage(String image): void
+        +setOwneditems(Map<Item, Integer> owneditems): void
+        +setOwnedjobs(Map<Job, Integer> ownedjobs): void
+        +setMoney(int money): void
+    }
+    class Food extends Item {
+        -int valuedog
+        -int valuecat
+        -int valuefish
+        -int valuepenguin
+        +setValuedog(int valuedog): void
+        +setValuecat(int valuecat): void
+        +setValuefish(int valuefish): void
+        +setValuepenguin(int valuepenguin): void
+    }
+    class Upgrade extends Item {
+        -String property
+        -String species
+        -int value
+        +setProperty(String property): void
+        +setSpecies(String species): void
+        +setValue(int value): void
+    }
+    class Item {
+        -int id
+        -String name
+        -int price
+        -String image
+        +setId(int id): void
+        +setName(String name): void
+        +setPrice(int price): void
+        +setImage(String image): void
+    }
+    class Job {
+        -int id
+        -int impactenergy
+        -int impacthunger
+        -int impacthygiene
+        -int impactfun
+        -String title
+        -int length
+        -String image
+        -String client
+        -String message
+        -int reward
+        -String species
+        +setId(int id): void
+        +setImpactenergy(int impactenergy): void
+        +setImpacthunger(int impacthunger): void
+        +setImpacthygiene(int impacthygiene): void
+        +setImpactfun(int impactfun): void
+        +setTitle(String title): void
+        +setLength(int length): void
+        +setImage(String image): void
+        +setClient(String client): void
+        +setMessage(String message): void
+        +setReward(int reward): void
+        +setSpecies(String species): void
+    }
+    class User {
+        -int id
+        -String email
+        -String username
+        -String password
+        +User(int id, String email, String username, String password)
+        +setId(int id): void
+        +setEmail(String email): void
+        +setUsername(String username): void
+        +setPassword(String password): void
+    }
+    PetBuilder -- "creates" Pet
+    UserBuilder -- "creates" User
+}
+
+package "raisemeup.model" {
+    class DAO {
+        +addUser(User user): void
+        +getUser(): Map<Integer, User>
+        +delUser(User user): void
+        +addPet(Pet pet): void
+        +getPet(): Map<Integer, Pet>
+        +delPet(Pet pet): void
+        +addFood(Food food): void
+        +getFood(): Map<Integer, Food>
+        +delFood(Food food): void
+        +addUpgrade(Upgrade upgrade): void
+        +getUpgrade(): Map<Integer, Upgrade>
+        +delUpgrade(Upgrade upgrade): void
+        +addJob(Job job): void
+        +getJob(): Map<Integer, Job>
+        +delJob(Job job): void
+    }
+    class ItemVisitor {
+        +visit(Food food): int
+        +visit(Upgrade upgrade): int
+    }
+    ItemVisitor ..> Food : visits >
+    ItemVisitor ..> Upgrade : visits >
+    DAO --> Pet
+    DAO --> Food
+    DAO --> Upgrade
+    DAO --> Job
+    DAO --> User
+}
+
+package "raisemeup.control" {
+    class RaiseMeUp {
+        -static User currentUser
+        -static Pet currentPet
+        -static Job currentJob
+        -static boolean onJob
+        -static int jobprogress
+        +setCurrentJob(Job aCurrentJob): void
+        +setOnJob(boolean aOnJob): void
+        +setJobprogress(int aJobprogress): void
+    }
+    RaiseMeUp ..> DAO
+    RaiseMeUp ..> Pet
+    RaiseMeUp ..> Food
+    RaiseMeUp ..> Upgrade
+    RaiseMeUp ..> Job
+    RaiseMeUp ..> User
+}
+
+Pet "1" *-- "*" Item : owns >
+Pet "1" *-- "*" Job : owns >
+@enduml

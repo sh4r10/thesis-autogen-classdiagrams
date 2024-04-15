@@ -1,0 +1,85 @@
+@startuml
+
+class BaseController {
+    {abstract} +buildCheckingAccount() : CheckingAccount
+    +getBalance() : BigDecimal
+    +getWeeklyExpense() : BigDecimal
+}
+
+class IncomeTypeRepository {
+    -instance : IncomeTypeRepository
+    -list : List<IncomeType>
+    +{static} getInstance() : IncomeTypeRepository
+    +save(incomeType : IncomeType) : void
+    +getIncomeTypes() : List<IncomeType>
+}
+
+class Income {
+    -incomeType : IncomeType
+    -dateOccurred : Date
+    +Income()
+    +Income(amount : BigDecimal, incomeType : IncomeType, description : String, dateOccurred : Date)
+    +getDateOccurred() : Date
+    +getIncomeType() : IncomeType
+    +setDateOccurred(dateOccurred : Date) : void
+    +setIncomeType(incomeType : IncomeType) : void
+}
+
+class IncomeRepository {
+    -instance : IncomeRepository
+    -listIncome : List<Income>
+    +{static} getInstance() : IncomeRepository
+    +IncomeRepository()
+    +save(income : Income) : void
+    +{static} getListIncome() : List<Income>
+}
+
+class RegisterIncomeController {
+    -incomeTypeRepository : IncomeTypeRepository
+    +RegisterIncomeController()
+    +getIncomeTypes() : List<IncomeType>
+    +createIncome(amount : BigDecimal, incomeType : IncomeType, what : String, date : Date) : void
+    +buildCheckingAccount() : CheckingAccount
+}
+
+class BaseUI {
+    +show() : void
+    +showHeader() : void
+    +showFooter() : void
+    +getTitle() : String
+    {abstract} +showContent() : void
+    {abstract} +buildBaseController() : BaseController
+}
+
+class RegisterIncomeUI {
+    -controller : RegisterIncomeController
+    -listIncomeType : List<IncomeType>
+    +RegisterIncomeUI()
+    +showContent() : void
+    +getTitle() : String
+    +buildBaseController() : BaseController
+}
+
+class CheckingAccount {
+    -incomeRepo : IncomeRepository
+    -expenseRepo : ExpenseRepository
+    +CheckingAccount()
+    +getBalance() : BigDecimal
+    +getExpensesTotal() : BigDecimal
+    +getIncomesTotal() : BigDecimal
+    +setValue(inicial : BigDecimal) : void
+    +getValue() : BigDecimal
+    +add(income : Income) : void
+    +add(expense : Expense) : void
+    +getWeeklyExpense() : BigDecimal
+}
+
+BaseUI <|-- RegisterIncomeUI
+BaseController <|-- RegisterIncomeController
+RegisterIncomeController --> IncomeTypeRepository : uses
+RegisterIncomeUI --> RegisterIncomeController : uses
+CheckingAccount --> Income : uses
+CheckingAccount --> IncomeRepository : uses
+
+@enduml
+

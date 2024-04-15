@@ -1,0 +1,89 @@
+@startuml
+
+class CheckingAccount {
+    -incomeRepo: IncomeRepository
+    -expenseRepo: ExpenseRepository
+    +CheckingAccount()
+    +getBalance(): BigDecimal
+    +getExpensesTotal(): BigDecimal
+    +getIncomesTotal(): BigDecimal
+    +setValue(inicial: BigDecimal)
+    +getValue(): BigDecimal
+    +add(income: Income)
+    +add(expense: Expense)
+    +getWeeklyExpense(): BigDecimal
+}
+
+class Income {
+    -incomeType: IncomeType
+    -dateOccurred: Date
+    +Income()
+    +Income(amount: BigDecimal, incomeType: IncomeType, description: String, dateOccurred: Date)
+    +getDateOccurred(): Date
+    +getIncomeType(): IncomeType
+    +setDateOccurred(dateOccurred: Date)
+    +setIncomeType(incomeType: IncomeType)
+}
+
+class IncomeRepository {
+    -listIncome: List<Income>
+    +IncomeRepository()
+    +save(income: Income)
+    +getListIncome(): List<Income>
+}
+
+class IncomeTypeRepository {
+    -list: List<IncomeType>
+    +getInstance(): IncomeTypeRepository
+    +IncomeTypeRepository()
+    +save(incomeType: IncomeType)
+    +getIncomeTypes(): List<IncomeType>
+}
+
+class RegisterIncomeController {
+    -incomeTypeRepository: IncomeTypeRepository
+    +RegisterIncomeController()
+    +getIncomeTypes(): List<IncomeType>
+    +createIncome(amount: BigDecimal, incomeType: IncomeType, what: String, date: Date): void
+    +buildCheckingAccount(): CheckingAccount
+}
+
+class BaseController {
+    {abstract}
+    +buildCheckingAccount(): CheckingAccount
+    +getBalance(): BigDecimal
+    +getWeeklyExpense(): BigDecimal
+}
+
+class RegisterIncomeUI {
+    -controller: RegisterIncomeController
+    -listIncomeType: List<IncomeType>
+    +RegisterIncomeUI()
+    +showContent()
+    +readAmount(): BigDecimal
+    +readDate(): Date
+    +readDescription(): String
+    +selectIncomeType(listIncomeType: List<IncomeType>): IncomeType
+    +getTitle(): String
+    +buildBaseController(): BaseController
+}
+
+class BaseUI {
+    {abstract}
+    +show()
+    +showHeader()
+    +showFooter()
+    +getTitle(): String
+    +showContent()
+    +buildBaseController(): BaseController
+}
+
+CheckingAccount "1" --> "many" Income : contains
+RegisterIncomeController --> CheckingAccount : creates
+RegisterIncomeController --> IncomeTypeRepository : uses
+RegisterIncomeUI --> RegisterIncomeController : controls
+BaseUI <|-- RegisterIncomeUI
+BaseController <|-- RegisterIncomeController
+
+@enduml
+

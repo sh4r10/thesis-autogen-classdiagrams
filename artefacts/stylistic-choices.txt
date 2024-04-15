@@ -1,0 +1,12 @@
+- Include all getters/setters
+- Include some getters/setters
+- Include (all/some) setters but not (all/some) getters
+- Omit (all/some) methods
+- Omit (all/some) attributes
+- Simplify aggregation relationships as association with multiplicities
+- Simplify composition relationships as association with multiplicities
+- Include/Exclude return type
+- Include/Exclude paramter names
+- Include/Exclude attribute type
+- Include/Exclude (all/some) visibility modifiers
+- Include/Exclude (all/some) constructors

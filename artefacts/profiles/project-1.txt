@@ -1,0 +1,10 @@
+- basic relationships, only direct association
+- low amounts of methods and attribute abstraction
+- SinglePlayer.java has several attribute abstractions 
+- included 6/14 classes
+- includes constructors or methods serving as constructors
+- includes overriden methods from external libraries (Android SDK)
+- exclude return types
+- exclude getters 
+- include setters
+

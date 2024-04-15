@@ -1,0 +1,139 @@
+@startuml
+
+class Activity {
+    onCreate(Bundle savedInstanceState)
+    onCreateOptionsMenu(Menu menu)
+}
+
+class PreGameSelection {
+    -HIGHTLIGHT_COLOR: int
+    -diff: View
+    -animal: View
+    -background: View
+    onCreate(Bundle savedInstanceState)
+    setDiff(View view)
+    setAnimal(View view)
+    setBackground(View view)
+    goToSinglePlayer(View view)
+}
+
+class PreGameSelectionMulti {
+    onCreate(Bundle savedInstanceState)
+}
+
+class SinglePlayerModel {
+    -numWordsDisplayed: int
+    -wordsList: String[]
+    -wordsDisplayed: int[]
+    -currWordIndex: int
+    -currLetterIndex: int
+    -nextWordIndex: int
+    -score: int
+    -am: AssetManager
+    populateDisplayedList()
+    typedLetter(char letter)
+}
+
+class PostGameScreen {
+    onCreate(Bundle savedInstanceState)
+    goToTitlePage(View view)
+}
+
+class TitlePage {
+    onCreate(Bundle savedInstanceState)
+    goToPreGameSelection(View view)
+    goToPreGameSelectionMulti(View view)
+    goToLeaderboard(View view)
+    goToOptions(View view)
+}
+
+class ZeroFeature {
+    -worddb: WordDB
+    onCreate(Bundle savedInstanceState)
+    addWords()
+    fetchData()
+}
+
+class WordData {
+    -id: long
+    -word: String
+    getId(): long
+    setId(long id)
+    getWord(): String
+    setWord(String word)
+}
+
+class WordDB {
+    -dbHelper: WordDBHelper
+    createWordData(String word, int diff)
+    deleteWordData(WordData worddata)
+    getAllWords(): Map
+}
+
+class WordDBHelper {
+    -DATABASE_NAME: String
+    -DATABASE_TABLE: String
+    -DATABASE_VERSION: int
+    onCreate(SQLiteDatabase database)
+    onUpgrade(SQLiteDatabase db, int oldVer, int newVer)
+}
+
+class TypingWordDB {
+    -configProps: Properties
+    -DBUrl: String
+    -DBUser: String
+    -DBPassword: String
+    openConnection()
+    closeConnection()
+    prepareStatements()
+    getSomething(): String
+}
+
+class Options {
+    onCreate(Bundle savedInstanceState)
+}
+
+class Leaderboard {
+    onCreate(Bundle savedInstanceState)
+}
+
+class SinglePlayer {
+    -model: SinglePlayerModel
+    onCreate(Bundle savedInstanceState)
+    onKeyDown(int key, KeyEvent event)
+    update(Observable arg0, Object arg1)
+}
+
+enum difficulty {
+    EASY
+    MEDIUM
+    HARD
+}
+
+enum update {
+    HIGHLIGHT
+    WRONG_LETTER
+    FINISHED_WORD
+}
+
+PreGameSelection ..|> Activity
+PreGameSelectionMulti ..|> Activity
+PostGameScreen ..|> Activity
+TitlePage ..|> Activity
+ZeroFeature ..|> Activity
+Options ..|> Activity
+Leaderboard ..|> Activity
+SinglePlayer ..|> Activity
+SinglePlayerModel -[hidden]> Activity
+WordData -[hidden]> Activity
+WordDBHelper -[hidden]> Activity
+TypingWordDB -[hidden]> Activity
+
+WordDB --> WordDBHelper
+WordDB --> WordData
+ZeroFeature --> WordDB
+
+SinglePlayer --> SinglePlayerModel : uses
+
+@enduml
+

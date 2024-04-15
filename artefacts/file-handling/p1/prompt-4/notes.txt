@@ -1,0 +1,2 @@
+-   The generated diagram was significantly worse than the one from the previous
+    iteration. 

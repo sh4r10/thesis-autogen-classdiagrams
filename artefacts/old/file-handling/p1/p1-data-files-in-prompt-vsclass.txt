@@ -1,0 +1,9 @@
+Correct Classes: 14
+Correct Attributes: 37
+Correct Operations: 80 
+Correct Relationships: 8 
+
+Incorrect Classes: 3
+Incorrect Attributes: 6 
+Incorrect Operations: 5 
+Incorrect Relationships: 0

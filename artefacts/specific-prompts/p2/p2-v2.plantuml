@@ -1,0 +1,139 @@
+@startuml
+
+package "Model Beans" {
+    class Pet {
+        -petid: int
+        -owner: int
+        -name: String
+        -type: String
+        -variant: String
+        -hunger: int
+        -energy: int
+        -fun: int
+        -hygiene: int
+        -age: int
+        -image: String
+        -owneditems: Map<Item, Integer>
+        -ownedjobs: Map<Job, Integer>
+        -money: int
+        +Pet(owner: int, name: String, type: String, variant: String, image: String)
+        +getEmotion(): int
+        +get/setName(name: String): String
+        +get/setHunger(hunger: int): int
+        +get/setEnergy(energy: int): int
+        +get/setFun(fun: int): int
+        +get/setHygiene(hygiene: int): int
+        +get/setAge(age: int): int
+        +get/setMoney(money: int): int
+        +get/setType(type: String): String
+        +get/setVariant(variant: String): String
+        +get/setImage(image: String): String
+        +get/setOwner(owner: int): int
+        +get/setPetid(petid: int): int
+        +get/setOwneditems(owneditems: Map<Item, Integer>): Map<Item, Integer>
+        +get/setOwnedjobs(ownedjobs: Map<Job, Integer>): Map<Job, Integer>
+    }
+
+    class Item {
+        -id: int
+        -name: String
+        -price: int
+        -image: String
+        +get/setId(id: int): int
+        +get/setName(name: String): String
+        +get/setPrice(price: int): int
+        +get/setImage(image: String): String
+    }
+
+    class Food {
+        -valuedog: int
+        -valuecat: int
+        -valuefish: int
+        -valuepenguin: int
+        +get/setValuedog(valuedog: int): int
+        +get/setValuecat(valuecat: int): int
+        +get/setValuefish(valuefish: int): int
+        +get/setValuepenguin(valuepenguin: int): int
+    }
+
+    class Upgrade {
+        -property: String
+        -species: String
+        -value: int
+        +get/setProperty(property: String): String
+        +get/setSpecies(species: String): String
+        +get/setValue(value: int): int
+    }
+
+    class Job {
+        -id: int
+        -impactenergy: int
+        -impacthunger: int
+        -impacthygiene: int
+        -impactfun: int
+        -title: String
+        -length: int
+        -image: String
+        -client: String
+        -message: String
+        -reward: int
+        -species: String
+        +get/setId(id: int): int
+        +get/setImpactenergy(impactenergy: int): int
+        +get/setImpacthunger(impacthunger: int): int
+        +get/setImpacthygiene(impacthygiene: int): int
+        +get/setImpactfun(impactfun: int): int
+        +get/setTitle(title: String): String
+        +get/setLength(length: int): int
+        +get/setImage(image: String): String
+        +get/setClient(client: String): String
+        +get/setMessage(message: String): String
+        +get/setReward(reward: int): int
+        +get/setSpecies(species: String): String
+    }
+
+    class User {
+        -id: int
+        -email: String
+        -username: String
+        -password: String
+        +User(id: int, email: String, username: String, password: String)
+        +get/setId(id: int): int
+        +get/setEmail(email: String): String
+        +get/setUsername(username: String): String
+        +get/setPassword(password: String): String
+    }
+}
+
+Food -|> Item : extends
+Upgrade -|> Item : extends
+
+class PetBuilder {
+    -owner: int
+    -name: String
+    -type: String
+    -variant: String
+    -image: String
+    +createPet(): Pet
+}
+
+class UserBuilder {
+    -id: int
+    -email: String
+    -username: String
+    -password: String
+    +createUser(): User
+}
+
+class ItemVisitor {
+    +visit(food: Food): int
+    +visit(upgrade: Upgrade): int
+}
+
+Pet "1" o-- "0..*" Item : owns >
+Pet "1" o-- "0..*" Job : owns >
+PetBuilder ..> Pet : builds >
+UserBuilder ..> User : builds >
+
+@enduml
+

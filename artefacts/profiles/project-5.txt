@@ -1,0 +1,5 @@
+- Very relationship heavy, no attributes/methods, just class names and rels.
+- We need to push GPT away from uses relationships into more detailed 
+  relationships like composition, aggregation inheritance etc.
+- Heavy exclusion of all other details, (not as important if we decide to only
+  include classes included by the humans)

@@ -1,0 +1,168 @@
+@startuml
+
+class PreGameSelection {
+    - HIGHTLIGHT_COLOR: int
+    - diff: View
+    - animal: View
+    - background: View
+    + onCreate(Bundle): void
+    + onCreateOptionsMenu(Menu): boolean
+    + setDiff(View): void
+    + setAnimal(View): void
+    + setBackground(View): void
+    + goToSinglePlayer(View): void
+    + goToTitlePage(View): void
+    + onBackPressed(): void
+}
+
+class PreGameSelectionMulti {
+    + onCreate(Bundle): void
+    + onCreateOptionsMenu(Menu): boolean
+}
+
+class SinglePlayerModel {
+    - numWordsDisplayed: int
+    - wordsList: String[]
+    - wordsDisplayed: int[]
+    - currWordIndex: int
+    - currLetterIndex: int
+    - nextWordIndex: int
+    - score: int
+    - am: AssetManager
+    - currFirstLetters: Set<Character>
+    + SinglePlayerModel(difficulty, AssetManager, int): void
+    + populateDisplayedList(): void
+    + typedLetter(char): void
+    + getScore(): int
+    + getCurrWord(): String
+    + getCurrWordIndex(): int
+    + getCurrLetterIndex(): int
+}
+
+class WordData {
+    - id: long
+    - word: String
+    + getId(): long
+    + setId(long): void
+    + getWord(): String
+    + setWord(String): void
+    + equals(Object): boolean
+    + hashCode(): int
+    + toString(): String
+}
+
+class WordDB {
+    - dbHelper: WordDBHelper
+    - allColumns: String[]
+    - ALL_ROWS: String
+    + WordDB(Context): void
+    + createWordData(String, int): WordData
+    + deleteWordData(WordData): void
+    + resetDatabase(): void
+    + getAllWords(): Map<WordData, Integer>
+    - cursorToWordData(Cursor): WordData
+}
+
+class WordDBHelper {
+    - DATABASE_NAME: String
+    - DATABASE_TABLE: String
+    - DATABASE_VERSION: int
+    - KEY_ID: String
+    - KEY_WORDDATA: String
+    - KEY_DIFFICULTY: String
+    - CREATE_DATABASE: String
+    + WordDBHelper(Context): void
+    + onCreate(SQLiteDatabase): void
+    + onUpgrade(SQLiteDatabase, int, int): void
+}
+
+class TypingWordDB {
+    - configProps: Properties
+    - DBDriver: String
+    - DBUrl: String
+    - DBUser: String
+    - DBPassword: String
+    - DBcon: Connection
+    - getStatement: PreparedStatement
+    + openConnection(): void
+    + closeConnection(): void
+    + prepareStatements(): void
+    + getSomething(): String
+}
+
+class TitlePage {
+    + onCreate(Bundle): void
+    + onCreateOptionsMenu(Menu): boolean
+    + goToPreGameSelection(View): void
+    + goToPreGameSelectionMulti(View): void
+    + goToLeaderboard(View): void
+    + goToOptions(View): void
+    + onBackPressed(): void
+}
+
+class PostGameScreen {
+    + onCreate(Bundle): void
+    + onBackPressed(): void
+    + onCreateOptionsMenu(Menu): boolean
+    + goToTitlePage(View): void
+    + goToPreGameSelection(View): void
+}
+
+class ZeroFeature {
+    - worddb: WordDB
+    + onCreate(Bundle): void
+    + onCreateOptionsMenu(Menu): boolean
+    + goToStart(View): void
+    - addWords(): void
+    - fetchData(): void
+    - convertToString(WordData, Integer): String
+}
+
+class Options {
+    + onCreate(Bundle): void
+    + onCreateOptionsMenu(Menu): boolean
+}
+
+class Leaderboard {
+    + onCreate(Bundle): void
+    + onCreateOptionsMenu(Menu): boolean
+}
+
+class SinglePlayer {
+    - model: SinglePlayerModel
+    - NUM_WORDS: int
+    - bg: int
+    - gameTimer: GameTimer
+    + onCreate(Bundle): void
+    + onCreateOptionsMenu(Menu): boolean
+    + onKeyDown(int, KeyEvent): boolean
+    + update(Observable, Object): void
+    + initialDisplay(Drawable, Drawable): void
+    + displayWord(int, String): void
+    + displayTime(long): void
+    + displayScore(int): void
+    + highlightWord(int, String, int): void
+    + goToPostGame(): void
+}
+
+class States {
+    {static} difficulty
+    {static} update
+}
+
+PreGameSelection --> "1" TitlePage
+PreGameSelectionMulti --> "1" TitlePage
+SinglePlayerModel -right-> "1" TitlePage
+WordDB -down-> "1" WordDBHelper
+TitlePage --> "1" PreGameSelection
+TitlePage --> "1" PreGameSelectionMulti
+TitlePage --> "1" PostGameScreen
+TitlePage --> "0..*" ZeroFeature : initiates >
+ZeroFeature -right-> "1" WordDB
+TitlePage --> "1" Options
+TitlePage --> "1" Leaderboard
+SinglePlayer --> "1" SinglePlayerModel
+SinglePlayer --> "1" PostGameScreen
+
+@enduml
+

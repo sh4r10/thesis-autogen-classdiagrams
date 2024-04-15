@@ -1,0 +1,75 @@
+@startuml
+class TitlePage {
+    goToPreGameSelection(view: View)
+    goToPreGameSelectionMulti(view: View)
+    goToLeaderboard(view: View)
+    goToOptions(view: View)
+}
+
+class PostGameScreen {
+    goToTitlePage(view: View)
+    goToPreGameSelection(view: View)
+}
+
+class PreGameSelection {
+    -HIGHTLIGHT_COLOR: int
+    -diff: View
+    -animal: View
+    -background: View
+    setDiff(view: View)
+    setAnimal(view: View)
+    setBackground(view: View)
+    goToSinglePlayer(view: View)
+    goToTitlePage(view: View)
+}
+
+class SinglePlayerModel {
+    -numWordsDisplayed: int
+    -wordsList: String[]
+    -wordsDisplayed: int[]
+    -currWordIndex: int
+    -currLetterIndex: int
+    -nextWordIndex: int
+    -score: int
+    -am: AssetManager
+    -currFirstLetters: Set
+    typedLetter(letter: char)
+    populateDisplayedList()
+    #getWordsList(diff: States.difficulty)
+    getScore(): int
+    getCurrWord(): String
+    getCurrWordIndex(): int
+    getCurrLetterIndex(): int
+}
+
+class SinglePlayer {
+    -model: SinglePlayerModel
+    -NUM_WORDS: int
+    -bg: int
+    -ppw: PopupWindow
+    -popUpParams: LayoutParams
+    -popUpLayout: LinearLayout
+    -currentTime: long
+    -pausedTime: long
+    -gameTimer: GameTimer
+    displayWord(wordIndex: int, word: String)
+    displayTime(secondsLeft: long)
+    displayScore(score: int)
+    highlightWord(wordIndex: int, word: String, letterIndex: int)
+    initialDisplay(animalID: Drawable, backgroundID: Drawable)
+    pauseGame(view: View)
+    pausedContinue(view: View)
+    pausedNewGame(view: View)
+    pausedMainMenu(view: View)
+    goToPostGame()
+    getByStringId(id: String): View
+    keyboardButton(view: View)
+}
+
+TitlePage --> "navigates" PreGameSelection
+PreGameSelection --> "navigates" SinglePlayer
+PostGameScreen --> "navigates" TitlePage : "navigates back to"
+PostGameScreen --> "navigates" PreGameSelection : "starts new game"
+SinglePlayer .right.> SinglePlayerModel : "observes"
+@enduml
+

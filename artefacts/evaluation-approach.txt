@@ -1,0 +1,40 @@
+[Comparision with Humans]
+
+  [omissions]
+- excludes class that is not excluded by humans                         -----
+- excludes class that is excluded by humans                             +++++
+- excludes method that is not excluded by humans                        ---
+- excludes method that is excluded by humans                            ++++
+- excludes attribute that is not excluded by humans                     ---
+- excludes attribute that is excluded by humans                         ++++
+- excludes relationship that is not excluded by humans                  ---
+- excludes relationship that is excluded by humans                      ++++
+
+  [summaries]
+- summarises classes that are summarised by humans                      +++++
+- summarises classes that are not summarised by humans                  ----
+- summarises attributes that are summarised by humans                   ++++
+- summarises attributes that are not summarised by humans               --
+- summarises methods that are summarised by humans                      ++++
+- summarises methods that are not summarised by humans                  --
+- summarises rels. that are summarised by humans                        ++++
+- summarises rels that are not summarised by humans                     --
+
+
+[Comparision with Code]
+
+  [omissions]
+- includes class that exists in code                                    ++
+- includes class that does not exists in code                           -----
+- includes method that exists in code                                   +
+- includes method that does not exists in code                          ----
+- includes attribute that exists in code                                +
+- includes attribute that does not exists in code                       ----
+- includes relationship that exists in code                             +
+- includes relationship that does not exists in code                    ----
+
+  [summaries]
+- summarises classes that exist in code                                 +++
+- summarises attributes that exist in code                              +
+- summarises methods that exist in code                                 +
+- summarises relationships that exist in code                           +

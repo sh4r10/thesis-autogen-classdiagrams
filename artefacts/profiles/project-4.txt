@@ -1,0 +1,10 @@
+- Only direct associations, abstracing over the composition relationships
+- No types for methods or attributes
+- Evaluating only the timesheet subsystem, 9/12 classes included in the diagram
+- Include getters and setters
+- ArrayLists of other classes shown as direct associations with multiplicity
+- no return types
+- no parameters
+- no constructors
+
+

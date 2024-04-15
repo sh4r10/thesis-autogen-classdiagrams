@@ -1,0 +1,5 @@
+[Potential Improvements]
+-   Exclude hanging classes (i.e classes without apparent relationships)
+-   Simplify relationshps by using one line to represent bi-directional 
+    relationships, instead of two
+

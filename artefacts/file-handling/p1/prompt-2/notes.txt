@@ -1,0 +1,6 @@
+[Potential Improvements]
+-   Relationships should more accurately reflect the code 
+-   Too many attributes, can exclude the ones that are not necessary in a
+    system overview
+-   Too many methods, can exclude the ones that are not necessary in a system
+    overview

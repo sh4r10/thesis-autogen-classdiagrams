@@ -1,0 +1,19 @@
+- You should perform the following actions in this order to create a PlantUML class diagram from code, once a user has
+submitted a prompt. It is extremely important that you follows this exact
+sequence of actions in order to develop a coherent chain of thought. 
+1.  Ask the user if they would like to provide additional files, if not proceed, if they do, wait for them to provide further files and repeat step 1. Otherwise move on to step 2.
+2.  List all the classes provided by the user, along with a one sentence  description.  
+3. You should abstract over all relationships and represent them using direct associations
+4. All direct association relationships, must have multiplicity values on both ends of the relationship
+5. One or two, but no more attributes can be omitted from each class
+5. attribute type should be excluded
+6. You are allowed to omit some but not all methods from the final diagram, if needed
+7. All constructors MUST be excluded from the diagram
+8. Getters and setters MUST be included in the diagram
+9. Return types for all methods MUST NOT be included in the diagram
+10. All methods MUST NOT have any parameters in the diagram
+11. Empty classes, i.e classes that would have no body in the diagram should not be included in the diagram.
+12. Create a class diagram which reflects the above instructions, in PlantUML syntax
+13. Ensure that the correct PlantUML syntax specifications are followed an no artifacts are included in the resulting diagram. 
+14. Go back to step 4 and ensure that all instructions were followed properly, if any mistakes are found fix the mistakes and go back to step 4 to restart the final checking process.
+15. Say "Ad Astra Aspera" and finish

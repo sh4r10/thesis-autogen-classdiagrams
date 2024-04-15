@@ -1,0 +1,186 @@
+@startuml
+
+package com.example.zootypers {
+
+    class Activity {
+    }
+
+    class PreGameSelectionMulti {
+        - onCreate(Bundle savedInstanceState) : void
+        - onCreateOptionsMenu(Menu menu) : boolean
+    }
+
+    class TitlePage {
+        - onCreate(Bundle savedInstanceState) : void
+        - onCreateOptionsMenu(Menu menu) : boolean
+        - goToPreGameSelection(View view) : void
+        - goToPreGameSelectionMulti(View view) : void
+        - goToLeaderboard(View view) : void
+        - goToOptions(View view) : void
+        - onBackPressed() : void
+    }
+
+    class WordDB {
+        - dbHelper : WordDBHelper
+        - allColumns : String[]
+        - ALL_ROWS : String
+        - createWordData(String word, int diff) : WordData
+        - deleteWordData(WordData worddata) : void
+        - resetDatabase() : void
+        - getAllWords() : Map<WordData, Integer>
+        - cursorToWordData(Cursor cursor) : WordData
+    }
+
+    class Leaderboard {
+        - onCreate(Bundle savedInstanceState) : void
+        - onCreateOptionsMenu(Menu menu) : boolean
+    }
+
+    class PreGameSelection {
+        - HIGHTLIGHT_COLOR : int
+        - diff : View
+        - animal : View
+        - background : View
+        - onCreate(Bundle savedInstanceState) : void
+        - onCreateOptionsMenu(Menu menu) : boolean
+        - setDiff(View view) : void
+        - setAnimal(View view) : void
+        - setBackground(View view) : void
+        - goToSinglePlayer(View view) : void
+        - goToTitlePage(View view) : void
+        - onBackPressed() : void
+    }
+
+    class TypingWordDB {
+        - configProps : Properties
+        - DBDriver : String
+        - DBUrl : String
+        - DBUser : String
+        - DBPassword : String
+        - DBcon : Connection
+        - getStatement : PreparedStatement
+        - openConnection() : void
+        - closeConnection() : void
+        - prepareStatements() : void
+        - getSomething() : String
+    }
+
+    class WordDBHelper {
+        - DATABASE_NAME : String
+        - DATABASE_TABLE : String
+        - DATABASE_VERSION : int
+        - KEY_ID : String
+        - KEY_WORDDATA : String
+        - KEY_DIFFICULTY : String
+        - onCreate(SQLiteDatabase database) : void
+        - onUpgrade(SQLiteDatabase db, int oldVer, int newVer) : void
+    }
+
+    class SinglePlayer {
+        - model : SinglePlayerModel
+        - NUM_WORDS : int
+        - bg : int
+        - ppw : PopupWindow
+        - popUpParams : LayoutParams
+        - popUpLayout : LinearLayout
+        - currentTime : long
+        - pausedTime : long
+        - gameTimer : GameTimer
+        - paused : boolean
+        - onCreate(Bundle savedInstanceState) : void
+        - onCreateOptionsMenu(Menu menu) : boolean
+        - onKeyDown(int key, KeyEvent event) : boolean
+        - onPause() : void
+        - initialDisplay(Drawable animalID, Drawable backgroundID) : void
+        - displayWord(int wordIndex, String word) : void
+        - displayTime(long secondsLeft) : void
+        - displayScore(int score) : void
+        - highlightWord(int wordIndex, String word, int letterIndex) : void
+        - update(Observable arg0, Object arg1) : void
+        - keyboardButton(View view) : void
+        - goToPostGame() : void
+        - getByStringId(String id) : View
+        - pauseGame(View view) : void
+        - pausedContinue(View view) : void
+        - pausedNewGame(View view) : void
+        - pausedMainMenu(View view) : void
+        - GameTimer : class
+    }
+
+    class States {
+        - difficulty : enum
+        - update : enum
+    }
+
+    class SinglePlayerModel {
+        - numWordsDisplayed : int
+        - wordsList : String[]
+        - wordsDisplayed : int[]
+        - currWordIndex : int
+        - currLetterIndex : int
+        - nextWordIndex : int
+        - score : int
+        - am : AssetManager
+        - currFirstLetters : Set<Character>
+        - populateDisplayedList() : void
+        - typedLetter(char letter) : void
+        - updateWordsDisplayed() : void
+        - getScore() : int
+        - getCurrWord() : String
+        - getCurrWordIndex() : int
+        - getCurrLetterIndex() : int
+    }
+
+    class PostGameScreen {
+        - onCreate(Bundle savedInstanceState) : void
+        - onBackPressed() : void
+        - onCreateOptionsMenu(Menu menu) : boolean
+        - goToTitlePage(View view) : void
+        - goToPreGameSelection(View view) : void
+    }
+
+    class ZeroFeature {
+        - worddb : WordDB
+        - onCreate(Bundle savedInstanceState) : void
+        - onCreateOptionsMenu(Menu menu) : boolean
+        - goToStart(View view) : void
+        - addWords() : void
+        - fetchData() : void
+    }
+
+    class Options {
+        - onCreate(Bundle savedInstanceState) : void
+        - onCreateOptionsMenu(Menu menu) : boolean
+    }
+
+    class WordData {
+        - id : long
+        - word : String
+        - getId() : long
+        - setId(long id) : void
+        - getWord() : String
+        - setWord(String word) : void
+        - equals(Object obj) : boolean
+        - hashCode() : int
+        - toString() : String
+    }
+
+    PreGameSelectionMulti -|> Activity
+    TitlePage -|> Activity
+    Leaderboard -|> Activity
+    PreGameSelection -|> Activity
+    SinglePlayer -|> Activity
+    PostGameScreen -|> Activity
+    ZeroFeature -|> Activity
+    Options -|> Activity
+
+    WordDB --> WordDBHelper : uses
+    SinglePlayerModel --> AssetManager : uses
+    SinglePlayer --> SinglePlayerModel : uses
+    SinglePlayerModel -[hidden]-> States : uses
+    ZeroFeature --> WordDB : uses
+    SinglePlayer --> PopupWindow : uses
+}
+
+@enduml
+

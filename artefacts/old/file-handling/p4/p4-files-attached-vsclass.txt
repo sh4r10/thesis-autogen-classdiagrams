@@ -1,0 +1,123 @@
+@startuml
+
+class Employee {
+    - Integer id
+    - String name
+    - String position
+    - ArrayList<Schedule> schedList
+    + Employee(Integer id, String nm, String position)
+    + addSchedule(Schedule sch)
+}
+
+class Schedule {
+    - Integer id
+    - java.util.Date start_date
+    - java.util.Date end_date
+    - Pattern p
+    - Employee e
+    + Schedule(Date a, Date b, Pattern sablon, Employee k)
+    + Calendar getStartDate()
+    + Calendar getEndDate()
+    + Pattern getPattern()
+    + Employee getEmployee()
+}
+
+class Pattern {
+    - ArrayList<PhaseLabor> plArray
+    - Integer noOfHours
+    + Pattern(int noh)
+    + addPhL(PhaseLabor x)
+    + PhaseLabor getPhL(int ind)
+    + ArrayList<PhaseLabor> getArrayPhaseLabor()
+    + Integer getNoOfHours()
+    + setNoOfHours(Integer noh)
+    + PhaseLabor getPhaseLabor(LaborBilling lbS, Phase phS)
+}
+
+class PhaseLabor {
+    - String id
+    - LaborBilling lb
+    - Phase ph
+    - Float percentage
+    + PhaseLabor(String id, LaborBilling l, Phase p, Float perc)
+    + Phase getPhase()
+    + LaborBilling getLaborBilling()
+    + Float getPercentage()
+}
+
+class LaborBilling {
+    - String id
+    - String name
+    + LaborBilling(String id, String name)
+    + String getName()
+    + String getId()
+}
+
+class Phase {
+    - String name
+    - String id
+    - Project p
+    + Phase(String name, String ID, Project p)
+    + Project getProject()
+    + void setProject(Project proj)
+    + String getName()
+    + String getID()
+}
+
+class Project {
+    - String id
+    - String name
+    - ArrayList<Phase> phList
+    + Project(String ID, String name)
+    + void addPhase(Phase newPhase)
+    + String getName()
+    + String getID()
+}
+
+interface TimesheetGenerator {
+    + void generateDoc(String wbname, int year, int month)
+}
+
+class POIGenerator implements TimesheetGenerator {
+    - Employee pEmp
+    - Workbook wb
+    - Pattern sablon
+    - int month
+    - int year
+    - ArrayList<Schedule> schedEmp
+    - FileOutputStream fileOut
+    - Sheet sheet1
+    - CreationHelper createHelper
+    - Font underFont
+    - CellStyle style
+    - CellStyle tablestyle
+    - CellStyle tableheadstyle
+    - CellStyle tableweekendstyle
+    - CellStyle datestyle
+    - ArrayList<PhaseLabor> PhLArray
+    + POIGenerator(Employee pEmp)
+    + private Calendar getNextMonday(Calendar now)
+    + private Pattern getPatternForDay(Calendar x)
+    + private ArrayList<PhaseLabor> getListOfDistinctPhaseLabor(ArrayList<Pattern> pList)
+    + private ArrayList<Pattern> getListOfPatterns(Calendar weekEnd, Integer startingDay, Integer endingDay)
+    + private void generateHeader(Integer startingRow)
+    + private Calendar getDateFrom(Integer x, Calendar weekEnd)
+    + private Float generateTableRow(Integer startingRow, int i, Integer startingDay, Integer endingDay, Calendar weekEnd)
+    + private void generateWeek(Integer startingRow, Integer startingDay, Integer endingDay, Calendar weekEnd)
+    + private int howManyDays(Calendar t)
+    + private void styleMe()
+    + private void generateDocHeader()
+    + void generateDoc(String workbookname, int genmonth, int genyear)
+}
+
+Employee "1" -- "0..*" Schedule : contains
+Schedule "1" -- "1" Pattern : uses
+Schedule "1" -- "1" Employee : assigned to
+Pattern "1" -- "0..*" PhaseLabor : contains
+PhaseLabor "1" -- "1" LaborBilling : uses
+PhaseLabor "1" -- "1" Phase : works on
+Phase "1" -- "1" Project : part of
+POIGenerator ..> TimesheetGenerator : implements
+
+@enduml
+

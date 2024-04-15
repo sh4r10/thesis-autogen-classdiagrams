@@ -1,0 +1,81 @@
+@startuml
+
+class PreGameSelection {
+    - selectDifficulty()
+    - selectAnimal()
+    - startSinglePlayerGame()
+}
+
+class SinglePlayerModel {
+    - wordsList: String[]
+    - currentWordIndex: int
+    - score: int
+    - populateDisplayedList()
+    - typedLetter(char: char)
+    - getScore(): int
+}
+
+class WordDB {
+    - dbHelper: WordDBHelper
+    - createWordData(word: String, diff: int): WordData
+    - deleteWordData(wordData: WordData)
+    - getAllWords(): Map<WordData, Integer>
+}
+
+class WordDBHelper {
+    - DATABASE_NAME: String
+    - DATABASE_VERSION: int
+    - onCreate(database: SQLiteDatabase)
+    - onUpgrade(db: SQLiteDatabase, oldVersion: int, newVersion: int)
+}
+
+class PostGameScreen {
+    - displayResults()
+    - goToTitlePage()
+}
+
+class WordData {
+    - word: String
+    - difficulty: int
+}
+
+class PreGameSelectionMulti {
+    - selectDifficulty()
+    - selectAnimal()
+    - startMultiplayerGame()
+}
+
+class TitlePage {
+    - goToPreGameSelection()
+    - goToOptions()
+    - goToLeaderboard()
+}
+
+class SinglePlayer {
+    - startGame()
+    - pauseGame()
+    - resumeGame()
+    - endGame()
+}
+
+class Options {
+    - adjustSettings()
+}
+
+class Leaderboard {
+    - displayScores()
+}
+
+PreGameSelection --> SinglePlayer : initiates
+PreGameSelectionMulti --> SinglePlayer : initiates >
+SinglePlayerModel --> WordDB : uses
+WordDB --> WordDBHelper : uses
+SinglePlayer --> PostGameScreen : transitions to
+WordDB ..> WordData : creates
+TitlePage --> PreGameSelection
+TitlePage --> PreGameSelectionMulti
+TitlePage --> Options
+TitlePage --> Leaderboard
+
+@enduml
+
