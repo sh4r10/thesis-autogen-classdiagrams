@@ -45,27 +45,31 @@ diagrams. Building upon the insights gathered in phase one, in phase two we
 will once again generate class diagrams, but this time include the Human
 Abstraction Frame- work in the prompt as well, in an attempt to imitate the
 human abstractions detailed by Zhang et al. [9]. This research aims to explore
-the following questions: RQ1) How effectively does GPT-4 abstract code
+the following questions: 
+- RQ1) How effectively does GPT-4 abstract code
 relationships when generating class diagram on its own, as compared to the
-human-generated diagrams? RQ2) How effectively does GPT-4 abstract code
+human-generated diagrams?
+- RQ2) How effectively does GPT-4 abstract code
 relationships when generating class diagrams, utilizing the human abstraction
-framework as input along with code input? RQ3) How does the inclusion of the
-human abstraction frame- work within the prompt affect the outputted diagrams,
-as compared to when it is excluded? In order to address the research questions
-and evaluate GPT- 4’s class diagram generating abilities, we first need to
-conduct some pre-experiments. As there are several ways a file can be be
-provided to GPT4, e.g the files can be attached with the prompt or their
-content can be a component of the prompt. We must first determine the best
-approach for file handling in order for GPT-4 to have optimal comprehension of
-the codebase. Furthermore, as the prompt to a large extent determines the
-output quality of the LLM [10], it is then critical to have a fine-tuned prompt
-that allows GPT-4 to best generate class diagrams. The aforementioned
-experiments will provide us pre-requisite knowledge, improving the overall
-output from the actual experiments concerning RQ1 and RQ2. The research
-questions will be answered via a controlled experiment, comparing the
-performance of GPT-4 in creating class diagram with human abstractions with a
-set of five class diagrams created by five development teams. The answers to
-these questions will act as a stepping stone for future research to use these
-rapidly improving LLMs in order to streamline the software documentation
-process and aid in the on-boarding of new developers with the assurance that
-the software models are accurate and up to date.
+framework as input along with code input?
+- RQ3) How does the inclusion of the human abstraction frame- work within the
+prompt affect the outputted diagrams, as compared to when it is excluded?
+
+In order to address the research questions and evaluate GPT- 4’s class diagram
+generating abilities, we first need to conduct some pre-experiments. As there
+are several ways a file can be be provided to GPT4, e.g the files can be
+attached with the prompt or their content can be a component of the prompt.
+We must first determine the best approach for file handling in order for GPT-4
+to have optimal comprehension of the codebase. Furthermore, as the prompt to
+a large extent determines the output quality of the LLM [10], it is then
+critical to have a fine-tuned prompt that allows GPT-4 to best generate
+class diagrams. The aforementioned experiments will provide us pre-requisite
+knowledge, improving the overall output from the actual experiments concerning
+RQ1 and RQ2. The research questions will be answered via a controlled
+experiment, comparing the performance of GPT-4 in creating class diagram
+with human abstractions with a set of five class diagrams created by five
+development teams. The answers to these questions will act as a stepping
+stone for future research to use these rapidly improving LLMs in order to
+streamline the software documentation process and aid in the on-boarding
+of new developers with the assurance that the software models are accurate
+and up to date.
