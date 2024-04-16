@@ -1,0 +1,23 @@
+Major:
+
+Classes. If a class is included/excluded in the same way as the humans, then that is +1 correct in the major category
+Relationships
+
+Halucinated classes/relationships
+
+10/10 = all major elemnts are correct
+09/10 = missing 1 major element
+
+Moderate:
+Attribute name
+Method name
+
+Halucinated attribute, method, parameter name and type
+
+Minor:
+visibility
+Multiplicity
+
+Attribute Type
+Parameter name/Type
+Method Return type
