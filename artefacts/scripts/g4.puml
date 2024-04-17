@@ -3,26 +3,28 @@
 class Project {
   - id
   - name
-  + getName()
+  + getName(name : String) : String
   + getId()
 }
 
 class Phase {
-    name: no
-  + getName(String, string2)
+  - id
+  - name
+  - alaa
+  + getName()
   + getID()
   + setProject()
 }
 
-class POJGenerator {
-  + generateDoc(Hello)
-  - generateWeek(amount: BigDecimal)
+class POIGenerator {
+  + generateDoc()
+  - generateWeek()
 }
 
 class Employee {
-  - id
+  - id:String ' spacing vs no spacing
   - name
-  + position 
+  - position 
   + addSchedule()
 }
 
@@ -30,14 +32,14 @@ class Schedule {
   - id 
   - start_date
   - end_date
-  + getPattern()
+  + getPattern( Pattern : String) : String
   + getEmployee()
 }
 
 class Pattern {
   - noOfHours
   + getPhaseLabor()
-  + getNoOfHours(): bruh
+  + getNoOfHours()
   + setNoOfHours()
 }
 
@@ -52,7 +54,7 @@ class PhaseLabor {
 class LaborBilling {
   - id 
   - name
-  - getID()
+  + getID()
   + getName()
 }
 
@@ -60,11 +62,11 @@ circle Generator
 
 ' Relationships
 Project "+forProject\n1" -l-  "+PhaseArray\n0..*" Phase : \t\t\t\t\t\t
-Generator -d- POIGenerator
-POIGenerator -r--> "-e\n1" Employee: \t\t\t
-Employee "-schedFor\n1" -d- "0..*\n-schedList" Schedule: \n\n\n
-Schedule "0..*" -l-> "1\n-p" Pattern: \t\t\t
-Pattern "0..1" -l-> "1..*\n-PhLArray" PhaseLabor: \t\t\t
-PhaseLabor "0..*" -l-> "1\n-lb" LaborBilling: \t\t\t
-PhaseLabor "0..*" -u-> "-p\n1" Phase
+Generator .d. POIGenerator
+POIGenerator -r--o "-e\n1" Employee: \t\t\t
+Employee "-schedFor\n1" -d-  Schedule: \n\n\n
+Schedule "0" -l- "1\n-p" Pattern: \t\t\t
+Pattern "0..1" -l-> "1" PhaseLabor: \t\t\t
+PhaseLabor "0..*" -l-|> "1\n-lb" LaborBilling: \t\t\t
+PhaseLabor "0..*" -u-* "-p\n1" Phase: victor says ello
 @enduml

@@ -7,22 +7,21 @@ class Project {
   + getId()
 }
 
-
+class Phase {
+  - id
+  - name
+  + getName(name : String) : String
+  + getID()
+  + setProject()
+}
 
 class POIGenerator {
   + generateDoc()
   - generateWeek()
 }
 
-class Phase {
-  - id
-  - name
-  + getID()
-  + setProject()
-}
-
 class Employee {
-  - id
+  - id : String ' spacing vs no spacing
   - name
   - position 
   + addSchedule()
@@ -32,13 +31,13 @@ class Schedule {
   - id 
   - start_date
   - end_date
-  + getPattern()
+  + getPattern( Pattern : String) : String
   + getEmployee()
 }
 
 class Pattern {
   - noOfHours
-  + getPhaseLabor()
+  + getPhaseLabor(Phase):Phase
   + getNoOfHours()
   + setNoOfHours()
 }
