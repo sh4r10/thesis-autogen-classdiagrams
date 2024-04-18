@@ -7,37 +7,32 @@ class Project {
   + getId()
 }
 
-class Phase {
-  - id
-  - name
-  + getName(name : String) : String
-  + getID()
-  + setProject()
-}
+' phase class removed, major fp
 
 class POIGenerator {
   + generateDoc()
   - generateWeek()
 }
 
+' name removed, moderate fp
 class Employee {
-  - id : String ' spacing vs no spacing
-  - name
-  - position 
+  - id
+  - position
   + addSchedule()
 }
 
+' added return type, minor fn
 class Schedule {
   - id 
   - start_date
   - end_date
-  + getPattern( Pattern : String) : String
+  + getPattern() : int
   + getEmployee()
 }
 
 class Pattern {
   - noOfHours
-  + getPhaseLabor(Phase):Phase
+  + getPhaseLabor()
   + getNoOfHours()
   + setNoOfHours()
 }

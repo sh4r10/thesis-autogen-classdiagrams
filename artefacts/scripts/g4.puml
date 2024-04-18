@@ -1,16 +1,10 @@
 @startuml
 ' Class declarations
-class Project {
-  - id
-  - name
-  + getName(name : String) : String
-  + getId()
-}
+' project class removed, major fn
 
 class Phase {
   - id
   - name
-  - alaa
   + getName()
   + getID()
   + setProject()
@@ -20,19 +14,19 @@ class POIGenerator {
   + generateDoc()
   - generateWeek()
 }
-
+' id removed, moderate fn
+' return type added, minor fp
 class Employee {
-  - id:String ' spacing vs no spacing
   - name
   - position 
-  + addSchedule()
+  + addSchedule() : int
 }
 
 class Schedule {
   - id 
   - start_date
   - end_date
-  + getPattern( Pattern : String) : String
+  + getPattern()
   + getEmployee()
 }
 
@@ -62,11 +56,11 @@ circle Generator
 
 ' Relationships
 Project "+forProject\n1" -l-  "+PhaseArray\n0..*" Phase : \t\t\t\t\t\t
-Generator .d. POIGenerator
-POIGenerator -r--o "-e\n1" Employee: \t\t\t
-Employee "-schedFor\n1" -d-  Schedule: \n\n\n
-Schedule "0" -l- "1\n-p" Pattern: \t\t\t
-Pattern "0..1" -l-> "1" PhaseLabor: \t\t\t
-PhaseLabor "0..*" -l-|> "1\n-lb" LaborBilling: \t\t\t
-PhaseLabor "0..*" -u-* "-p\n1" Phase: victor says ello
+Generator -d- POIGenerator
+POIGenerator -r--> "-e\n1" Employee: \t\t\t
+Employee "-schedFor\n1" -d- "0..*\n-schedList" Schedule: \n\n\n
+Schedule "0..*" -l-> "1\n-p" Pattern: \t\t\t
+Pattern "0..1" -l-> "1..*\n-PhLArray" PhaseLabor: \t\t\t
+PhaseLabor "0..*" -l-> "1\n-lb" LaborBilling: \t\t\t
+PhaseLabor "0..*" -u-> "-p\n1" Phase
 @enduml
