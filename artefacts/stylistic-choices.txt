@@ -10,3 +10,15 @@
 - Include/Exclude attribute type
 - Include/Exclude (all/some) visibility modifiers
 - Include/Exclude (all/some) constructors
+
+- Include getters (all/some/none)
+- Include setters (all/some/none)
+- Include methods (all/some/none)
+- Include constructors* (all/some/none)
+- Include attributes (all/some/none)
+- Include attribute types (all/none)
+- Include return types (all/none)
+- Include access modifiers (all/some/none)
+- Include parameter names (yes/no) 
+- Convert aggregation relationships into association relationships with multiplicities (yes/no)
+- Convert composition relationships into association relationships with multiplicities (yes/no)

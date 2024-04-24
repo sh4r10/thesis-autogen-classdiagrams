@@ -1,0 +1,838 @@
+---TitlePage.java---
+package com.example.zootypers;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.view.Window;
+
+/**
+*
+* UI / Activity for title screen.
+* @author cdallas
+*
+*/
+public class TitlePage extends Activity {
+
+    @Override
+    protected final void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_title_page);
+    }
+
+    @Override
+    public final boolean onCreateOptionsMenu(final Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.title_page, menu);
+        return true;
+    }
+
+    /**
+    * Called when the user clicks the "Single Player" button.
+    * @param view The button clicked
+    */
+    public final void goToPreGameSelection(final View view) {
+        Intent intent = new Intent(this, PreGameSelection.class);
+        startActivity(intent);
+    }
+
+    /**
+    * Called when the user clicks the "Multiplayer" button.
+    * @param view The button clicked
+    */
+    public final void goToPreGameSelectionMulti(final View view) {
+        Intent intent = new Intent(this, PreGameSelectionMulti.class);
+        startActivity(intent);
+    }
+
+    /**
+    * Called when the user clicks the "Leaderboard" button.
+    * @param view The button clicked
+    */
+    public final void goToLeaderboard(final View view) {
+        Intent intent = new Intent(this, Leaderboard.class);
+        startActivity(intent);
+    }
+
+    /**
+    * Called when the user clicks the "Options" button.
+    * @param view The button clicked
+    */
+    public final void goToOptions(final View view) {
+        Intent intent = new Intent(this, Options.class);
+        startActivity(intent);
+    }
+    
+    @Override
+    public void onBackPressed() {
+        // TODO trigger pause screen!
+    }
+}
+
+
+---PreGameSelection.java---
+§package com.example.zootypers;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.PorterDuff.Mode;
+import android.view.Menu;
+import android.view.View;
+import android.view.Window;
+
+/**
+ *
+ * UI / Activity for pre-game selection screen for a single player game.
+ * @author cdallas
+ *
+ */
+public class PreGameSelection extends Activity {
+
+    private final int HIGHTLIGHT_COLOR = 0xFF000000; // black
+    private View diff;
+    private View animal;
+    private View background;
+
+    @Override
+    protected final void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    
+        setContentView(R.layout.activity_pregame_selection);
+
+        diff = findViewById(R.id.medium_difficulty_button);
+        setDiff(diff);
+        animal = findViewById(R.id.elephant_button);
+        setAnimal(animal);
+        background = findViewById(R.id.BG1_button);
+        setBackground(background);
+    }
+
+    @Override
+    public final boolean onCreateOptionsMenu(final Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.pregame_selection, menu);
+        return true;
+    }
+
+    /**
+    * When the user clicks a button to select a difficulty, highlights that
+    * button and un-highlights the last selected button.
+    * @param view The button clicked
+    */
+    public final void setDiff(final View view) {
+        if (diff != null) {
+            diff.getBackground().clearColorFilter();
+        }
+        view.getBackground().setColorFilter(HIGHTLIGHT_COLOR, Mode.MULTIPLY);
+        diff = view;
+    }
+
+    /**
+    * When the user clicks a button to select an animal, highlights that
+    * button and un-highlights the last selected button.
+    * @param view The button clicked
+    */
+    public final void setAnimal(final View view) {
+        if (animal != null) {
+            animal.getBackground().clearColorFilter();
+        }
+        view.getBackground().setColorFilter(HIGHTLIGHT_COLOR, Mode.MULTIPLY);
+        animal = view;
+    }
+
+    /**
+    * When the user clicks a button to select a background, highlights that
+    * button and un-highlights the last selected button.
+    * @param view The button clicked
+    */
+    public final void setBackground(final View view) {
+        if (background != null) {
+            background.getBackground().clearColorFilter();
+        }
+        view.getBackground().setColorFilter(HIGHTLIGHT_COLOR, Mode.MULTIPLY);
+        background = view;
+    }
+
+    /**
+    * When continue is clicked, goes to the game play screen.
+    * Passes id of animal & background button selected and an int coding of difficulty,
+    * where 1 is easy, 2 is medium, and 3 is hard.
+    * @param view The button clicked.
+    */
+    public final void goToSinglePlayer(final View view) {
+        Intent intent = new Intent(this, SinglePlayer.class);
+    
+        // pass difficulty
+        if (diff == findViewById(R.id.easy_difficulty_button)) {
+            intent.putExtra("diff", 1);      
+        } else if (diff == findViewById(R.id.hard_difficulty_button)) {
+            intent.putExtra("diff", 3);      
+        } else {
+            intent.putExtra("diff", 2);      
+        }
+    
+        // pass animal and background
+        intent.putExtra("anm", animal.getId());
+        intent.putExtra("bg", background.getId());
+    
+        startActivity(intent);
+    }
+
+    /**
+    * Called when the user clicks the "Main Menu" button.
+    * @param view The button clicked
+    */
+    public final void goToTitlePage(final View view) {
+        Intent intent = new Intent(this, TitlePage.class);
+        startActivity(intent);
+    }
+    
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, TitlePage.class);
+        startActivity(intent);
+    }
+}
+
+---SinglePlayer.java---
+package com.example.zootypers;
+
+import java.util.Observable;
+import java.util.Observer;
+import java.util.concurrent.TimeUnit;
+import android.annotation.SuppressLint;
+import android.app.ActionBar.LayoutParams;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.text.Html;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import com.example.zootypers.States.difficulty;
+
+@SuppressLint("NewApi")
+/**
+*
+* UI / Activity and controller for single player game screen.
+* @author cdallas, littlpunk, kobyran
+*
+*/
+public class SinglePlayer extends Activity implements Observer {
+
+    // used for the communicating with model
+    private SinglePlayerModel model;
+    private final int NUM_WORDS = 5;  
+    private int bg;
+    
+    // for the popup window
+    private PopupWindow ppw;
+    public LayoutParams popUpParams;
+    public LinearLayout popUpLayout;
+    private long currentTime;
+    private long pausedTime = START_TIME;
+
+    // for the game timer
+    private GameTimer gameTimer;
+    private final long INTERVAL = 1000; // 1 second
+    public final static long START_TIME = 60000; // 1 minute
+    public static boolean paused = false;
+    
+    @Override
+    protected final void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        // Get animal & background selected by user
+        setContentView(R.layout.activity_pregame_selection);
+        Drawable animal = ((ImageButton) findViewById
+                (getIntent().getIntExtra("anm", 0))).getDrawable();
+        bg = getIntent().getIntExtra("bg", 0);
+        Drawable background = ((ImageButton) findViewById(bg)).getDrawable();
+        
+        // Get difficulty
+        int diff = getIntent().getIntExtra("diff", 2);
+        difficulty d = States.difficulty.MEDIUM;
+        if (diff == 1) {
+            d = States.difficulty.EASY;
+        } else if (diff == 3) {
+            d = States.difficulty.HARD;
+        }
+    
+        // start model
+        model = new SinglePlayerModel(d, this.getAssets(), NUM_WORDS);
+        model.addObserver(this);
+        
+        // change screen view
+        setContentView(R.layout.activity_single_player);
+        initialDisplay(animal, background);
+        
+        // create and start timer
+        gameTimer = new GameTimer(START_TIME, INTERVAL);
+        gameTimer.start();
+
+    }
+
+    @Override
+    public final boolean onCreateOptionsMenu(final Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.single_player, menu);
+        return true;
+    }
+  
+    @Override
+    /**
+     * When the user types a letter, this listens for it.
+     */
+    public final boolean onKeyDown(final int key, final KeyEvent event){
+        if (key == KeyEvent.KEYCODE_BACK && !paused) {
+        	pauseGame(findViewById(R.id.pause_button));
+        	return true;
+        }
+    	
+    	char charTyped = event.getDisplayLabel();
+        charTyped = Character.toLowerCase(charTyped);
+        model.typedLetter(charTyped);
+        return true;
+    }
+    
+    @Override 
+    public void onPause() {
+    	super.onPause();
+    	if (!paused)
+    		pauseGame(findViewById(R.id.pause_button));
+    }
+
+    /**
+     * Displays the initial screen of the single player game.
+     * @param animalID Drawable referring to the id of the selected animal image,
+     * e.g. R.drawable.elephant_color.
+     * @param backgroudID Drawable referring to the id of the selected background image.
+     * @param words An array of the words to display. Must have a length of 5.
+     */
+    public void initialDisplay(Drawable animalID, Drawable backgroundID) {
+        // display animal
+        ImageView animalImage = (ImageView) findViewById(R.id.animal_image);
+        animalImage.setImageDrawable(animalID);
+
+        // display background
+        ViewGroup layout = (ViewGroup) findViewById(R.id.single_game_layout);
+        layout.setBackground(backgroundID);
+
+        model.populateDisplayedList();
+
+        // TODO figure out how to change milliseconds to seconds. it skips numbers
+        displayTime(START_TIME / INTERVAL);
+
+        displayScore(0);
+    }
+
+    /**
+    * @param wordIndex The index of the word to display; 0 <= wordIndex < 5.
+    * @param word The word to display.
+    */
+    public final void displayWord(final int wordIndex, final String word) {
+        if ((wordIndex < 0) || (wordIndex >= NUM_WORDS)) {
+            // error!
+        }
+        TextView wordBox = (TextView) getByStringId("word" + wordIndex);
+        wordBox.setText(word);
+    }
+
+    /**
+    * Updates the timer on the screen.
+    * @param secondsLeft The number of seconds to display.
+    */
+    public final void displayTime(final long secondsLeft) {
+        TextView timerBox = (TextView) findViewById(R.id.time_text);
+        timerBox.setText(Long.toString(secondsLeft));
+    }
+
+    /**
+    * Updates the score on the screen.
+    * @param score The score to display.
+    */
+    public final void displayScore(final int score) {
+        TextView currentScore = (TextView) findViewById(R.id.score);
+        currentScore.setText(Integer.toString(score));
+    }
+
+    /**
+    * Highlights the letterIndex letter of the wordIndex word. letterIndex must
+    * not be beyond the scope of the word.
+    * @param wordIndex The index of the word to highlight; 0 <= wordIndex < 5.
+    * @param letterIndex The index of the letter in the word to highlight.
+    */
+    public void highlightWord(final int wordIndex, final String word, final int letterIndex) {
+        TextView wordBox = (TextView) getByStringId("word" + wordIndex);
+        String highlighted  = word.substring(0, letterIndex);
+        String rest = word.substring(letterIndex);
+        wordBox.setText(Html.fromHtml("<font color=#00FF00>" + highlighted + "</font>" + rest));
+    }
+
+    /**
+    * Observer for model.
+    * @param arg0 Thing being observes.
+    * @param arg1 State.
+    */
+    public final void update(final Observable arg0, final Object arg1) {
+        SinglePlayerModel spM;
+        if (arg0 instanceof SinglePlayerModel) {
+            spM = (SinglePlayerModel) arg0;
+
+            if (arg1 instanceof States.update) {
+                States.update change = (States.update) arg1;
+
+                if (change == States.update.FINISHED_WORD) {
+                    displayScore(spM.getScore());
+                    displayWord(spM.getCurrWordIndex(), spM.getCurrWord());
+                } else if (change == States.update.HIGHLIGHT) {
+                    highlightWord(spM.getCurrWordIndex(), spM.getCurrWord(), 
+                            spM.getCurrLetterIndex());
+                } else if (change == States.update.WRONG_LETTER) {
+                    // TODO print an error message?
+                }
+
+            }
+        }
+    }
+  
+    /**
+    * Reopens keyboard when it is closed
+    * @param view The button clicked.
+    * @author oaknguyen
+    */
+    public final void keyboardButton(final View view) {
+        InputMethodManager inputMgr = (InputMethodManager) 
+        getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMgr.toggleSoftInput(0, 0);
+    }
+
+    /**
+    * Called when the timer runs out; goes to the post game screen.
+    */
+    public final void goToPostGame() {
+        Intent intent = new Intent(this, PostGameScreen.class);
+        // pass score
+        intent.putExtra("score", ((TextView) findViewById(R.id.score)).getText().toString());
+        intent.putExtra("bg", bg);
+        startActivity(intent);
+    }
+
+    /**
+    * @param id The id of the View to get as a String.
+    * @return The View object with that id
+    */
+    public final View getByStringId(final String id) {
+        return findViewById(getResources().getIdentifier(id, "id", getPackageName()));
+    }
+
+    /**
+    * When the pause button is pressed, pauses the game and shows a pop-up window.
+    * @param view The button clicked.
+    */
+    public void pauseGame(View view) {
+        // save & stop time
+        pausedTime = currentTime;
+        gameTimer.cancel();
+	  
+        // disable buttons & keyboard
+        findViewById(R.id.keyboard_open_button).setEnabled(false);
+        findViewById(R.id.pause_button).setEnabled(false);
+
+        // create popup window
+        LayoutInflater layoutInflater = 
+                (LayoutInflater) getBaseContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = layoutInflater.inflate(R.layout.pause_layout, null);
+        ppw = new PopupWindow(popupView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        ViewGroup parentLayout = (ViewGroup) findViewById(R.id.single_game_layout);
+        ppw.showAtLocation(parentLayout, Gravity.CENTER, 10, 20);
+        ppw.update(350, 500);
+        
+        paused = true;
+    }
+  
+    /**
+    * When the user clicks the continue button while paused, continues the game.
+    * @param view The button clicked.
+    */
+    public void pausedContinue(View view){
+        // re-enable buttons & keyboard
+        findViewById(R.id.keyboard_open_button).setEnabled(true);
+        findViewById(R.id.pause_button).setEnabled(true);
+//        keyboardButton(findViewById(R.id.keyboard_open_button));
+	  
+        gameTimer = new GameTimer(pausedTime, INTERVAL);
+        gameTimer.start();
+        ppw.dismiss();
+        paused = false;
+    }
+
+    /**
+    * When the user clicks the new game button while paused, starts a new game.
+    * @param view The button clicked.
+    */
+    public void pausedNewGame(View view) {
+        final Intent restartIntent = new Intent(this, PreGameSelection.class);
+        startActivity(restartIntent);
+        paused = false;
+    }
+  
+    /**
+    * When the user clicks the main menu button while paused, goes to the title screen. 
+    * @param view The button clicked.
+    */
+    public void pausedMainMenu(View view) {
+        final Intent mainMenuIntent = new Intent(this, TitlePage.class);
+        startActivity(mainMenuIntent);
+        paused = false;
+    }
+  
+    /**
+    * Timer for game.
+    * @author ZooTypers
+    */
+    public class GameTimer extends CountDownTimer {
+        /**
+        * @param startTime Amount of time player starts with.
+        * @param interval Amount of time between ticks.
+        */
+        public GameTimer(final long startTime, final long interval) {
+            super(startTime, interval);
+        }
+
+        @Override
+        public final void onFinish() {
+            // TODO add game over message before going to post game
+            goToPostGame();
+        }
+
+        @Override
+        public final void onTick(final long millisUntilFinished) {
+            currentTime = millisUntilFinished;
+            displayTime(TimeUnit.MILLISECONDS.toSeconds(currentTime));
+        }
+    }
+}
+
+---SinglePlayerModel.java---
+package com.example.zootypers;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Observable;
+import java.util.Set;
+import org.apache.commons.io.IOUtils;
+import android.content.res.AssetManager;
+
+/** 
+ * 
+ * The Model class for Single Player store a list of words for the UI to display.
+ * It keeps track of word and letter the user has typed and updates the view accordingly.
+ * 
+ * @author winglam, nhlien93, dyxliang
+ * 
+ */
+
+public class SinglePlayerModel extends Observable {
+
+	// number of words displayed on the view
+	private final int numWordsDisplayed;
+	
+	// stores an array of words 
+	private String[] wordsList;
+
+	// array of indices that refers to strings inside wordsList
+	private int[] wordsDisplayed;
+
+	// index of a string inside wordsDisplayed (should NEVER be used on wordsList!)
+	private int currWordIndex;
+
+	// index of letter that has been parsed from the currWordIndex
+	private int currLetterIndex;
+
+	// index of the next word to pull from wordsList, (should ONLY be used with wordsList)
+	private int nextWordIndex;
+
+	// keep track of the user's current score
+	private int score;
+
+	// allows files in assets to be accessed.
+	private AssetManager am;
+	
+	private Set<Character> currFirstLetters;
+
+	/**
+	 * Constructs a new SinglePlayerModel that takes in the ID of an animal and background,
+	 * and also what the difficulty level is. The constructor will initialize the words list
+	 * and fills in what words the view should display on the screen.
+	 * 
+	 * @param animalID, the string ID of a animal that is selected by the user
+	 * @param backgroudID, the string ID of a background that is selected by the user
+	 * @param diff, the difficulty level that is selected by the user
+	 */
+	public SinglePlayerModel(final States.difficulty diff, AssetManager am, int wordsDis) {
+		this.numWordsDisplayed = wordsDis;
+		this.am = am;
+		// generates the words list according to difficulty chosen
+		getWordsList(diff);
+
+		//initialize all the fields to default starting values
+		wordsDisplayed = new int[numWordsDisplayed];
+		nextWordIndex = 0;
+		score = 0;
+		currLetterIndex = -1;
+		currWordIndex = -1;
+	}
+
+	/*
+	 * Reads different files according to the difficulty passed in,
+	 * parsed the words in the chosen file into wordsList, and shuffles
+	 * the words in the list.
+	 * 
+	 * @param diff, the difficulty level that the user has chosen
+	 */
+	private void getWordsList(final States.difficulty diff) {
+		String file;
+		if (diff == States.difficulty.EASY) {
+			file = "4words.txt";
+		} else if (diff == States.difficulty.MEDIUM) {
+			file = "5words.txt";
+		} else {
+			file = "6words.txt";
+		}
+
+		// read entire file as string, parsed into array by new line
+		try {
+			InputStream stream = am.open(file);
+			String contents = IOUtils.toString(stream, "UTF-8");
+			wordsList = contents.split(System.getProperty("line.separator"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		// Shuffle the elements in the array
+		Collections.shuffle(Arrays.asList(wordsList));
+	}
+
+	/**
+	 * The populateDisplayedList method gets called once by SinglePlayer after
+	 * it added itself as an observer of this class.
+	 */
+	public void populateDisplayedList() {
+		// putting first five words into wordsDisplayed
+		currFirstLetters = new HashSet<Character>();
+		for (int i = 0; i < numWordsDisplayed; i++) {
+			while (currFirstLetters.contains(wordsList[nextWordIndex].charAt(0))) {
+				nextWordIndex++;
+			}
+			currFirstLetters.add(wordsList[nextWordIndex].charAt(0));
+			wordsDisplayed[i] = nextWordIndex;
+			currWordIndex = i;
+			setChanged();
+			notifyObservers(States.update.FINISHED_WORD);
+		}
+		nextWordIndex++;
+		currWordIndex = -1;
+	}
+
+	/**
+	 * The typedLetter method handles what words and letter the user has
+	 * typed so far and notify the view to highlight typed letter or fetch 
+	 * a new word from the wordsList for the view to display accordingly.
+	 * 
+	 * @param letter, the letter that the user typed on the Android soft-keyboard
+	 */
+	public final void typedLetter(final char letter) {
+		// currently not locked on to a word
+		if (currWordIndex == -1) {
+			for (int i = 0; i < wordsDisplayed.length; i++) {
+				// if any of the first character in wordsDisplayed matched letter
+				if (wordsList[wordsDisplayed[i]].charAt(0) == letter) {
+					currWordIndex = i;
+					currLetterIndex = 1;
+					setChanged();
+					notifyObservers(States.update.HIGHLIGHT);
+					return;
+				}
+			}
+			// locked on to a word being typed (letter == the index of current letter index in the word)
+		} else if (wordsList[wordsDisplayed[currWordIndex]].charAt(currLetterIndex) == letter) {
+
+			// store length of current word
+			int wordLen = wordsList[wordsDisplayed[currWordIndex]].trim().length();
+
+			// word is completed after final letter is typed
+			if ((currLetterIndex + 1) >= wordLen) {
+				score += wordLen;
+				updateWordsDisplayed();
+				currLetterIndex = -1;
+				currWordIndex = -1;
+			} else {
+				currLetterIndex += 1;
+				setChanged();
+				notifyObservers(States.update.HIGHLIGHT);
+			}
+			return;
+		}
+
+		// wrong letter typed
+		setChanged();
+		notifyObservers(States.update.WRONG_LETTER);
+	}
+
+	/*
+	 *  Replace the current word on display with a new word from list making
+	 *  sure that the new word will not start with the same letter as any of
+	 *  the other words being displayed.
+	 *  post: nextWordIndex will always be set to a valid index of wordsList
+	 */
+	private void updateWordsDisplayed() {
+		currFirstLetters.remove(wordsList[wordsDisplayed[currWordIndex]].charAt(0));
+		while (currFirstLetters.contains(wordsList[nextWordIndex].charAt(0))) {
+			nextWordIndex++;
+			if (nextWordIndex >= wordsList.length) {
+				nextWordIndex = 0;
+			}
+		}
+		currFirstLetters.add(wordsList[nextWordIndex].charAt(0));
+		wordsDisplayed[currWordIndex] = nextWordIndex;
+		nextWordIndex++;
+		if (nextWordIndex >= wordsList.length) {
+			nextWordIndex = 0;
+		}
+		setChanged();
+		notifyObservers(States.update.FINISHED_WORD);
+	}
+
+	/**
+	 * @return current score of the player
+	 */
+	public final int getScore() {
+		return score;
+	}
+
+	/**
+	 * @return the string representation of the current word the player is locked to,
+	 * null if player is not locked to a word
+	 */
+	public final String getCurrWord() {
+		if (currWordIndex == -1) {
+			return null;
+		}
+
+		return wordsList[wordsDisplayed[currWordIndex]];
+	}
+
+	/**
+	 * @return the index of the word the player is currently locked to within the words displayed
+	 */
+	public final int getCurrWordIndex() {
+		return currWordIndex;
+	}
+
+	/**
+	 * @return the index of the letter the player is expected to type in the locked word
+	 */
+	public final int getCurrLetterIndex() {
+		return currLetterIndex;
+	}
+}
+
+
+---PostGameScreen.java---
+package com.example.zootypers;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.view.Window;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+/**
+ *
+ * UI / Activity for post-game screen.
+ * @author cdallas
+ *
+ */
+public class PostGameScreen extends Activity {
+
+    @SuppressLint("NewApi")
+    @Override
+    protected final void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    
+        // get & display background
+        setContentView(R.layout.activity_pregame_selection);
+        Drawable background = ((ImageButton) 
+                findViewById(getIntent().getIntExtra("bg", 0))).getDrawable();
+    
+        setContentView(R.layout.activity_postgame_screen);
+        findViewById(R.id.postgame_layout).setBackground(background);
+        
+        // get and display score
+        String score = getIntent().getStringExtra("score");
+        TextView finalScore = (TextView) findViewById(R.id.final_score);
+        finalScore.setText(score);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // do nothing
+        return;
+    }
+  
+    @Override
+    public final boolean onCreateOptionsMenu(final Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.postgame_screen, menu);
+        return true;
+    }
+  
+    /**
+    * Called when the user clicks the "Main Menu" button.
+    * @param view The button clicked
+    */
+    public final void goToTitlePage(final View view) {
+        Intent intent = new Intent(this, TitlePage.class);
+        startActivity(intent);
+    }
+
+    /**
+    * Called when the user clicks the "New Game" button.
+    * @param view The button clicked
+    */
+    public final void goToPreGameSelection(final View view) {
+        Intent intent = new Intent(this, PreGameSelection.class);
+        startActivity(intent);
+    }
+}
+
+

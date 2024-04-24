@@ -1,0 +1,8 @@
+Ask the user if they would like to provide further files, if not proceed, if they do, wait for them to provide further files and repeat step 1.
+List all the classes provided by the user, along with a one sentence  description.  
+
+Empty classes, i.e classes that would have no body in the diagram should not be included in the diagram.
+Create a class diagram which reflects the above instructions, in PlantUML syntax
+Ensure that the correct PlantUML syntax specifications are followed an no artifacts are included in the resulting diagram. 
+Go back to step 4 and ensure that all instructions were followed properly, if any mistakes are found fix the mistakes and go back to step 4 to restart the final checking process.
+Say "Ad Astra Aspera" and finish

@@ -1,0 +1,49 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class TitlePage {
+    goToPreGameSelection(view : View)
+    goToPreGameSelectionMulti(view : View)
+    goToLeaderboard(view : View)
+    goToOptions(view : View)
+}
+
+class PreGameSelection {
+    setDiff(view : View)
+    setAnimal(view : View)
+    setBackground(view : View)
+    goToSinglePlayer(view : View)
+    goToTitlePage(view : View)
+}
+
+class SinglePlayer {
+    #typedLetter(letter : char)
+    pauseGame(view : View)
+    pausedContinue(view : View)
+    pausedNewGame(view : View)
+    pausedMainMenu(view : View)
+    goToPostGame()
+}
+
+class SinglePlayerModel {
+    typedLetter(letter : char)
+}
+
+class PostGameScreen {
+    goToTitlePage(view : View)
+    goToPreGameSelection(view : View)
+}
+
+TitlePage --> PreGameSelection : starts >
+TitlePage --> "PreGameSelectionMulti" : starts >
+TitlePage --> "Leaderboard" : starts >
+TitlePage --> "Options" : starts >
+PreGameSelection --> TitlePage : returns to >
+PreGameSelection --> SinglePlayer : starts >
+SinglePlayer --> PostGameScreen : navigates to >
+SinglePlayer --> PreGameSelection : returns to on pause >
+PostGameScreen --> TitlePage : returns to >
+PostGameScreen --> PreGameSelection : starts new game >
+
+@enduml
+
