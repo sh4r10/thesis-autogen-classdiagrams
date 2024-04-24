@@ -92,9 +92,9 @@ def main():
     return_type_choices = ["All return types of methods must be included in the diagram",
                            "All return types of methods must be excluded from the diagram"]
 
-    access_choices = ["All access modifiers methods must be included in the diagram",
+    access_choices = ["All access modifiers must be included in the diagram",
                       "You are allowed to omit some but not all access modifiers from the diagram",
-                      "All access modifiers methods must be excluded from the diagram"]
+                      "All access modifiers must be excluded from the diagram"]
 
     parameter_choices = ["All method parameters must be included in the diagram",
                          "All method parameters must be excluded from the diagram"]
