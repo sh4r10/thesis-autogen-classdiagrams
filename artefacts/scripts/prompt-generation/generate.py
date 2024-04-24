@@ -16,6 +16,8 @@ def get_input(prompt, valid_options):
 
 def compare_and_record(options, choices):
 
+    test = ""
+
 
 def main():
     options_yes_no = ["yes", "no"]
@@ -40,10 +42,14 @@ def main():
         "Include access modifiers (all/some/none): ", options_all_some_none)
     parameter_names = get_input(
         "Include parameter names (yes/no): ", options_yes_no)
+    parameter_types = get_input(
+        "Include parameter types (yes/no): ", options_yes_no)
     convert_aggregation = get_input(
-        "Convert aggregation relationships into association relationships with multiplicities (yes/no): ", options_yes_no)
+        "Convert aggregation relationships into association relationships with multiplicities (yes/no): ",
+        options_yes_no)
     convert_composition = get_input(
-        "Convert composition relationships into association relationships with multiplicities (yes/no): ", options_yes_no)
+        "Convert composition relationships into association relationships with multiplicities (yes/no): ",
+        options_yes_no)
 
     # Output the results
     print("\nUser Configuration:")
@@ -56,6 +62,7 @@ def main():
     print(f"Return Types: {return_types}")
     print(f"Access Modifiers: {access_modifiers}")
     print(f"Parameter Names: {parameter_names}")
+    print(f"Parameter Types: {parameter_types}")
     print(f"Convert Aggregation Relationships: {convert_aggregation}")
     print(f"Convert Composition Relationships: {convert_composition}")
 
@@ -74,6 +81,38 @@ def main():
     constructor_choices = ["All constructors must be included in the diagram",
                            "You are allowed to omit some but not all constructors from the diagram",
                            "All constructors must be excluded from the diagram"]
+
+    attribute_choices = ["All attributes must be included in the diagram",
+                         "You are allowed to omit some but not all attributes from the diagram",
+                         "All attributes must be excluded from the diagram"]
+
+    attribute_type_choices = ["All attribute types must be included in the diagram",
+                              "All attribute types must be excluded from the diagram"]
+
+    return_type_choices = ["All return types of methods must be included in the diagram",
+                           "All return types of methods must be excluded from the diagram"]
+
+    access_choices = ["All access modifiers methods must be included in the diagram",
+                      "You are allowed to omit some but not all access modifiers from the diagram",
+                      "All access modifiers methods must be excluded from the diagram"]
+
+    parameter_choices = ["All method parameters must be included in the diagram",
+                         "All method parameters must be excluded from the diagram"]
+
+    aggregation_choices = [
+        "You should represent aggregation relationships into association relationships with multiplicities.",
+        ""]
+    composition_choices = [
+        "You should represent composition relationships into association relationships with multiplicities.",
+        ""]
+    """
+    NEW ADDITION
+    """
+    parameter_type_choices = ["All method parameter types must be included in the diagram",
+                              "All method parameter types must be excluded from the diagram"]
+
+    relationship_choices = ["All relationships must be included in the diagram",
+                            "You are allowed to omit some but not all relationships from the diagram"]
 
 
 if __name__ == "__main__":
