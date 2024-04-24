@@ -1,4 +1,4 @@
-selected_choices = ""
+prompt_commands = []
 
 
 def get_input(prompt, valid_options):
@@ -14,9 +14,20 @@ def get_input(prompt, valid_options):
                 f"Invalid input. Please choose one of the following: {', '.join(valid_options)}")
 
 
-def compare_and_record(options, choices):
+def compare_and_record_multi(selected, choices):
+    if selected == "all":
+        prompt_commands.append(choices[0])
+    elif selected == "some":
+        prompt_commands.append(choices[1])
+    elif selected == "none":
+        prompt_commands.append(choices[2])
 
-    test = ""
+
+def compare_and_record_binary(selected, choices):
+    if selected == "yes":
+        prompt_commands.append(choices[0])
+    elif selected == "no":
+        prompt_commands.append(choices[1])
 
 
 def main():
@@ -44,6 +55,8 @@ def main():
         "Include parameter names (yes/no): ", options_yes_no)
     parameter_types = get_input(
         "Include parameter types (yes/no): ", options_yes_no)
+    relationships = get_input(
+        "Include relationships (all/some): ", ["all", "some"])
     convert_aggregation = get_input(
         "Convert aggregation relationships into association relationships with multiplicities (yes/no): ",
         options_yes_no)
@@ -86,10 +99,10 @@ def main():
                          "You are allowed to omit some but not all attributes from the diagram",
                          "All attributes must be excluded from the diagram"]
 
-    attribute_type_choices = ["All attribute types must be included in the diagram",
+    attribute_type_choices = ["All attribute types must be included in the diagram", "",
                               "All attribute types must be excluded from the diagram"]
 
-    return_type_choices = ["All return types of methods must be included in the diagram",
+    return_type_choices = ["All return types of methods must be included in the diagram", "",
                            "All return types of methods must be excluded from the diagram"]
 
     access_choices = ["All access modifiers must be included in the diagram",
@@ -105,14 +118,56 @@ def main():
     composition_choices = [
         "You should represent composition relationships into association relationships with multiplicities.",
         ""]
-    """
-    NEW ADDITION
-    """
+
     parameter_type_choices = ["All method parameter types must be included in the diagram",
                               "All method parameter types must be excluded from the diagram"]
 
     relationship_choices = ["All relationships must be included in the diagram",
-                            "You are allowed to omit some but not all relationships from the diagram"]
+                            "You are allowed to omit some but not all relationships from the diagram", ""]
+
+    prompt_commands.append(
+        "Ask the user if they would like to provide further files, if not proceed, if they do, wait for them to provide further files and repeat step 1.")
+    prompt_commands.append(
+        "List all the classes provided by the user, along with a one sentence description.")
+    prompt_commands.append(
+        "Ask the user if they would like to provide further files, if not proceed, if they do, wait for them to provide further files and repeat step 1.")
+
+    compare_and_record_multi(getters, getter_choices)
+    compare_and_record_multi(setters, setter_choices)
+    compare_and_record_multi(methods, method_choices)
+    compare_and_record_multi(constructors, constructor_choices)
+    compare_and_record_multi(attributes, attribute_choices)
+    compare_and_record_multi(attribute_types, attribute_type_choices)
+    compare_and_record_multi(return_types, return_type_choices)
+    compare_and_record_multi(access_modifiers, access_choices)
+    compare_and_record_multi(relationships, relationship_choices)
+
+    compare_and_record_binary(parameter_names, parameter_choices)
+    compare_and_record_binary(parameter_types, parameter_type_choices)
+    compare_and_record_binary(convert_aggregation, aggregation_choices)
+    compare_and_record_binary(convert_composition, composition_choices)
+
+    prompt_commands.append(
+        "Empty classes, i.e classes that would have no body in the diagram should not be included in the diagram.")
+    prompt_commands.append(
+        "Create a class diagram which reflects the above instructions, in PlantUML syntax")
+    prompt_commands.append(
+        "Ensure that the correct PlantUML syntax specifications are followed an no artifacts are included in the resulting diagram.")
+    prompt_commands.append(
+        "Go back to step 4 and ensure that all instructions were followed properly, if any mistakes are found fix the mistakes and go back to step 4 to restart the final checking process.")
+    prompt_commands.append(
+        "Say 'Ad Astra Aspera' and finish")
+    prompt_commands.append(
+        "Create a class diagram which reflects the above instructions, in PlantUML syntax")
+
+    with open("prompt.txt", "w") as file:
+        file.write("""You should perform the following actions in this order to create a PlantUML class diagram from code, once a user has 
+submitted a prompt. It is extremely important that you follows this exact 
+sequence of actions in order to develop a coherent chain of thought.\n""")
+
+        for index, command in enumerate(prompt_commands):
+            if (command != ""):
+                file.write(f"{index+1}. {command}\n")
 
 
 if __name__ == "__main__":
