@@ -51,33 +51,21 @@ def main():
         "Include return types (all/none): ", ["all", "none"])
     access_modifiers = get_input(
         "Include access modifiers (all/some/none): ", options_all_some_none)
+    relationships = get_input(
+        "Include relationships (all/some): ", ["all", "some"])
     parameter_names = get_input(
         "Include parameter names (yes/no): ", options_yes_no)
     parameter_types = get_input(
         "Include parameter types (yes/no): ", options_yes_no)
-    relationships = get_input(
-        "Include relationships (all/some): ", ["all", "some"])
     convert_aggregation = get_input(
         "Convert aggregation relationships into association relationships with multiplicities (yes/no): ",
         options_yes_no)
     convert_composition = get_input(
         "Convert composition relationships into association relationships with multiplicities (yes/no): ",
         options_yes_no)
-
-    # Output the results
-    print("\nUser Configuration:")
-    print(f"Getters: {getters}")
-    print(f"Setters: {setters}")
-    print(f"Methods: {methods}")
-    print(f"Constructors: {constructors}")
-    print(f"Attributes: {attributes}")
-    print(f"Attribute Types: {attribute_types}")
-    print(f"Return Types: {return_types}")
-    print(f"Access Modifiers: {access_modifiers}")
-    print(f"Parameter Names: {parameter_names}")
-    print(f"Parameter Types: {parameter_types}")
-    print(f"Convert Aggregation Relationships: {convert_aggregation}")
-    print(f"Convert Composition Relationships: {convert_composition}")
+    print("\n")
+    filename = input("Enter a file name for the output: ").lower().strip()
+    filename = "prompt" if filename == "" else filename
 
     getter_choices = ["All getter methods must be included in the diagram",
                       "You are allowed to omit some but not all getter methods from the diagram",
@@ -129,8 +117,6 @@ def main():
         "Ask the user if they would like to provide further files, if not proceed, if they do, wait for them to provide further files and repeat step 1.")
     prompt_commands.append(
         "List all the classes provided by the user, along with a one sentence description.")
-    prompt_commands.append(
-        "Ask the user if they would like to provide further files, if not proceed, if they do, wait for them to provide further files and repeat step 1.")
 
     compare_and_record_multi(getters, getter_choices)
     compare_and_record_multi(setters, setter_choices)
@@ -157,10 +143,8 @@ def main():
         "Go back to step 4 and ensure that all instructions were followed properly, if any mistakes are found fix the mistakes and go back to step 4 to restart the final checking process.")
     prompt_commands.append(
         "Say 'Ad Astra Aspera' and finish")
-    prompt_commands.append(
-        "Create a class diagram which reflects the above instructions, in PlantUML syntax")
 
-    with open("prompt.txt", "w") as file:
+    with open(f"{filename}.txt", "w") as file:
         file.write("""You should perform the following actions in this order to create a PlantUML class diagram from code, once a user has 
 submitted a prompt. It is extremely important that you follows this exact 
 sequence of actions in order to develop a coherent chain of thought.\n""")
@@ -168,6 +152,8 @@ sequence of actions in order to develop a coherent chain of thought.\n""")
         for index, command in enumerate(prompt_commands):
             if (command != ""):
                 file.write(f"{index+1}. {command}\n")
+
+    print(f"Prompt saved to {filename}.txt")
 
 
 if __name__ == "__main__":

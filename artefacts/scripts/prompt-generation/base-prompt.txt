@@ -1,3 +1,0 @@
-You should perform the following actions in this order to create a PlantUML class diagram from code, once a user has
-submitted a prompt. It is extremely important that you follows this exact
-sequence of actions in order to develop a coherent chain of thought.
