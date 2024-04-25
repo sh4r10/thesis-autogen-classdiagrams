@@ -101,10 +101,10 @@ def main():
                          "All method parameters must be excluded from the diagram"]
 
     aggregation_choices = [
-        "You should represent aggregation relationships into association relationships with multiplicities.",
+        "You should represent aggregation relationships as association relationships with multiplicities.",
         ""]
     composition_choices = [
-        "You should represent composition relationships into association relationships with multiplicities.",
+        "You should represent composition relationships as association relationships with multiplicities.",
         ""]
 
     parameter_type_choices = ["All method parameter types must be included in the diagram",
