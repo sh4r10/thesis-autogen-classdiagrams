@@ -47,6 +47,10 @@ class Job {
     impacthunger : int
     impacehygiene : int
     impactfun : int
+    title : String
+    client : String
+    image : String
+    message : String
 }
 class Food{
     valuedog : int
