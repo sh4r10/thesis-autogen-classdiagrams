@@ -45,7 +45,7 @@ class UserBuilder {
 class Job {
     impactenergy : int
     impacthunger : int
-    impacehygiene : int
+    impactehygiene : int
     impactfun : int
     title : String
     client : String
