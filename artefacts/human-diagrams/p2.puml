@@ -49,10 +49,10 @@ class Job {
     impactfun : int
 }
 class Food{
-    valueDog : int
-    valueCat : int
-    valueFish : int
-    valuePenguin : int
+    valuedog : int
+    valuecat : int
+    valuefish : int
+    valuepenguin : int
 }
 class Upgrade{
     property : String
