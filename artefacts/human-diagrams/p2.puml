@@ -116,14 +116,6 @@ Upgrade --|> Item
 PetBuilder "1..* " --> "1 " Pet
 UserBuilder -d-> "builds" User
 
-together {
-    class UserBuilder
-    class PetBuilder
-    class Pet
-    class User
-}
-
-
 Job "1..*  " --o "1..*"Pet
 Item "1..*" -r-o "1..*" Pet : \t\t
 RaiseMeUp -l-> "visit" ItemVisitor : \t
