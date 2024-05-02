@@ -22,7 +22,7 @@ class Pet {
     fun : int
     hygiene : int
     age : int
-    owneditems : List<Item>
+    owneditems: Map<Item, Integer>
     money : int
     image : String
 }
