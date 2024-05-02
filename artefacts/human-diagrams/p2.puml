@@ -63,10 +63,10 @@ class Upgrade{
     species : String
 }
 class Item {
-    -int id
-    -String name
-    -int price
-    -String image
+    -id : int
+    -name : String
+    -price : int
+    -image : String
     +setId(int id): void
     +setName(String name): void
     +setPrice(int price): void
