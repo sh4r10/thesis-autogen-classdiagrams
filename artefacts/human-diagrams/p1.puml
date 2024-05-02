@@ -16,11 +16,11 @@ class PreGameSelection {
     -diff: View
     -animal: View
     -background: View
-    setDiff(view: View)
-    setAnimal(view: View)
-    setBackground(view: View)
-    goToSinglePlayer(view: View)
-    goToTitlePage(view: View)
+    + setDiff(view: View)
+    + setAnimal(view: View)
+    + setBackground(view: View)
+    + goToSinglePlayer(view: View)
+    + goToTitlePage(view: View)
 }
 
 class SinglePlayer {
@@ -29,21 +29,21 @@ class SinglePlayer {
     -NUM_WORDS: int
     -bg: int
     + #onCreate(savedInstanceState: Bundle)
-    onKeyDown(key: int, event: Keyevent)
-    initialDisplay(animalID: Drawable, backgroundID: Drawable)
-    displayWord(wordIndex: int, word: String)
-    displayTime(secondsLeft: long)
-    displayScore(score: int)
-    highlightWord(wordIndex: int, word: String, letterIndex: int)
-    update(Obervable, Object)
-    goToPostGame()
+    + onKeyDown(key: int, event: Keyevent)
+    + initialDisplay(animalID: Drawable, backgroundID: Drawable)
+    + displayWord(wordIndex: int, word: String)
+    + displayTime(secondsLeft: long)
+    + displayScore(score: int)
+    + highlightWord(wordIndex: int, word: String, letterIndex: int)
+    + update(Obervable, Object)
+    + goToPostGame()
 
 }
 
 class PostGameScreen {
     + #onCreate()
-    goToTitlePage(view: View)
-    goToPreGameSelection(view: View)
+    + goToTitlePage(view: View)
+    + goToPreGameSelection(view: View)
 }
 class SinglePlayerModel {
     -currWordIndex: int
