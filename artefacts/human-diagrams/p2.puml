@@ -63,10 +63,6 @@ class Item {
     -name : String
     -price : int
     -image : String
-    +setId(int id): void
-    +setName(String name): void
-    +setPrice(int price): void
-    +setImage(String image): void
 }
 class ItemVisitor {
     +visit(Food): int
