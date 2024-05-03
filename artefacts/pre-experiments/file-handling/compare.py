@@ -141,6 +141,10 @@ def compare_parameters(params1, params2):
                 stats["minor"]["fp"] += 1
             elif type2 == "<none>":
                 stats["minor"]["fn"] += 1
+         # TODO: double check this
+            else:
+                stats["minor"]["fn"] += 1
+                stats["minor"]["fp"] += 1
 
     if len(detailed_diff) == 0:
         stats["minor"]["tp"] += 1
@@ -354,10 +358,11 @@ def compare_relationships(rels1, rels2):
                     continue
                 differences.append(
                     f"  {attr}: (Human: '{value1}', GPT: '{value2}')")
-                if value1 == "<none>":
-                    stats["minor"]["fp"] += 1
-                elif value2 == "<none":
-                    stats["minor"]["fn"] += 1
+                # TODO: double check this
+                # if value1 == "<none>":
+                #     stats["minor"]["fp"] += 1
+                # elif value2 == "<none":
+                #     stats["minor"]["fn"] += 1
 
         if differences:
             errors.append(
