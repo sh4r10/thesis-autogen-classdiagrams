@@ -64,7 +64,7 @@ class SinglePlayerModel {
 
 
 TitlePage -down-> "creates" PreGameSelection
-PreGameSelection -right-> "creates" SinglePlayer
+PreGameSelection -right-> SinglePlayer : "creates"
 SinglePlayer -down-> SinglePlayerModel : "creates"
 SinglePlayer -right-> PostGameScreen : "creates"
 GameTimer -down-> "creates" SinglePlayer
