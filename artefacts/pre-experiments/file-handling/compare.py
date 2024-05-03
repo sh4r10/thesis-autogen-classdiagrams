@@ -1,4 +1,4 @@
-import sys, os, pickle, argparse
+import os, pickle, argparse
 from rich import print
 from rich.pretty import pprint
 import re
@@ -421,5 +421,3 @@ if __name__ == "__main__":
         dir = args.dir if args.dir else "."
         with open(dir+'/'+args.file+'.pkl', 'wb') as file:
             pickle.dump(stats, file)
-            
-    
