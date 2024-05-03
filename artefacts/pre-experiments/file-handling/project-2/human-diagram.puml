@@ -1,0 +1,126 @@
+@startuml
+class PetBuilder {
+    name : String
+    type : String
+    variant : String
+    image : String
+    owner : int
+
+    setOwner(int) : PetBuilder
+    setType(String) : PetBuilder
+    setVariant(String) : PetBuilder
+    setImage(String) : PetBuilder
+    setName(String) : PetBuilder
+    createPet() : Pet
+}
+
+class Pet {
+    owner : int
+    name : String
+    hunger : int
+    energy : int
+    fun : int
+    hygiene : int
+    age : int
+    owneditems: Map<Item, Integer>
+    money : int
+    image : String
+}
+class User {
+    username : String
+    email : String
+    password : String
+}
+class UserBuilder {
+    username : String
+    email : String
+    password : String
+
+    createUser() :  User
+    setEmail(String) : UserBuilder
+    setUsername(String) : UserBuilder
+    setPassword()String) : UserBuilder
+}
+
+class Job {
+    impactenergy : int
+    impacthunger : int
+    impacthygiene : int
+    impactfun : int
+    title : String
+    client : String
+    image : String
+    message : String
+}
+class Food{
+    valuedog : int
+    valuecat : int
+    valuefish : int
+    valuepenguin : int
+}
+class Upgrade{
+    property : String
+    species : String
+}
+class Item {
+    -id : int
+    -name : String
+    -price : int
+    -image : String
+}
+class ItemVisitor {
+    +visit(Food): int
+    +visit(Upgrade): int
+}
+
+class RaiseMeUp {
+    raiseMeUpDAO : DAO
+    newUser() : Boolean
+    removeUser(u : User) : Boolean
+    removePet(p : Pet) : Boolean
+    modifyPet() : void
+    newJob() : Boolean
+    removeJob( j : Job) : Boolean
+    doesUserExist() : Boolean
+    doesPetExist() : Boolean
+}
+
+class DAO {
+    addUser(): boolean
+    delUser(): boolean
+    listUser(): Map
+    addPet(): boolean
+    delPet(): boolean
+    listPet(): Map
+    addFood(): boolean
+    delFood(): boolean
+    listFood(): Map
+    addUpgrade(): boolean
+    delUpgrade(): boolean
+    listUpgrade(): Map
+    addJob(): boolean
+    delJob(): boolean
+    listJob(): Map
+    addOwned() : boolean
+    deleteOwned() :  boolean
+}
+Upgrade -[hidden] Food
+
+Food --|> Item
+Upgrade --|> Item
+
+PetBuilder "1..* " --> "1 " Pet
+UserBuilder -d-> "builds" User
+
+Job "1..*  " --o "1..*"Pet
+Item "1..*" -r-o "1..*" Pet : \t\t
+RaiseMeUp -l-> "visit" ItemVisitor : \t
+Food "1..*"--"1..*   " Pet
+
+Job "1..*" --o "1 " RaiseMeUp
+User "1..*" --o "1 " RaiseMeUp
+Pet "1..*" --o "1  " RaiseMeUp
+
+DAO "1"--> "      1" DAO : "Singelton"
+DAO -l-* RaiseMeUp : \t
+@enduml

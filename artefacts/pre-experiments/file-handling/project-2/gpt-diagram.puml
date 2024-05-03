@@ -1,0 +1,147 @@
+@startuml
+
+class ItemVisitor {
+    +visit(Food): int
+    +visit(Upgrade): int
+}
+
+class DAO {
+    -users : Map<Integer, User>
+    -pets : Map<Integer, Pet>
+    -foods : Map<Integer, Food>
+    -upgrades : Map<Integer, Upgrade>
+    -jobs : Map<Integer, Job>
+    +addUser(User): boolean
+    +getUser(): Map<Integer, User>
+    +delUser(User): boolean
+    +updateUser(User): boolean
+    +addPet(Pet): boolean
+    +getPet(): Map<Integer, Pet>
+    +delPet(Pet): boolean
+    +updatePet(Pet): boolean
+    +addFood(Food): boolean
+    +getFood(): Map<Integer, Food>
+    +delFood(Food): boolean
+    +updateFood(Food): boolean
+    +addUpgrade(Upgrade): boolean
+    +getUpgrade(): Map<Integer, Upgrade>
+    +delUpgrade(Upgrade): boolean
+    +updateUpgrade(Upgrade): boolean
+    +addJob(Job): boolean
+    +getJob(): Map<Integer, Job>
+    +delJob(Job): boolean
+    +updateJob(Job): boolean
+}
+
+class Item {
+    -id : int
+    -name : String
+    -price : int
+    -image : String
+    +setId(int): void
+    +setName(String): void
+    +setPrice(int): void
+    +setImage(String): void
+}
+
+class Job {
+    -id : int
+    -impactenergy : int
+    -impacthunger : int
+    -impacthygiene : int
+    -impactfun : int
+    -title : String
+    -length : int
+    -image : String
+    -client : String
+    -message : String
+    -reward : int
+    -species : String
+}
+
+class UserBuilder {
+    -id : int
+    -email : String
+    -username : String
+    -password : String
+    +createUser(): User
+}
+
+class Pet {
+    -petid : int
+    -owner : int
+    -name : String
+    -type : String
+    -variant : String
+    -hunger : int
+    -energy : int
+    -fun : int
+    -hygiene : int
+    -age : int
+    -money : int
+    -image : String
+    -owneditems : Map<Item, Integer>
+    -ownedjobs : Map<Job, Integer>
+    +setName(String): void
+    +setHunger(int): void
+    +setEnergy(int): void
+    +setFun(int): void
+    +setHygiene(int): void
+    +setAge(int): void
+    +setMoney(int): void
+    +setType(String): void
+    +setVariant(String): void
+    +setImage(String): void
+    +setOwner(int): void
+    +setPetid(int): void
+}
+
+class Food {
+    -valuedog : int
+    -valuecat : int
+    -valuefish : int
+    -valuepenguin : int
+    +setValuedog(int): void
+    +setValuecat(int): void
+    +setValuefish(int): void
+    +setValuepenguin(int): void
+}
+
+class PetBuilder {
+    -owner : int
+    -name : String
+    -type : String
+    -variant : String
+    -image : String
+    +createPet(): Pet
+}
+
+class User {
+    -id : int
+    -email : String
+    -username : String
+    -password : String
+    +setEmail(String): void
+    +setUsername(String): void
+    +setPassword(String): void
+}
+
+class RaiseMeUp {
+    +init(): void
+    +main(args: String[]): void
+}
+
+' Associations
+UserBuilder "1" -- "1" User
+PetBuilder "1" -- "1" Pet
+Item <|-- Food
+DAO "1" -- "0..*" User
+DAO "1" -- "0..*" Pet
+DAO "1" -- "0..*" Job
+DAO "1" -- "0..*" Food
+DAO "1" -- "0..*" Upgrade
+Pet "0..*" -- "0..*" Job : owns
+Pet "0..*" -- "0..*" Item : owns
+Upgrade <|-- Item
+@enduml
+

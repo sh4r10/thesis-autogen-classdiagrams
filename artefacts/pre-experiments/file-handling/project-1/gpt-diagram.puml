@@ -1,49 +1,78 @@
 @startuml
-skinparam classAttributeIconSize 0
 
 class TitlePage {
-    goToPreGameSelection(view : View)
-    goToPreGameSelectionMulti(view : View)
-    goToLeaderboard(view : View)
-    goToOptions(view : View)
+    - window : Window
+    + onCreate(savedInstanceState: Bundle) : void
+    + onCreateOptionsMenu(menu: Menu) : boolean
+    + goToPreGameSelection(view: View) : void
+    + goToPreGameSelectionMulti(view: View) : void
+    + goToLeaderboard(view: View) : void
+    + goToOptions(view: View) : void
+    + onBackPressed() : void
 }
 
 class PreGameSelection {
-    setDiff(view : View)
-    setAnimal(view : View)
-    setBackground(view : View)
-    goToSinglePlayer(view : View)
-    goToTitlePage(view : View)
+    - HIGHTLIGHT_COLOR : int
+    + onCreate(savedInstanceState: Bundle) : void
+    + onCreateOptionsMenu(menu: Menu) : boolean
+    + setDiff(view: View) : void
+    + setAnimal(view: View) : void
+    + setBackground(view: View) : void
+    + goToSinglePlayer(view: View) : void
+    + goToTitlePage(view: View) : void
+    + onBackPressed() : void
 }
 
 class SinglePlayer {
-    #typedLetter(letter : char)
-    pauseGame(view : View)
-    pausedContinue(view : View)
-    pausedNewGame(view : View)
-    pausedMainMenu(view : View)
-    goToPostGame()
+    - model : SinglePlayerModel
+    - bg : int
+    - ppw : PopupWindow
+    - gameTimer : GameTimer
+    + onCreate(savedInstanceState: Bundle) : void
+    + onCreateOptionsMenu(menu: Menu) : boolean
+    + onKeyDown(keyCode: int, event: KeyEvent) : boolean
+    + onPause() : void
+    + initialDisplay(animalID: Drawable, backgroundID: Drawable) : void
+    + displayWord(wordIndex: int, word: String) : void
+    + displayTime(secondsLeft: long) : void
+    + displayScore(score: int) : void
+    + highlightWord(wordIndex: int, word: String, letterIndex: int) : void
+    + update(o: Observable, arg: Object) : void
+    + keyboardButton(view: View) : void
+    + goToPostGame() : void
+    + pauseGame(view: View) : void
+    + pausedContinue(view: View) : void
+    + pausedNewGame(view: View) : void
+    + pausedMainMenu(view: View) : void
 }
 
 class SinglePlayerModel {
-    typedLetter(letter : char)
+    - numWordsDisplayed : int
+    - wordsList : String[]
+    - wordsDisplayed : int[]
+    - currWordIndex : int
+    - currLetterIndex : int
+    - nextWordIndex : int
+    - score : int
+    - am : AssetManager
+    + SinglePlayerModel(diff: States.difficulty, am: AssetManager, wordsDisplayed: int) : void
+    + populateDisplayedList() : void
+    + typedLetter(letter: char) : void
+    + updateWordsDisplayed() : void
 }
 
 class PostGameScreen {
-    goToTitlePage(view : View)
-    goToPreGameSelection(view : View)
+    + onCreate(savedInstanceState: Bundle) : void
+    + onBackPressed() : void
+    + onCreateOptionsMenu(menu: Menu) : boolean
+    + goToTitlePage(view: View) : void
+    + goToPreGameSelection(view: View) : void
 }
 
-TitlePage --> PreGameSelection : starts >
-TitlePage --> "PreGameSelectionMulti" : starts >
-TitlePage --> "Leaderboard" : starts >
-TitlePage --> "Options" : starts >
-PreGameSelection --> TitlePage : returns to >
-PreGameSelection --> SinglePlayer : starts >
-SinglePlayer --> PostGameScreen : navigates to >
-SinglePlayer --> PreGameSelection : returns to on pause >
-PostGameScreen --> TitlePage : returns to >
-PostGameScreen --> PreGameSelection : starts new game >
+TitlePage "1" --> "1" PreGameSelection
+PreGameSelection "1" --> "1" SinglePlayer
+SinglePlayer "1" --> "1" SinglePlayerModel
+SinglePlayer "1" --> "1" PostGameScreen
 
 @enduml
 

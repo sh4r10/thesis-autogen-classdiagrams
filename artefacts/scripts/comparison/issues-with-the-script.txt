@@ -1,0 +1,5 @@
+<none> <none> considered as differences in method visiblility
+picks up the { in the class name
+inverse of relationships should be true
+<none> to <none> relationship
+rel symbols should be correct
