@@ -1,4 +1,4 @@
-import sys
+import sys, os, pickle, argparse
 from rich import print
 from rich.pretty import pprint
 import re
@@ -360,12 +360,12 @@ def compare_relationships(rels1, rels2):
                 elif attr == "rel_type_from" and not reversible: 
                     if value1 == "<none>":
                          stats["moderate"]["fp"] += 1
-                     elif value2 == "<none>":
+                    elif value2 == "<none>":
                          stats["moderate"]["fn"] += 1
-                     else:
+                    else:
                          stats["moderate"]["fp"] += 1
                          stats["moderate"]["fn"] += 1
-                 elif attr != "rel_type_to":
+                elif attr != "rel_type_to":
                      if value1 == "<none>":
                          stats["minor"]["fp"] += 1
                      elif value2 == "<none>":
@@ -400,13 +400,26 @@ def print_stats():
     pprint(stats, expand_all=True)
 
 if __name__ == "__main__":
-    if (len(sys.argv) < 3):
-        print("Usage: {:s} <human> <ai>".format(sys.argv[0]))
-        sys.exit(1)
+    parser = argparse.ArgumentParser("compare.py");
+    parser.add_argument('human_diagram')
+    parser.add_argument('gpt_diagram')
+    parser.add_argument('-f', '--file', action='store')
+    parser.add_argument('-d', '--dir', action='store')
 
-    file1, file2 = sys.argv[1], sys.argv[2]
+    args = parser.parse_args()
+    file1, file2 = args.human_diagram, args.gpt_diagram
     (classes_file1, rels_file1) = parse_plantuml(file1)
     (classes_file2, rels_file2) = parse_plantuml(file2)
     compare_classes(classes_file1, classes_file2)
     compare_relationships(rels_file1, rels_file2)
     print_stats();
+    
+    if(args.file != ""):
+        if args.dir and not os.path.exists(args.dir):
+            os.makedirs(args.dir)
+
+        dir = args.dir if args.dir else "."
+        with open(dir+'/'+args.file+'.pkl', 'wb') as file:
+            pickle.dump(stats, file)
+            
+    
