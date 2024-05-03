@@ -353,16 +353,26 @@ def compare_relationships(rels1, rels2):
         for attr in ["label", "text_from", "text_to", "rel_line", "rel_type_from", "rel_type_to"]:
             value1 = rel1.get(attr, "<none>")
             value2 = rel2.get(attr, "<none>")
+
             if value1 != value2:
                 if (attr == "rel_type_from" or attr == "rel_type_to" ) and reversible: 
                     continue
+                elif attr == "rel_type_from" and not reversible: 
+                    if value1 == "<none>":
+                         stats["moderate"]["fp"] += 1
+                     elif value2 == "<none>":
+                         stats["moderate"]["fn"] += 1
+                     else:
+                         stats["moderate"]["fp"] += 1
+                         stats["moderate"]["fn"] += 1
+                 elif attr != "rel_type_to":
+                     if value1 == "<none>":
+                         stats["minor"]["fp"] += 1
+                     elif value2 == "<none>":
+                         stats["minor"]["fn"] += 1
+
                 differences.append(
                     f"  {attr}: (Human: '{value1}', GPT: '{value2}')")
-                # TODO: double check this
-                # if value1 == "<none>":
-                #     stats["minor"]["fp"] += 1
-                # elif value2 == "<none":
-                #     stats["minor"]["fn"] += 1
 
         if differences:
             errors.append(
