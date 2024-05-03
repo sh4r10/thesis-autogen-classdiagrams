@@ -29,7 +29,7 @@ class SinglePlayer {
     -NUM_WORDS: int
     -bg: int
     + #onCreate(savedInstanceState: Bundle)
-    + onKeyDown(key: int, event: Keyevent)
+    + onKeyDown(key: int, event: KeyEvent)
     + initialDisplay(animalID: Drawable, backgroundID: Drawable)
     + displayWord(wordIndex: int, word: String)
     + displayTime(secondsLeft: long)
