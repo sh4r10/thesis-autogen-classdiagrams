@@ -11,7 +11,7 @@ def get_f1_scores(target_dir):
         "minor": [],       
     }
     for filename in os.listdir(target_dir):
-        if filename.endswith(".pkl"):
+        if filename.endswith(".stat"):
             files.append(filename)
             with open(os.path.join(target_dir, filename), 'rb') as file:
                 loaded_dict = pickle.load(file)

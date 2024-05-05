@@ -419,5 +419,5 @@ if __name__ == "__main__":
             os.makedirs(args.dir)
 
         dir = args.dir if args.dir else "."
-        with open(dir+'/'+args.file+'.pkl', 'wb') as file:
+        with open(dir+'/'+args.file+'.stat', 'wb') as file:
             pickle.dump(stats, file)
