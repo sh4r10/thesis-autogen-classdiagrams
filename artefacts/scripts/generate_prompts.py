@@ -29,7 +29,7 @@ def compare_and_record_binary(selected, choices, commands):
 
 def main():
     options_yes_no = ["yes", "no"]
-    options_yes_some_no = ["yes", "some", "none"]
+    options_yes_some_no = ["yes", "some", "no"]
 
     # Collect user responses
     getters = get_input("Include getters (yes/some/no): ",
