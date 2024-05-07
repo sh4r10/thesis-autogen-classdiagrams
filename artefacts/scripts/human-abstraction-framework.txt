@@ -1,4 +1,5 @@
-GPT is allowed to and should within reason try to make the following abstractions over the code in the generated diagram:
+GPT is allowed to and should, within reason, try to make the following
+abstractions over the code in the generated diagram:
 
 [Attributes]
 Attribute omission: Attributes in the source code are not shown in the
@@ -36,3 +37,4 @@ composition or aggregation).
 Relationship summary: For two classes that access each others’ values
 indirectly via a third class in the source code a direct association is shown
 in the model.
+

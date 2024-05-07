@@ -12,11 +12,11 @@ def get_input(prompt, valid_options):
 
 
 def compare_and_record_multi(selected, choices, commands):
-    if selected == "all":
+    if selected == "yes":
         commands.append(choices[0])
     elif selected == "some":
         commands.append(choices[1])
-    elif selected == "none":
+    elif selected == "no":
         commands.append(choices[2])
 
 
@@ -29,27 +29,27 @@ def compare_and_record_binary(selected, choices, commands):
 
 def main():
     options_yes_no = ["yes", "no"]
-    options_all_some_none = ["all", "some", "none"]
+    options_yes_some_no = ["yes", "some", "none"]
 
     # Collect user responses
-    getters = get_input("Include getters (all/some/none): ",
-                        options_all_some_none)
-    setters = get_input("Include setters (all/some/none): ",
-                        options_all_some_none)
-    methods = get_input("Include methods (all/some/none): ",
-                        options_all_some_none)
+    getters = get_input("Include getters (yes/some/no): ",
+                        options_yes_some_no)
+    setters = get_input("Include setters (yes/some/no): ",
+                        options_yes_some_no)
+    methods = get_input("Include methods (yes/some/no): ",
+                        options_yes_some_no)
     constructors = get_input(
-        "Include constructors (all/some/none): ", options_all_some_none)
+        "Include constructors (yes/some/no): ", options_yes_some_no)
     attributes = get_input(
-        "Include attributes (all/some/none): ", options_all_some_none)
+        "Include attributes (yes/some/no): ", options_yes_some_no)
     attribute_types = get_input(
-        "Include attribute types (all/none): ", ["all", "none"])
+        "Include attribute types (yes/no): ", options_yes_no)
     return_types = get_input(
-        "Include return types (all/none): ", ["all", "none"])
+        "Include return types (yes/no): ", options_yes_no)
     access_modifiers = get_input(
-        "Include access modifiers (all/some/none): ", options_all_some_none)
+        "Include access modifiers (yes/some/no): ", options_yes_some_no)
     relationships = get_input(
-        "Include relationships (all/some): ", ["all", "some"])
+        "Include relationships (yes/no): ", ["yes", "some"])
     parameter_names = get_input(
         "Include parameter names (yes/no): ", options_yes_no)
     parameter_types = get_input(
