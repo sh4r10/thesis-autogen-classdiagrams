@@ -134,7 +134,10 @@ def compare_parameters(params1, params2):
             detailed_diff.append(
                 f"    Parameter '{name}' of type '{type1}' is only in Human diagram.")
             stats["minor"]["fn"] += 1
-        elif type1 != type2:
+        else:
+            stats["minor"]["tp"] += 1
+
+        if type1 != type2:
             detailed_diff.append(
                 f"    Parameter '{name}' has different types (Human: '{type1}', GPT: '{type2}').")
             if type1 == "<none>":
@@ -145,9 +148,8 @@ def compare_parameters(params1, params2):
             else:
                 stats["minor"]["fn"] += 1
                 stats["minor"]["fp"] += 1
-
-    if len(detailed_diff) == 0:
-        stats["minor"]["tp"] += 1
+        else:
+            stats["minor"]["tp"] += 1
 
     # Return the collected differences as a string if there are any
     return "\n  ".join(detailed_diff) if detailed_diff else None
@@ -186,6 +188,8 @@ def compare_methods(methods1, methods2, missing):
                 stats["minor"]["fp"] += 1
             elif m2['visibility'] == "<none>":
                 stats["minor"]["fn"] += 1
+        else:
+            stats["minor"]["tp"] += 1
         if m1['methodType'] != m2['methodType']:
             differences.append(
                 f"    Return Type (Human: '{m1['methodType']}', GPT: '{m2['methodType']}')")
@@ -193,6 +197,8 @@ def compare_methods(methods1, methods2, missing):
                 stats["minor"]["fp"] += 1
             elif m2['methodType'] == "<none>":
                 stats["minor"]["fn"] += 1
+        else:
+            stats["minor"]["tp"] += 1
 
         param_diff = compare_parameters(m1["parameters"], m2["parameters"])
         if param_diff:
@@ -236,6 +242,8 @@ def compare_attributes(attrs1, attrs2, missing):
                     stats["minor"]["fp"] += 1
                 elif visibility2 == "<none>":
                     stats["minor"]["fn"] += 1
+            else:
+                stats["minor"]["tp"] += 1
 
             if type1 != type2:
                 differences.append(
@@ -244,6 +252,9 @@ def compare_attributes(attrs1, attrs2, missing):
                     stats["minor"]["fp"] += 1
                 elif type2 == "<none>":
                     stats["minor"]["fn"] += 1
+            else:
+                stats["minor"]["tp"] += 1
+
             if differences:
                 missing.append(f"  Attribute '{name}' has different: \n" +
                                "\n".join(differences))
@@ -346,9 +357,12 @@ def compare_relationships(rels1, rels2):
                 f"Relationship from '{key[0]}' to '{key[1]}' exists only in the Human diagram")
             stats["major"]["fn"] += 1
             continue
+        
+        if rel1 and rel2 and reversible:
+            stats["major"]["tp"] += 1
 
         # Compare each attribute within the relationship dictionaries
-       
+
 
         differences = []
         for attr in ["label", "text_from", "text_to", "rel_line", "rel_type_from", "rel_type_to"]:
@@ -357,6 +371,7 @@ def compare_relationships(rels1, rels2):
 
             if value1 != value2:
                 if (attr == "rel_type_from" or attr == "rel_type_to" ) and reversible: 
+                    stats["moderate"]["tp"] += 1
                     continue
                 elif attr == "rel_type_from" and not reversible: 
                     if value1 == "<none>":
@@ -371,6 +386,8 @@ def compare_relationships(rels1, rels2):
                          stats["minor"]["fp"] += 1
                      elif value2 == "<none>":
                          stats["minor"]["fn"] += 1
+                     else:
+                         stats["minor"]["tp"] += 1
 
                 differences.append(
                     f"  {attr}: (Human: '{value1}', GPT: '{value2}')")
@@ -381,7 +398,6 @@ def compare_relationships(rels1, rels2):
         else:
             print(
                 f"Relationship from '{key[0]}' to '{key[1]}' is identical in both lists.")
-            stats["major"]["tp"] += 1
     if len(errors) > 0:
         print("\n# RELATIONSHIP DIFFERENCES")
     for err in errors:
