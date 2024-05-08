@@ -1,0 +1,23 @@
+@startuml
+class PostGameScreen {
+    + onBackPressed()
+}
+class PreGameSelection {
+    + onBackPressed()
+}
+class SinglePlayer {
+    + onPause()
+    + initialDisplay()
+    + highlightWord()
+    + pauseGame()
+    + pausedContinue()
+    + pausedNewGame()
+    + pausedMainMenu()
+}
+class for {
+    + populateDisplayedList()
+}
+class TitlePage {
+    + onBackPressed()
+}
+@enduml

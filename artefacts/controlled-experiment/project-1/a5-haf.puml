@@ -1,0 +1,48 @@
+@startuml
+
+class SinglePlayer {
+    - model : SinglePlayerModel
+    - NUM_WORDS : int
+    - bg : int
+    - ppw : PopupWindow
+    - popUpParams : LayoutParams
+    - popUpLayout : LinearLayout
+    - currentTime : long
+    - pausedTime : long
+    - gameTimer : GameTimer
+    - INTERVAL : long
+    - START_TIME : long
+    - paused : boolean
+    + onCreate(savedInstanceState : Bundle) : void
+    + onCreateOptionsMenu(menu : Menu) : boolean
+}
+
+class SinglePlayerModel {
+    - score : int
+    - gameOver : boolean
+}
+
+class PreGameSelection {
+    + onCreate(savedInstanceState : Bundle) : void
+    + onCreateOptionsMenu(menu : Menu) : boolean
+}
+
+class PostGameScreen {
+    + onCreate(savedInstanceState : Bundle) : void
+    + onCreateOptionsMenu(menu : Menu) : boolean
+}
+
+class TitlePage {
+    + onCreate(savedInstanceState : Bundle) : void
+    + onCreateOptionsMenu(menu : Menu) : boolean
+    + goToPreGameSelection(view : View) : void
+    + goToLeaderboard(view : View) : void
+    + goToOptions(view : View) : void
+}
+
+SinglePlayer "1" -- "1" SinglePlayerModel
+SinglePlayer ..> PreGameSelection : navigates >
+TitlePage ..> PreGameSelection : navigates >
+TitlePage ..> SinglePlayer : navigates >
+
+@enduml

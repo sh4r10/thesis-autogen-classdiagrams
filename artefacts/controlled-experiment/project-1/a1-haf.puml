@@ -1,0 +1,34 @@
+@startuml
+
+class PostGameScreen {
+    +onCreate(Bundle savedInstanceState) : void
+    +onCreateOptionsMenu(Menu menu) : boolean
+}
+
+class PreGameSelection {
+    +onCreate(Bundle savedInstanceState) : void
+    +onCreateOptionsMenu(Menu menu) : boolean
+}
+
+class SinglePlayer {
+    -model : SinglePlayerModel
+    +onCreate(Bundle savedInstanceState) : void
+    +onCreateOptionsMenu(Menu menu) : boolean
+}
+
+class SinglePlayerModel {
+    -assets : AssetManager
+    +addObserver(Observer o) : void
+    +removeObserver(Observer o) : void
+    +notifyObservers() : void
+}
+
+class TitlePage {
+    +onCreate(Bundle savedInstanceState) : void
+    +onCreateOptionsMenu(Menu menu) : boolean
+    +goToPreGameSelection(View view) : void
+    +goToLeaderboard(View view) : void
+    +goToOptions(View view) : void
+}
+
+@enduml

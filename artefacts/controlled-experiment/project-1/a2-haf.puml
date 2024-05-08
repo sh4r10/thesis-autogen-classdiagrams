@@ -1,0 +1,47 @@
+@startuml
+
+class PostGameScreen {
+    onCreateOptionsMenu(menu : Menu) : boolean
+    goToTitlePage(view : View)
+    goToPreGameSelection(view : View)
+    onBackPressed()
+}
+
+class PreGameSelection {
+    onCreateOptionsMenu(menu : Menu) : boolean
+    setDiff(view : View)
+    setAnimal(view : View)
+    setBackground(view : View)
+    goToSinglePlayer(view : View)
+    goToTitlePage(view : View)
+    onBackPressed()
+}
+
+class SinglePlayer {
+    onCreateOptionsMenu(menu : Menu) : boolean
+    onKeyDown(key : int, event : KeyEvent) : boolean
+    goToPostGame()
+    pausedMainMenu(view : View)
+    onFinish()
+    onTick(millisUntilFinished : long)
+}
+
+class SinglePlayerModel {
+    populateDisplayedList()
+    typedLetter(letter : char)
+    getScore() : int
+    getCurrWord() : String
+    getCurrWordIndex() : int
+    getCurrLetterIndex() : int
+}
+
+class TitlePage {
+    onCreateOptionsMenu(menu : Menu) : boolean
+    goToPreGameSelection(view : View)
+    goToPreGameSelectionMulti(view : View)
+    goToLeaderboard(view : View)
+    goToOptions(view : View)
+    onBackPressed()
+}
+
+@enduml

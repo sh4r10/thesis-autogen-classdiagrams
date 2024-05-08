@@ -1,0 +1,48 @@
+@startuml
+class PostGameScreen {
+    +onBackPressed()
+}
+PostGameScreen --|> Activity
+
+class PreGameSelection {
+    -diff : View
+    -animal : View
+    -background : View
+    +onBackPressed()
+}
+PreGameSelection --|> Activity
+
+class GameTimer {
+    -model : SinglePlayerModel
+    -bg : int
+    -ppw : PopupWindow
+    +popUpParams : LayoutParams
+    +popUpLayout : LinearLayout
+    -currentTime : long
+    -gameTimer : GameTimer
+    +onPause()
+    +initialDisplay(animalID : Drawable, backgroundID : Drawable)
+    +highlightWord( : int,  : String,  : int)
+    +pauseGame(view : View)
+    +pausedContinue(view : View)
+    +pausedNewGame(view : View)
+    +pausedMainMenu(view : View)
+}
+GameTimer --|> CountDownTimer
+
+class SinglePlayerModel {
+    -currWordIndex : int
+    -currLetterIndex : int
+    -nextWordIndex : int
+    -score : int
+    -am : AssetManager
+    +populateDisplayedList()
+}
+SinglePlayerModel --|> Observable
+
+class TitlePage {
+    +onBackPressed()
+}
+TitlePage --|> Activity
+
+@enduml
