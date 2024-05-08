@@ -173,6 +173,8 @@ def compare_methods(methods1, methods2, missing):
                 f"  Method '{name}' exists only in Human diagram.")
             stats["moderate"]["fn"] += 1
             continue
+        # Add a tp
+        stats["moderate"]["tp"] += 1
 
         m1 = method_dict1[name]
         m2 = method_dict2[name]
@@ -200,7 +202,6 @@ def compare_methods(methods1, methods2, missing):
                            "\n".join(differences))
         else:
             print(f"  Method '{name}' is identical in both files.")
-            stats["moderate"]["tp"] += 1
 
 
 def compare_attributes(attrs1, attrs2, missing):
@@ -224,6 +225,7 @@ def compare_attributes(attrs1, attrs2, missing):
                 f"  Attribute '{name}' of type '{type1}' missing in GPT diagram.")
             stats["moderate"]["fn"] += 1
         else:
+            stats["moderate"]["tp"] += 1
             visibility1, type1 = attr_dict1[name]
             visibility2, type2 = attr_dict2[name]
             differences = []
@@ -247,7 +249,6 @@ def compare_attributes(attrs1, attrs2, missing):
                                "\n".join(differences))
             else:
                 print(f"  Attribute '{name}' is identical in both files.")
-                stats["moderate"]["tp"] += 1
 
 
 def compare_classes(classes1, classes2):
