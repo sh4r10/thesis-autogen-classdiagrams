@@ -1,0 +1,93 @@
+@startuml
+class Activity {
+}
+
+class TitlePage extends Activity {
+    +onCreate(Bundle)
+    +onCreateOptionsMenu(Menu)
+    +goToPreGameSelection(View)
+    +goToPreGameSelectionMulti(View)
+    +goToLeaderboard(View)
+    +goToOptions(View)
+    +onBackPressed()
+}
+
+class PostGameScreen extends Activity {
+    +onCreate(Bundle)
+    +onBackPressed()
+    +onCreateOptionsMenu(Menu)
+    +goToTitlePage(View)
+    +goToPreGameSelection(View)
+}
+
+class PreGameSelection extends Activity {
+    -HIGHTLIGHT_COLOR : int
+    -diff : View
+    -animal : View
+    -background : View
+    +onCreate(Bundle)
+    +onCreateOptionsMenu(Menu)
+    +setDiff(View)
+    +setAnimal(View)
+    +setBackground(View)
+    +goToSinglePlayer(View)
+    +goToTitlePage(View)
+    +onBackPressed()
+}
+
+class SinglePlayerModel extends Observable {
+    -numWordsDisplayed : int
+    -wordsList : String[]
+    -wordsDisplayed : int[]
+    -currWordIndex : int
+    -currLetterIndex : int
+    -nextWordIndex : int
+    -score : int
+    -am : AssetManager
+    -currFirstLetters : Set<Character>
+    +SinglePlayerModel(States.difficulty, AssetManager, int)
+    +getWordsList(States.difficulty)
+    +populateDisplayedList()
+    +typedLetter(char)
+    +updateWordsDisplayed()
+    +getScore()
+    +getCurrWord()
+    +getCurrWordIndex()
+    +getCurrLetterIndex()
+}
+
+class SinglePlayer extends Activity implements Observer {
+    -model : SinglePlayerModel
+    -NUM_WORDS : int
+    -bg : int
+    -ppw : PopupWindow
+    -popUpParams : LayoutParams
+    -popUpLayout : LinearLayout
+    -currentTime : long
+    -pausedTime : long
+    -gameTimer : GameTimer
+    +onCreate(Bundle)
+    +onKeyDown(int, KeyEvent)
+    +onPause()
+    +initialDisplay(Drawable, Drawable)
+    +displayWord(int, String)
+    +displayTime(long)
+    +displayScore(int)
+    +highlightWord(int, String, int)
+    +update(Observable, Object)
+    +keyboardButton(View)
+    +pauseGame(View)
+    +pausedContinue(View)
+    +pausedNewGame(View)
+    +pausedMainMenu(View)
+}
+
+class GameTimer {
+    +onFinish()
+    +onTick(long)
+}
+
+SinglePlayer *-- "1" SinglePlayerModel : uses >
+SinglePlayer *-- "1" GameTimer : contains >
+@enduml
+

@@ -1,0 +1,104 @@
+@startuml
+
+class TitlePage {
+    +onCreate(savedInstanceState : Bundle) : void
+    +onCreateOptionsMenu(menu : Menu) : boolean
+    +goToPreGameSelection(view : View) : void
+    +goToPreGameSelectionMulti(view : View) : void
+    +goToLeaderboard(view : View) : void
+    +goToOptions(view : View) : void
+    +onBackPressed() : void
+}
+
+class PostGameScreen {
+    +onCreate(savedInstanceState : Bundle) : void
+    +onBackPressed() : void
+    +onCreateOptionsMenu(menu : Menu) : boolean
+    +goToTitlePage(view : View) : void
+    +goToPreGameSelection(view : View) : void
+}
+
+class PreGameSelection {
+    -HIGHTLIGHT_COLOR : int
+    -diff : View
+    -animal : View
+    -background : View
+    +onCreate(savedInstanceState : Bundle) : void
+    +onCreateOptionsMenu(menu : Menu) : boolean
+    +setDiff(view : View) : void
+    +setAnimal(view : View) : void
+    +setBackground(view : View) : void
+    +goToSinglePlayer(view : View) : void
+    +goToTitlePage(view : View) : void
+    +onBackPressed() : void
+}
+
+class SinglePlayerModel {
+    -numWordsDisplayed : int
+    -wordsList : String[]
+    -wordsDisplayed : int[]
+    -currWordIndex : int
+    -currLetterIndex : int
+    -nextWordIndex : int
+    -score : int
+    -am : AssetManager
+    -currFirstLetters : Set<Character>
+    +SinglePlayerModel(diff : States.difficulty, am : AssetManager, wordsDis : int)
+    +populateDisplayedList() : void
+    +typedLetter(letter : char) : void
+    +updateWordsDisplayed() : void
+    +getScore() : int
+    +getCurrWord() : String
+    +getCurrWordIndex() : int
+    +getCurrLetterIndex() : int
+}
+
+class SinglePlayer {
+    -model : SinglePlayerModel
+    -NUM_WORDS : int
+    -bg : int
+    -ppw : PopupWindow
+    -popUpParams : LayoutParams
+    -popUpLayout : LinearLayout
+    -currentTime : long
+    -pausedTime : long
+    -gameTimer : GameTimer
+    +onCreate(savedInstanceState : Bundle) : void
+    +onCreateOptionsMenu(menu : Menu) : boolean
+    +onKeyDown(key : int, event : KeyEvent) : boolean
+    +onPause() : void
+    +initialDisplay(animalID : Drawable, backgroundID : Drawable) : void
+    +displayWord(wordIndex : int, word : String) : void
+    +displayTime(secondsLeft : long) : void
+    +displayScore(score : int) : void
+    +highlightWord(wordIndex : int, word : String, letterIndex : int) : void
+    +update(arg0 : Observable, arg1 : Object) : void
+    +keyboardButton(view : View) : void
+    +goToPostGame() : void
+    +getByStringId(id : String) : View
+    +pauseGame(view : View) : void
+    +pausedContinue(view : View) : void
+    +pausedNewGame(view : View) : void
+    +pausedMainMenu(view : View) : void
+    +GameTimer(startTime : long, interval : long)
+}
+
+' Relationships
+TitlePage --> PreGameSelection
+TitlePage --> TitlePage
+TitlePage --> Leaderboard
+TitlePage --> Options
+
+PostGameScreen --> TitlePage
+PostGameScreen --> PreGameSelection
+
+PreGameSelection --> SinglePlayer
+PreGameSelection --> TitlePage
+
+SinglePlayer --> PostGameScreen
+SinglePlayer --> PreGameSelection
+SinglePlayer --> TitlePage
+SinglePlayer ..> SinglePlayerModel : uses
+
+@enduml
+

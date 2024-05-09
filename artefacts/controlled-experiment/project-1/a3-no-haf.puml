@@ -1,0 +1,85 @@
+@startuml
+
+class TitlePage {
+    - goToPreGameSelection(view: View): void
+    - goToPreGameSelectionMulti(view: View): void
+    - goToLeaderboard(view: View): void
+    - goToOptions(view: View): void
+}
+
+class PostGameScreen {
+    - goToTitlePage(view: View): void
+    - goToPreGameSelection(view: View): void
+}
+
+class PreGameSelection {
+    - HIGHTLIGHT_COLOR: int
+    - diff: View
+    - animal: View
+    - background: View
+    - setDiff(view: View): void
+    - setAnimal(view: View): void
+    - setBackground(view: View): void
+    - goToSinglePlayer(view: View): void
+    - goToTitlePage(view: View): void
+}
+
+class SinglePlayerModel {
+    - numWordsDisplayed: int
+    - wordsList: String[]
+    - wordsDisplayed: int[]
+    - currWordIndex: int
+    - currLetterIndex: int
+    - nextWordIndex: int
+    - score: int
+    - am: AssetManager
+    - currFirstLetters: Set<Character>
+    - getWordsList(diff: States.difficulty): void
+    - populateDisplayedList(): void
+    - typedLetter(letter: char): void
+    - updateWordsDisplayed(): void
+    - getScore(): int
+    - getCurrWord(): String
+    - getCurrWordIndex(): int
+    - getCurrLetterIndex(): int
+}
+
+class SinglePlayer {
+    - model: SinglePlayerModel
+    - NUM_WORDS: int
+    - bg: int
+    - ppw: PopupWindow
+    - popUpParams: LayoutParams
+    - popUpLayout: LinearLayout
+    - currentTime: long
+    - pausedTime: long
+    - gameTimer: GameTimer
+    - paused: boolean
+    - initialDisplay(animalID: Drawable, backgroundID: Drawable): void
+    - displayWord(wordIndex: int, word: String): void
+    - displayTime(secondsLeft: long): void
+    - displayScore(score: int): void
+    - highlightWord(wordIndex: int, word: String, letterIndex: int): void
+    - keyboardButton(view: View): void
+    - pauseGame(view: View): void
+    - pausedContinue(view: View): void
+    - pausedNewGame(view: View): void
+    - pausedMainMenu(view: View): void
+}
+
+class GameTimer {
+    - startTime: long
+    - interval: long
+    - onFinish(): void
+    - onTick(millisUntilFinished: long): void
+}
+
+TitlePage --> "navigates" PreGameSelection
+PostGameScreen --> "navigates" TitlePage
+PostGameScreen --> "navigates" PreGameSelection
+PreGameSelection --> "navigates" SinglePlayer
+SinglePlayer "1" *-- "1" SinglePlayerModel : observes
+SinglePlayer "1" *-- "1" GameTimer : uses
+
+@enduml
+
