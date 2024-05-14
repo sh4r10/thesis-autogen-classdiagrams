@@ -1,18 +1,94 @@
 @startuml
 
-class Connection
-class DataSet
-class DataSetRow
-class InputFunction
-class Layer
-class LearningRule
-class NeuralNetwork
-class Neuron
-class TransferFunction
-class Weight
+class DAO {
+  addUser(u:User): boolean
+  checkIfUserExists(u:User): boolean
+  delUser(u:User): boolean
+  updateUser(u:User): boolean
+  addPet(p:Pet): boolean
+  checkIfPetExists(p:Pet): boolean
+  delPet(p:Pet): boolean
+  updatePet(p:Pet): boolean
+  addFood(f:Food): boolean
+  checkIfFoodExists(f:Food): boolean
+  delFood(f:Food): boolean
+  updateFood(f:Food): boolean
+  addUpgrade(up:Upgrade): boolean
+  checkIfUpgradeExists(up:Upgrade): boolean
+  delUpgrade(up:Upgrade): boolean
+  updateUpgrade(u:Upgrade): boolean
+  addJob(j:Job): boolean
+  checkIfJobExists(j:Job): boolean
+  delJob(j:Job): boolean
+  updateJob(j:Job): boolean
+  addFoodOwned(p:Pet, f:Food, piece:int): boolean
+  addUpgradeOwned(p:Pet, u:Upgrade, piece:int): boolean
+  updateFoodOwned(p:Pet, f:Food, piece:int): boolean
+  updateUpgradeOwned(p:Pet, u:Upgrade, piece:int): boolean
+  delFoodOwned(p:Pet, f:Food): boolean
+  delUpgradeOwned(p:Pet, u:Upgrade): boolean
+  addJobOwned(p:Pet, j:Job, timeworked:int): boolean
+  updateJobOwned(p:Pet, j:Job, timeworked:int): boolean
+  delJobOwned(p:Pet, j:Job): boolean
+}
 
-Neuron "1" -- "*" Connection
-Layer "1" -- "*" Neuron
-NeuralNetwork "1" -- "*" Layer
+class Food {
+  valuedog: int
+  valuecat: int
+  valuefish: int
+  valuepenguin: int
+}
+
+Item <|-- Food
+
+class ItemVisitor {
+  visit(food:Food): int
+  visit(upgrade:Upgrade): int
+}
+
+class Job {
+  id: int
+  impactenergy: int
+  impacthunger: int
+  impacthygiene: int
+  impactfun: int
+  title: String
+  length: int
+  image: String
+}
+
+class Pet extends Item {
+  petid: int
+  type: String
+  variant: String
+  image: String
+  owner: int
+  owneditems: Map<Item, Integer>
+  ownedjobs: Map<Job, Integer>
+}
+
+class PetBuilder {
+}
+
+class RaiseMeUp {
+}
+
+class Upgrade extends Item {
+  property: String
+  species: String
+  value: int
+}
+
+Item <|-- Upgrade
+
+class User {
+  id: int
+  email: String
+  username: String
+  password: String
+}
+
+class UserBuilder {
+}
 
 @enduml

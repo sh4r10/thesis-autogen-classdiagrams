@@ -1,5 +1,7 @@
 @startuml
 
+@startuml
+
 class DAO {
     delUpgradeOwned(p : Pet, u : Upgrade) : boolean
     checkIfJobExists(j : Job) : boolean
@@ -30,6 +32,45 @@ class DAO {
     addJob(j : Job) : boolean
     updateFoodOwned(p : Pet, f : Food, piece : int) : boolean
     updateUser(u : User) : boolean
+}
+
+@enduml
+
+
+class Food {
+    valuefish : int
+    valuepenguin : int
+    value : int
+}
+
+class Upgrade {
+    value : int
+    property : String
+    species : String
+    setValue(value : int)
+    setSpecies(species : String)
+    setProperty(property : String)
+    getProperty() : String
+    getSpecies() : String
+}
+
+class User {
+    email : String
+    username : String
+    id : int
+    password : String
+}
+
+class UserBuilder {
+    email : String
+    username : String
+    id : int
+    password : String
+    setId(id : int) : UserBuilder
+    createUser() : User
+    setUsername(username : String) : UserBuilder
+    setEmail(email : String) : UserBuilder
+    setPassword(password : String) : UserBuilder
 }
 
 @enduml
