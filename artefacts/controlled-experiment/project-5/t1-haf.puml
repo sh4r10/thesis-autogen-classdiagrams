@@ -1,0 +1,21 @@
+@startuml
+class Connection
+class DataSet
+class DataSetRow
+class InputFunction
+class Layer
+class LearningRule
+class NeuralNetwork
+class Neuron
+class TransferFunction
+class Weight
+
+Connection "1" --> "1" Weight
+Connection "1" --> "*" Neuron
+DataSet "1" --> "*" DataSetRow
+Layer "1" --> "*" Neuron
+LearningRule "1" --> "1" NeuralNetwork
+Neuron "1" --> "1" InputFunction
+Neuron "1" --> "1" TransferFunction
+Neuron "1" --> "*" Connection
+@enduml

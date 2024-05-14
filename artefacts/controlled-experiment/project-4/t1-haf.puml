@@ -1,0 +1,68 @@
+@startuml
+class Employee {
+    +id
+    +name
+    +position
+    +addSchedule()
+}
+
+class LaborBilling {
+    -id
+    -name
+    +getName(): String
+    +getId(): String
+}
+
+class Pattern {
+    +noOfHours
+    +addPhL()
+    +getPhL()
+    +getNoOfHours(): Integer
+    +setNoOfHours()
+    +getPhaseLabor()
+}
+
+class Phase {
+    -name
+    -id
+    +getProject(): Project
+    +setProject()
+    +getName(): String
+    +getID(): String
+}
+
+class PhaseLabor {
+    -id
+    +getPhase(): Phase
+    +getLaborBilling(): LaborBilling
+    +getPercentage(): Float
+}
+
+class POIGenerator {
+    +month
+    +year
+    +generateDoc()
+}
+
+class Project {
+    -id
+    -name
+    +addPhase()
+    +getName(): String
+    +getID(): String
+}
+
+class Schedule {
+    +id
+    +getStartDate(): Calendar
+    +getEndDate(): Calendar
+    +getPattern(): Pattern
+    +getEmployee(): Employee
+}
+
+Phase "1" - "many" Project
+PhaseLabor "1" - "1" LaborBilling
+PhaseLabor "1" - "many" Phase
+Schedule "1" - "many" Pattern
+Schedule "1" - "many" Employee
+@enduml

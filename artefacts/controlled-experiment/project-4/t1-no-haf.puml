@@ -1,0 +1,77 @@
+@startuml
+
+class Phase {
+    - name
+    - id
+    - p
+    + getProject(): Project
+    + setProject(Project proj)
+    + getName(): String
+    + getID(): String
+}
+
+class Employee {
+    - id
+    - name
+    - position
+    + addSchedule(Schedule sch)
+}
+
+class Project {
+    - id
+    - name
+    + addPhase(Phase newPhase)
+    + getName(): String
+    + getID(): String
+}
+
+class LaborBilling {
+    - id
+    - name
+    + getName(): String
+    + getId(): String
+}
+
+class Schedule {
+    - id
+    - p
+    - e
+    + getStartDate(): Calendar
+    + getEndDate(): Calendar
+    + getPattern(): Pattern
+    + getEmployee(): Employee
+}
+
+class PhaseLabor {
+    - id
+    - lb
+    - ph
+    - percentage
+    + getPhase(): Phase
+    + getLaborBilling(): LaborBilling
+    + getPercentage(): Float
+}
+
+class Pattern {
+    - noOfHours
+    + addPhL(PhaseLabor x)
+    + getPhL(int ind): PhaseLabor
+    + getNoOfHours(): Integer
+    + setNoOfHours(Integer noh)
+    + getPhaseLabor(LaborBilling lbS, Phase phS): PhaseLabor
+}
+
+class POIGenerator {
+    - month
+    - year
+    + generateDoc(String workbookname, int genmonth, int genyear)
+}
+
+' Relationships converted to associations with multiplicities
+Phase "1" -- "1" Project
+Schedule "1" -- "1" Employee
+Schedule "1" -- "1" Pattern
+PhaseLabor "1" -- "1" LaborBilling
+PhaseLabor "1" -- "1" Phase
+
+@enduml

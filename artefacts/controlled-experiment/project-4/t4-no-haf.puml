@@ -1,0 +1,80 @@
+@startuml
+class Employee {
+    -id: Integer
+    -name: String
+    -position: String
+    +addSchedule(): void
+}
+class LaborBilling {
+    -id: String
+    -name: String
+    +getName(): String
+    +getId(): String
+}
+class Pattern {
+    -noOfHours: Integer
+    +addPhL(): void
+    +getPhL(): PhaseLabor
+    +getNoOfHours(): Integer
+    +setNoOfHours(): void
+    +getPhaseLabor(): PhaseLabor
+}
+class Phase {
+    -name: String
+    -id: String
+    -p: Project
+    +getProject(): Project
+    +setProject(): void
+    +getName(): String
+    +getID(): String
+}
+class PhaseLabor {
+    -id: String
+    -lb: LaborBilling
+    -ph: Phase
+    -percentage: Float
+    +getPhase(): Phase
+    +getLaborBilling(): LaborBilling
+    +getPercentage(): Float
+}
+class POIGenerator {
+    -month: int
+    -year: int
+    +getNextMonday(): Calendar
+    +getPatternForDay(): Pattern
+    +generateHeader(): void
+    +getDateFrom(): Calendar
+    +generateTableRow(): Float
+    +generateWeek(): void
+    +howManyDays(): int
+    +styleMe(): void
+    +generateDocHeader(): void
+    +generateDoc(): void
+}
+class Project {
+    -id: String
+    -name: String
+    +addPhase(): void
+    +getName(): String
+    +getID(): String
+}
+class Schedule {
+    -id: Integer
+    -p: Pattern
+    -e: Employee
+    +getStartDate(): Calendar
+    +getEndDate(): Calendar
+    +getPattern(): Pattern
+    +getEmployee(): Employee
+}
+Employee "1" -- "0..*" Schedule
+Pattern "1" -- "*" PhaseLabor
+Pattern "1" -- "*" LaborBilling
+Pattern "1" -- "*" Phase
+Phase "1" -- "0..1" Project
+PhaseLabor "1" -- "1" LaborBilling
+PhaseLabor "1" -- "1" Phase
+Project "1" -- "*" Phase
+Schedule "1" -- "1" Pattern
+Schedule "1" -- "1" Employee
+@enduml

@@ -1,0 +1,90 @@
+@startuml
+
+class Employee {
+    -id: Integer
+    -name: String
+    -position: String
+    -schedList: ArrayList<Schedule>
+
+    +addSchedule(Schedule sch): void
+}
+
+class LaborBilling {
+    -id: String
+    -name: String
+
+    +getName(): String
+    +getId(): String
+}
+
+class Pattern {
+    -plArray: ArrayList<PhaseLabor>
+    -noOfHours: Integer
+
+    +addPhL(PhaseLabor x): void
+    +getPhL(int ind): PhaseLabor
+    +getArrayPhaseLabor(): ArrayList<PhaseLabor>
+    +getNoOfHours(): Integer
+    +setNoOfHours(Integer noh): void
+    +getPhaseLabor(LaborBilling lbS, Phase phS): PhaseLabor
+}
+
+class Phase {
+    -name: String
+    -id: String
+    -p: Project
+
+    +getProject(): Project
+    +setProject(Project proj): void
+    +getName(): String
+    +getID(): String
+}
+
+class PhaseLabor {
+    -id: String
+    -lb: LaborBilling
+    -ph: Phase
+    -percentage: Float
+
+    +getPhase(): Phase
+    +getPercentage(): Float
+}
+
+class POIGenerator {
+    -month: int
+    -year: int
+
+    +generateDoc(String workbookname, int genmonth, int genyear): void
+}
+
+class Project {
+    -id: String
+    -name: String
+    -phList: ArrayList<Phase>
+
+    +addPhase(Phase newPhase): void
+    +getName(): String
+    +getID(): String
+}
+
+class Schedule {
+    -id: Integer
+    -p: Pattern
+    -e: Employee
+
+    +getStartDate(): Calendar
+    +getEndDate(): Calendar
+    +getPattern(): Pattern
+    +getEmployee(): Employee
+}
+
+Employee "1" -- "*" Schedule : contains
+Pattern "1" -- "*" PhaseLabor : contains
+Phase -- Project
+PhaseLabor -- LaborBilling
+PhaseLabor -- Phase
+Project "1" -- "*" Phase : contains
+Schedule -- Pattern
+Schedule -- Employee
+
+@enduml

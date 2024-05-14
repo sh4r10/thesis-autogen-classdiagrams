@@ -1,0 +1,34 @@
+@startuml
+class CheckingAccount {
+    +getBalance() : BigDecimal
+    +getWeeklyExpense() : BigDecimal
+    +setValue() : void
+    +getValue() : BigDecimal
+    +add() : void
+}
+class Income {
+    -incomeType : IncomeType
+    -dateOccurred : Date
+    +getDateOccurred() : Date
+    +getIncomeType() : IncomeType
+    +setDateOccurred() : void
+    +setIncomeType() : void
+}
+class IncomeRepository {
+    +save() : void
+}
+class IncomeTypeRepository {
+    +save() : void
+}
+class RegisterIncomeController {
+    +createIncome() : void
+    +getAccount() : CheckingAccount
+}
+class RegisterIncomeUI {
+    +run() : void
+    +showBalance() : void
+}
+Transaction <|-- Income
+BaseController <|-- RegisterIncomeController
+BaseUI <|-- RegisterIncomeUI
+@enduml

@@ -1,0 +1,96 @@
+@startuml
+
+class Employee {
+    + id
+    + name
+    + position
+    + schedList
+    + addSchedule()
+}
+
+class LaborBilling {
+    + id
+    + name
+    + getName(): String
+    + getId(): String
+}
+
+class Pattern {
+    + plArray
+    + noOfHours
+    + addPhL()
+    + getPhL()
+    + getArrayPhaseLabor()
+    + getNoOfHours(): Integer
+    + setNoOfHours()
+    + getPhaseLabor()
+}
+
+class Phase {
+    + name
+    + id
+    + p
+    + getProject(): Project
+    + setProject()
+    + getName(): String
+    + getID(): String
+}
+
+class PhaseLabor {
+    + id
+    + lb
+    + ph
+    + percentage
+    + getPhase(): Phase
+    + getLaborBilling(): LaborBilling
+    + getPercentage(): Float
+}
+
+class POIGenerator {
+    + month
+    + year
+    + getNextMonday()
+    + getPatternForDay()
+    + getListOfDistinctPhaseLabor()
+    + getListOfPatterns()
+    + generateHeader()
+    + getDateFrom()
+    + generateTableRow(): Float
+    + generateWeek()
+    + howManyDays(): int
+    + styleMe()
+    + generateDocHeader()
+    + generateDoc()
+}
+
+class Project {
+    + id
+    + name
+    + phList
+    + addPhase()
+    + getName(): String
+    + getID(): String
+}
+
+class Schedule {
+    + id
+    + p
+    + e
+    + getStartDate()
+    + getEndDate()
+    + getPattern(): Pattern
+    + getEmployee(): Employee
+}
+
+Employee -- "0..*" Schedule
+Schedule -- "1" Employee
+Pattern -- "0..*" Schedule
+Schedule -- "1" Pattern
+Phase -- "0..*" PhaseLabor
+PhaseLabor -- "1" Phase
+LaborBilling -- "0..*" PhaseLabor
+PhaseLabor -- "1" LaborBilling
+Project -- "0..*" Phase
+Phase -- "1" Project
+
+@enduml

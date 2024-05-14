@@ -1,0 +1,51 @@
+@startuml
+class Employee {
+    id
+    name
+    position
+}
+
+class LaborBilling {
+    id
+    name
+}
+
+class Pattern {
+    noOfHours
+}
+
+class Phase {
+    name
+    id
+    p
+}
+
+class PhaseLabor {
+    id
+    lb
+    ph
+    percentage
+}
+
+class POIGenerator {
+    month
+    year
+}
+
+class Project {
+    id
+    name
+}
+
+class Schedule {
+    id
+    p
+    e
+}
+
+Phase "1" -- "*" Project
+PhaseLabor "1" -- "1" LaborBilling
+PhaseLabor "1" -- "1" Phase
+Schedule "1" -- "1" Pattern
+Schedule "1" -- "1" Employee
+@enduml

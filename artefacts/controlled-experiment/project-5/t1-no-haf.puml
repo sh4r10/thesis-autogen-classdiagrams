@@ -1,0 +1,24 @@
+@startuml
+
+class Connection {
+}
+class DataSet {
+}
+class DataSetRow {
+}
+class InputFunction {
+}
+class Layer {
+}
+class LearningRule {
+}
+class NeuralNetwork {
+}
+class Neuron {
+}
+class TransferFunction {
+}
+class Weight {
+}
+
+@enduml

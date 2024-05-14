@@ -1,0 +1,72 @@
+@startuml
+class Upgrade {
+    String property
+    String species
+    int value
+}
+class PetBuilder {
+    PetBuilder setOwner(int owner)
+    PetBuilder setName(String name)
+    PetBuilder setType(String type)
+    PetBuilder setVariant(String variant)
+    PetBuilder setImage(String image)
+    Pet createPet()
+}
+class User {
+    int id
+    String email
+    String username
+    String password
+}
+class RaiseMeUp {
+}
+class UserBuilder {
+    UserBuilder setId(int id)
+    UserBuilder setEmail(String email)
+    UserBuilder setUsername(String username)
+    UserBuilder setPassword(String password)
+    User createUser()
+}
+class Pet {
+    int petid
+    int owner
+    String name
+    String type
+    String variant
+    int hunger
+    int energy
+    int fun
+    int hygiene
+    int age
+    String image
+    int money
+}
+class Job {
+    int id
+    int impactenergy
+    int impacthunger
+    int impacthygiene
+    int impactfun
+    String title
+    int length
+    String image
+    String client
+    String message
+    int reward
+    String species
+}
+class Food {
+    int valuedog
+    int valuecat
+    int valuefish
+    int valuepenguin
+}
+class DAO {
+}
+class ItemVisitor {
+    int visit(Food food)
+    int visit(Upgrade upgrade)
+}
+Upgrade --|> Item
+Food --|> Item
+@enduml

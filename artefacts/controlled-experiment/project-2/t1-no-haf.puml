@@ -1,0 +1,88 @@
+@startuml
+class DAO {
+    boolean addUser(User u)
+    boolean checkIfUserExists(User u)
+    boolean delUser(User u)
+    boolean updateUser(User u)
+    boolean addPet(Pet p)
+    boolean checkIfPetExists(Pet p)
+    boolean delPet(Pet p)
+    boolean updatePet(Pet p)
+    boolean addFood(Food f)
+    boolean checkIfFoodExists(Food f)
+    boolean delFood(Food f)
+    boolean updateFood(Food f)
+    boolean addUpgrade(Upgrade up)
+    boolean checkIfUpgradeExists(Upgrade up)
+    boolean delUpgrade(Upgrade up)
+    boolean updateUpgrade(Upgrade up)
+    boolean addJob(Job j)
+    boolean checkIfJobExists(Job j)
+    boolean delJob(Job j)
+    boolean updateJob(Job j)
+    boolean addFoodOwned(Pet p, Food f, int piece)
+    boolean addUpgradeOwned(Pet p, Upgrade u, int piece)
+    boolean updateFoodOwned(Pet p, Food f, int piece)
+    boolean updateUpgradeOwned(Pet p, Upgrade u, int piece)
+    boolean delFoodOwned(Pet p, Food f)
+    boolean delUpgradeOwned(Pet p, Upgrade u)
+    boolean addJobOwned(Pet p, Job j, int timeworked)
+    boolean updateJobOwned(Pet p, Job j, int timeworked)
+    boolean delJobOwned(Pet p, Job j)
+}
+class Food {
+    int valuedog
+    int valuecat
+    int valuefish
+    int valuepenguin
+}
+class ItemVisitor {
+    int visit(Food food)
+    int visit(Upgrade upgrade)
+}
+class Job {
+    int id
+    int impactenergy
+    int impacthunger
+    int impacthygiene
+    int impactfun
+    String title
+    int length
+    String image
+    String client
+    String message
+    int reward
+    String species
+}
+class Pet {
+    int petid
+    int owner
+    String name
+    String type
+    String variant
+    int hunger
+    int energy
+    int fun
+    int hygiene
+    int age
+    String image
+    int money
+}
+class PetBuilder {
+}
+class RaiseMeUp {
+}
+class Upgrade {
+    String property
+    String species
+    int value
+}
+class User {
+    int id
+    String email
+    String username
+    String password
+}
+class UserBuilder {
+}
+@enduml

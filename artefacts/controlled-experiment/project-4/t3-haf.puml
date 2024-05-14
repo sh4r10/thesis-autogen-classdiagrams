@@ -1,0 +1,43 @@
+@startuml
+
+class Employee {
+  +id
+  +name
+  +position
+  +schedList
+  +addSchedule()
+}
+
+class LaborBilling {
+  -id
+  -name
+  +getName(): String
+  +getId(): String
+}
+
+class Pattern {
+  +plArray
+  +noOfHours
+  +addPhL()
+  +getPhL(): PhaseLabor
+  +getArrayPhaseLabor(): ArrayList
+  +getNoOfHours(): Integer
+  +setNoOfHours()
+  +getPhaseLabor(): PhaseLabor
+}
+
+class Phase {
+  -name
+  -id
+  +p
+  +getProject(): Project
+  +setProject()
+  +getName(): String
+  +getID(): String
+}
+
+Employee "contains" -- Schedule
+Pattern "contains" -- PhaseLabor
+Phase "uses" -- Project
+
+@enduml

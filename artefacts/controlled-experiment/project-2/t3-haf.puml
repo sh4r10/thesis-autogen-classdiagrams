@@ -1,0 +1,86 @@
+@startuml
+
+class DAO {
+}
+
+class Food {
+    valuedog : int
+    valuecat : int
+    valuefish : int
+    valuepenguin : int
+}
+
+class ItemVisitor {
+    visit(food : Food) : int
+    visit(upgrade : Upgrade) : int
+}
+
+class Job {
+    id : int
+    impactenergy : int
+    impacthunger : int
+    impacthygiene : int
+    impactfun : int
+    title : String
+    length : int
+    image : String
+    client : String
+    message : String
+    reward : int
+    species : String
+}
+
+class Pet {
+    petid : int
+    owner : int
+    name : String
+    type : String
+    variant : String
+    hunger : int
+    energy : int
+    fun : int
+    hygiene : int
+    age : int
+    image : String
+    money : int
+}
+
+class PetBuilder {
+    setOwner(owner : int) : PetBuilder
+    setName(name : String) : PetBuilder
+    setType(type : String) : PetBuilder
+    setVariant(variant : String) : PetBuilder
+    setImage(image : String) : PetBuilder
+    createPet() : Pet
+}
+
+class RaiseMeUp {
+}
+
+class Upgrade {
+    property : String
+    species : String
+    value : int
+}
+
+class User {
+    id : int
+    email : String
+    username : String
+    password : String
+}
+
+class UserBuilder {
+    setId(id : int) : UserBuilder
+    setEmail(email : String) : UserBuilder
+    setUsername(username : String) : UserBuilder
+    setPassword(password : String) : UserBuilder
+    createUser() : User
+}
+
+ItemVisitor -- Upgrade
+ItemVisitor -- Food
+PetBuilder -- Pet
+UserBuilder -- User
+
+@enduml

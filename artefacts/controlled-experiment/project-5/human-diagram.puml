@@ -1,0 +1,24 @@
+@startuml
+  ' class declarations
+  class Layer
+  class NeuralNetwork
+  class LearningRule
+  class Neuron
+  class Connection
+  class DataSet
+  class InputFunction
+  class TransferFunction
+  class Weight
+  class DataSetRow
+  
+  ' relationships
+  Layer -r-o NeuralNetwork:1..n
+  LearningRule -d-> DataSet
+  DataSetRow "1..1" -u-o DataSet
+  Weight "1..1" -u-* Connection
+  Connection "1..n" -l-* Neuron
+  TransferFunction "1..1" -u-* Neuron
+  InputFunction "1..1" -u-* Neuron
+  Neuron "1..n" -u-o Layer
+@enduml
+
