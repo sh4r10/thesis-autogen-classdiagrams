@@ -62,7 +62,8 @@ def parse_plantuml(filename):
                 relationships.append(rel_dict)
             elif line.startswith('class'):
                 # Extract the class name
-                x = re.search(r"[A-Za-z0-9]+(?=\s*{)", line)
+                line = line.replace(" ", "")
+                x = re.search(r"(?<=(class))([A-Za-z0-9]+)", line)
                 class_name = x.group(); 
                 current_class = class_name
                 class_dict[current_class] = {'attributes': [], 'methods': []}
@@ -107,7 +108,7 @@ def parse_plantuml(filename):
                     attr = [visibility, name, attrType]
                     class_dict[current_class]['attributes'].append(attr)
     # print(class_dict)
-    print(relationships)
+    # print(relationships)
     return (class_dict, relationships)
 
 

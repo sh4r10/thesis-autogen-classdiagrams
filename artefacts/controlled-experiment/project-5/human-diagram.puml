@@ -1,5 +1,4 @@
 @startuml
-  ' class declarations
   class Layer
   class NeuralNetwork
   class LearningRule
@@ -11,7 +10,6 @@
   class Weight
   class DataSetRow
   
-  ' relationships
   Layer -r-o NeuralNetwork:1..n
   LearningRule -d-> DataSet
   DataSetRow "1..1" -u-o DataSet

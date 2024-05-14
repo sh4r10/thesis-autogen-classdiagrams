@@ -1,5 +1,4 @@
 @startuml
-' Class declarations
 class Project {
   - id
   - name
@@ -59,7 +58,6 @@ class LaborBilling {
 
 circle Generator
 
-' Relationships
 Project "+forProject\n1" -l-  "+PhaseArray\n0..*" Phase : \t\t\t\t\t\t
 Generator -d- POIGenerator
 POIGenerator -r--> "-e\n1" Employee: \t\t\t

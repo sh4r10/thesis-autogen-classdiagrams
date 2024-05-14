@@ -14,32 +14,38 @@ def get_dicts(target_dir):
     return dicts
 
 
+weights =  {
+    "major": 0.6,
+    "moderate": 0.25,
+    "minor": 0.15
+}
+
+def calculate_comp_score(target_dict):
+    score = 0;
+    totaled = {"total": 0, "major": {"total": 0, "f1": 0}, "moderate": {"total": 0, "f1": 0}, "minor": {"total": 0, "f1": 0}}
+
+    for c in list(weights.keys()):
+        totaled[c]["total"] += target_dict[c]["tp"]
+        totaled[c]["total"] += target_dict[c]["fp"] 
+        totaled[c]["total"] += target_dict[c]["fn"] 
+        totaled["total"] += totaled[c]["total"]
+        totaled[c]["f1"] = target_dict[c]["f1"]
+
+    for key in weights.keys():
+        ratio = totaled[key]["total"] / totaled["total"]
+        score += ratio * weights[key] * totaled[key]["f1"]
+
+    return score * 100
+
+
 def get_comp_scores(target_dir):
-    weights =  {
-            "major": 0.6,
-            "moderate": 0.25,
-            "minor": 0.15
-    }
     totaled_items = []
     scores =  []
     dicts = get_dicts(target_dir)
     for file, d in dicts:
-        curr = {"total": 0, "major": {"total": 0, "f1": 0}, "moderate": {"total": 0, "f1": 0}, "minor": {"total": 0, "f1": 0}}
-        for c in list(weights.keys()):
-            curr[c]["total"] += d[c]["tp"]
-            curr[c]["total"] += d[c]["fp"] 
-            curr[c]["total"] += d[c]["fn"] 
-            curr["total"] += curr[c]["total"]
-            curr[c]["f1"] = d[c]["f1"]
-        totaled_items.append((file, curr))
-
-    for file,item in totaled_items:
-        score = 0;
-        for key in weights.keys():
-            ratio = item[key]["total"] / item["total"]
-            score += ratio * weights[key] * item[key]["f1"]
-        scores.append((file, score*100))
-
+        score = calculate_comp_score(d)
+        scores.append((file, score))
+    
     max_score = scores[0]
     for file, score in scores:
         if score > max_score[1]:
