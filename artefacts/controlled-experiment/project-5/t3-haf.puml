@@ -1,43 +1,25 @@
 @startuml
 
-class Employee {
-  +id
-  +name
-  +position
-  +schedList
-  +addSchedule()
-}
+class Connection 
+class DataSet 
+class DataSetRow 
+class InputFunction 
+class Layer 
+class LearningRule 
+class NeuralNetwork 
+class Neuron 
+class TransferFunction 
+class Weight 
 
-class LaborBilling {
-  -id
-  -name
-  +getName(): String
-  +getId(): String
-}
-
-class Pattern {
-  +plArray
-  +noOfHours
-  +addPhL()
-  +getPhL(): PhaseLabor
-  +getArrayPhaseLabor(): ArrayList
-  +getNoOfHours(): Integer
-  +setNoOfHours()
-  +getPhaseLabor(): PhaseLabor
-}
-
-class Phase {
-  -name
-  -id
-  +p
-  +getProject(): Project
-  +setProject()
-  +getName(): String
-  +getID(): String
-}
-
-Employee "contains" -- Schedule
-Pattern "contains" -- PhaseLabor
-Phase "uses" -- Project
+Connection --> Weight
+Connection --> NeurophException
+DataSet --> DataSetRow
+DataSet --> NeurophException
+DataSet --> FileNotFoundException
+Layer --> NeurophException
+Neuron --> Connection
+Neuron --> WeightedSum
+Neuron --> NeurophException
+Neuron --> Step
 
 @enduml

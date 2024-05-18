@@ -1,71 +1,33 @@
 @startuml
 
-class Employee {
-  +id
-  +name
-  +position
-  +addSchedule()
+class Connection {
 }
 
-class LaborBilling {
-  +id
-  +name
-  +getName(): String
-  +getId(): String
+class DataSet {
 }
 
-class Pattern {
-  +noOfHours
-  +addPhL()
-  +getPhL()
-  +getNoOfHours(): Integer
-  +setNoOfHours()
-  +getPhaseLabor()
+class DataSetRow {
 }
 
-class Phase {
-  +name
-  +id
-  +getProject(): Project
-  +setProject()
-  +getName(): String
-  +getID(): String
+class InputFunction {
 }
 
-class PhaseLabor {
-  +id
-  +percentage
-  +getPhase(): Phase
-  +getLaborBilling(): LaborBilling
-  +getPercentage(): Float
+class Layer {
 }
 
-class POIGenerator {
-  +generateDoc()
+class LearningRule {
 }
 
-class Project {
-  +id
-  +name
-  +addPhase()
-  +getName(): String
-  +getID(): String
+class NeuralNetwork {
 }
 
-class Schedule {
-  +id
-  +getStartDate(): Calendar
-  +getEndDate(): Calendar
-  +getPattern(): Pattern
-  +getEmployee(): Employee
+class Neuron {
 }
 
-Employee -- Schedule : contains
-Pattern -- PhaseLabor : contains
-Project -- Phase : contains
-PhaseLabor -- LaborBilling : uses
-PhaseLabor -- Phase : part of
-Schedule -- Pattern : uses
-Schedule -- Employee : belongs to
+class TransferFunction {
+}
+
+class Weight {
+}
 
 @enduml
