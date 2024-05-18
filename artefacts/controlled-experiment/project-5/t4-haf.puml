@@ -1,96 +1,43 @@
 @startuml
 
-class Employee {
-    + id
-    + name
-    + position
-    + schedList
-    + addSchedule()
+class Connection {
 }
 
-class LaborBilling {
-    + id
-    + name
-    + getName(): String
-    + getId(): String
+class DataSet {
 }
 
-class Pattern {
-    + plArray
-    + noOfHours
-    + addPhL()
-    + getPhL()
-    + getArrayPhaseLabor()
-    + getNoOfHours(): Integer
-    + setNoOfHours()
-    + getPhaseLabor()
+class DataSetRow {
 }
 
-class Phase {
-    + name
-    + id
-    + p
-    + getProject(): Project
-    + setProject()
-    + getName(): String
-    + getID(): String
+abstract class InputFunction {
 }
 
-class PhaseLabor {
-    + id
-    + lb
-    + ph
-    + percentage
-    + getPhase(): Phase
-    + getLaborBilling(): LaborBilling
-    + getPercentage(): Float
+class Layer {
 }
 
-class POIGenerator {
-    + month
-    + year
-    + getNextMonday()
-    + getPatternForDay()
-    + getListOfDistinctPhaseLabor()
-    + getListOfPatterns()
-    + generateHeader()
-    + getDateFrom()
-    + generateTableRow(): Float
-    + generateWeek()
-    + howManyDays(): int
-    + styleMe()
-    + generateDocHeader()
-    + generateDoc()
+abstract class LearningRule {
 }
 
-class Project {
-    + id
-    + name
-    + phList
-    + addPhase()
-    + getName(): String
-    + getID(): String
+class NeuralNetwork {
 }
 
-class Schedule {
-    + id
-    + p
-    + e
-    + getStartDate()
-    + getEndDate()
-    + getPattern(): Pattern
-    + getEmployee(): Employee
+class Neuron {
 }
 
-Employee -- "0..*" Schedule
-Schedule -- "1" Employee
-Pattern -- "0..*" Schedule
-Schedule -- "1" Pattern
-Phase -- "0..*" PhaseLabor
-PhaseLabor -- "1" Phase
-LaborBilling -- "0..*" PhaseLabor
-PhaseLabor -- "1" LaborBilling
-Project -- "0..*" Phase
-Phase -- "1" Project
+abstract class TransferFunction {
+}
+
+class Weight {
+}
+
+Connection --> Neuron : fromNeuron
+Connection --> Neuron : toNeuron
+Connection --> Weight : weight
+DataSet --> DataSetRow : rows
+Layer --> Neuron : neurons
+NeuralNetwork --> Layer : layers
+NeuralNetwork --> LearningRule : learningRule
+Neuron --> InputFunction : inputFunction
+Neuron --> TransferFunction : transferFunction
 
 @enduml

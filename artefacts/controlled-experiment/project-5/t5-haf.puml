@@ -1,51 +1,43 @@
 @startuml
-class Employee {
-    id
-    name
-    position
+
+class Connection {
 }
 
-class LaborBilling {
-    id
-    name
+class DataSet {
 }
 
-class Pattern {
-    noOfHours
+class DataSetRow {
 }
 
-class Phase {
-    name
-    id
-    p
+class InputFunction {
 }
 
-class PhaseLabor {
-    id
-    lb
-    ph
-    percentage
+class Layer {
 }
 
-class POIGenerator {
-    month
-    year
+class LearningRule {
 }
 
-class Project {
-    id
-    name
+class NeuralNetwork {
 }
 
-class Schedule {
-    id
-    p
-    e
+class Neuron {
 }
 
-Phase "1" -- "*" Project
-PhaseLabor "1" -- "1" LaborBilling
-PhaseLabor "1" -- "1" Phase
-Schedule "1" -- "1" Pattern
-Schedule "1" -- "1" Employee
+class TransferFunction {
+}
+
+class Weight {
+}
+
+Connection --> Weight
+Connection --> Neuron
+DataSet --> DataSetRow
+Layer --> Neuron
+NeuralNetwork --> Layer
+NeuralNetwork --> LearningRule
+Neuron --> Connection
+Neuron --> TransferFunction
+LearningRule --> DataSet
+
 @enduml
