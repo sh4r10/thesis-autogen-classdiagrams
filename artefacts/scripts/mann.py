@@ -1,6 +1,8 @@
 import os, pickle, argparse, statistics
-from scipy.stats import mannwhitneyu
+from rich import print
+from scipy.stats import rankdata,mannwhitneyu
 from compile_stats import calculate_comp_score
+import numpy as np
 
 def get_values(target_dir):
     scores = []
@@ -12,6 +14,23 @@ def get_values(target_dir):
                 scores.append(score)
     return scores
 
+def vargha_delaney_a12(X, Y):
+    combined = np.concatenate((X, Y))
+    ranks = rankdata(combined)
+    
+    # Get ranks corresponding to elements in X
+    ranks_X = ranks[:len(X)]
+    
+    # Calculate rank sum for X
+    R_X = np.sum(ranks_X)
+    
+    n_X = len(X)
+    n_Y = len(Y)
+    
+    A12 = (R_X / (n_X * n_Y)) - ((n_X + 1) / (2 * n_Y))
+    return A12
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("mann.py");
     parser.add_argument('no_haf_group')
@@ -19,15 +38,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
     no_haf_scores = get_values(args.no_haf_group) 
     haf_scores = get_values(args.haf_group) 
-    print("mannwhitneyu(haf_scores, no_haf_scores)")
-    result = mannwhitneyu(haf_scores, no_haf_scores)
-    print(result)
-    print('mannwhitneyu(haf_scores, no_haf_scores, alternative="two-sided")')
-    result = mannwhitneyu(haf_scores, no_haf_scores, alternative="two-sided")
-    print(result)
-    print('mannwhitneyu(haf_scores, no_haf_scores, alternative="less")')
-    result = mannwhitneyu(haf_scores, no_haf_scores, alternative="less")
-    print(result)
-    print('mannwhitneyu(haf_scores, no_haf_scores, alternative="greater")')
     result = mannwhitneyu(haf_scores, no_haf_scores, alternative="greater")
+    a12 = vargha_delaney_a12(haf_scores, no_haf_scores)
+    print("\n# RESULTS")
     print(result)
+    print(f"'Vargha-Delaney A12': {a12}")
+
