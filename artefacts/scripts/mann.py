@@ -33,13 +33,15 @@ def vargha_delaney_a12(X, Y):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("mann.py");
-    parser.add_argument('no_haf_group')
     parser.add_argument('haf_group')
+    parser.add_argument('no_haf_group')
     args = parser.parse_args()
     no_haf_scores = get_values(args.no_haf_group) 
     haf_scores = get_values(args.haf_group) 
     result = mannwhitneyu(haf_scores, no_haf_scores, alternative="greater")
     a12 = vargha_delaney_a12(haf_scores, no_haf_scores)
+    print("No HAF: "+str(no_haf_scores))
+    print("HAF: "+str(haf_scores))
     print("\n# RESULTS")
     print(result)
     print(f"'Vargha-Delaney A12': {a12}")
