@@ -16,8 +16,8 @@ def get_dicts(target_dir):
 
 weights =  {
     "major": 0.6,
-    "moderate": 0.25,
-    "minor": 0.15
+    "moderate": 0.3,
+    "minor": 0.1
 }
 
 def calculate_comp_score(target_dict):
@@ -53,45 +53,64 @@ def get_comp_scores(target_dir):
 
     return dict(scores), max_score
 
-def get_f1_scores(target_dir):
+def append_if_not_empty(cat, arr, field):
+    total = cat["tp"];
+    if(total > 0):
+        arr.append(cat[field])
+
+
+def get_f1_scores(target_dir, field):
     files = []
+
     scores = {
         "major": [],       
         "moderate": [],       
         "minor": [],       
     }
+
     for filename in os.listdir(target_dir):
         if filename.endswith(".stat"):
             files.append(filename)
             with open(os.path.join(target_dir, filename), 'rb') as file:
                 loaded_dict = pickle.load(file)
-                scores["major"].append(loaded_dict["major"]["f1"])
-                scores["moderate"].append(loaded_dict["moderate"]["f1"])
-                scores["minor"].append(loaded_dict["minor"]["f1"])
+                append_if_not_empty(loaded_dict["major"], scores["major"], field)
+                append_if_not_empty(loaded_dict["moderate"], scores["moderate"], field)
+                append_if_not_empty(loaded_dict["minor"], scores["minor"], field)
     return files, scores
+
+
+def safe_execute(default, function, *args):
+    try:
+        return function(*args)
+    except:
+        return default
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("compile_stats.py");
     parser.add_argument('target_dir')
+    parser.add_argument('-f', '--field', action='store')
     args = parser.parse_args()
-    stat_files, scores = get_f1_scores(args.target_dir)
+    field = args.field if args.field else "f1"
+    stat_files, scores = get_f1_scores(args.target_dir, field)
     comp_scores, best_comp_score = get_comp_scores(args.target_dir)
+    print("Stats for field: "+field)
     stats = {
         "files": stat_files,
         "major": {
-            "mean": statistics.mean(scores["major"]),
-            "standard deviation": statistics.stdev(scores["major"]),
-            "variance": statistics.variance(scores["major"]),
+            "mean": safe_execute("No values", statistics.mean, scores["major"]),
+            "standard deviation": safe_execute("No values", statistics.stdev, scores["major"]),
+            "variance": safe_execute("No values", statistics.variance, scores["major"]),
         },
         "moderate": {
-            "mean": statistics.mean(scores["moderate"]),
-            "standard deviation": statistics.stdev(scores["moderate"]),
-            "variance": statistics.variance(scores["moderate"]),
+            "mean": safe_execute("No values", statistics.mean, scores["moderate"]),
+            "standard deviation": safe_execute("No values", statistics.stdev, scores["moderate"]),
+            "variance": safe_execute("No values", statistics.variance, scores["moderate"]),
         },
         "minor": {
-            "mean": statistics.mean(scores["minor"]),
-            "standard deviation": statistics.stdev(scores["minor"]),
-            "variance": statistics.variance(scores["minor"]),
+            "mean": safe_execute("No values", statistics.mean, scores["minor"]),
+            "standard deviation": safe_execute("No values", statistics.stdev, scores["minor"]),
+            "variance": safe_execute("No values", statistics.variance, scores["minor"]),
         }
     }
     pprint(stats, expand_all=True)

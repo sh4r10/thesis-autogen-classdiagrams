@@ -4,7 +4,7 @@ from scipy.stats import rankdata,mannwhitneyu
 from compile_stats import calculate_comp_score
 import numpy as np
 
-def get_values(target_dir):
+def get_comp_values(target_dir):
     scores = []
     for filename in os.listdir(target_dir):
         if filename.endswith(".stat"):
@@ -13,6 +13,18 @@ def get_values(target_dir):
                 score = calculate_comp_score(loaded_dict)
                 scores.append(score)
     return scores
+
+
+def get_f1_values(target_dir, cat):
+    scores = []
+    for filename in os.listdir(target_dir):
+        if filename.endswith(".stat"):
+            with open(os.path.join(target_dir, filename), 'rb') as file:
+                loaded_dict = pickle.load(file)
+                score = loaded_dict[cat]["f1"]
+                scores.append(score)
+    return scores
+
 
 def vargha_delaney_a12(X, Y):
     combined = np.concatenate((X, Y))
@@ -35,9 +47,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser("mann.py");
     parser.add_argument('haf_group')
     parser.add_argument('no_haf_group')
+    parser.add_argument('-c', '--cat', action='store')
     args = parser.parse_args()
-    no_haf_scores = get_values(args.no_haf_group) 
-    haf_scores = get_values(args.haf_group) 
+    no_haf_scores = np.array(get_comp_values(args.no_haf_group)) 
+    haf_scores = np.array(get_comp_values(args.haf_group))
+
+    if args.cat:
+        no_haf_scores = np.array(get_f1_values(args.no_haf_group, args.cat))
+        haf_scores = np.array(get_f1_values(args.haf_group, args.cat))
+
     result = mannwhitneyu(haf_scores, no_haf_scores, alternative="greater")
     a12 = vargha_delaney_a12(haf_scores, no_haf_scores)
     print("No HAF: "+str(no_haf_scores))

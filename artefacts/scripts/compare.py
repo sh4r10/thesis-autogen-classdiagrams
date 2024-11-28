@@ -4,7 +4,7 @@ from rich.pretty import pprint
 import re
 
 stats = {
-    "major": {
+    "classes": {
         "tp": 0,
         "fp": 0,
         "fn": 0,
@@ -12,7 +12,7 @@ stats = {
         "recall": 0.0,
         "f1": 0.0,
     },
-    "moderate": {
+    "relationships": {
         "tp": 0,
         "fp": 0,
         "fn": 0,
@@ -20,7 +20,63 @@ stats = {
         "recall": 0.0,
         "f1": 0.0,
     },
-    "minor": {
+    "attributes": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+    },
+    "methods": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+    },
+    "access_modifiers": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+    },
+    "attribute_type": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+    },
+    "method_return_type": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+    },
+    "multiplicity": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+    },
+    "parameter_name": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+    },
+    "parameter_type": {
         "tp": 0,
         "fp": 0,
         "fn": 0,
@@ -28,6 +84,7 @@ stats = {
         "recall": 0.0,
         "f1": 0.0,
     }
+
 }
 
 
@@ -56,10 +113,11 @@ def parse_plantuml(filename):
         for line in file:
             line = line.strip()
             rel_regex = re.search(r"(-(.)*-)|(\.(.)*\.)", line)
-
             if rel_regex is not None:
                 rel_dict = parse_relationship(line)
                 relationships.append(rel_dict)
+            elif line.startswith('@') or line.startswith("'"):
+                continue
             elif line.startswith('class'):
                 # Extract the class name
                 line = line.replace(" ", "")
@@ -130,27 +188,26 @@ def compare_parameters(params1, params2):
         if name not in params_dict1:
             detailed_diff.append(
                 f"    Parameter '{name}' of type '{type2}' is only in GPT diagram.")
-            stats["minor"]["fp"] += 1
+            stats["parameter_name"]["fp"] += 1
         elif name not in params_dict2:
             detailed_diff.append(
                 f"    Parameter '{name}' of type '{type1}' is only in Human diagram.")
-            stats["minor"]["fn"] += 1
+            stats["parameter_name"]["fn"] += 1
         else:
-            stats["minor"]["tp"] += 1
+            stats["parameter_name"]["tp"] += 1
 
         if type1 != type2:
             detailed_diff.append(
                 f"    Parameter '{name}' has different types (Human: '{type1}', GPT: '{type2}').")
             if type1 == "<none>":
-                stats["minor"]["fp"] += 1
+                stats["parameter_type"]["fp"] += 1
             elif type2 == "<none>":
-                stats["minor"]["fn"] += 1
-         # TODO: double check this
+                stats["parameter_type"]["fn"] += 1
             else:
-                stats["minor"]["fn"] += 1
-                stats["minor"]["fp"] += 1
+                stats["parameter_type"]["fn"] += 1
+                stats["parameter_type"]["fp"] += 1
         else:
-            stats["minor"]["tp"] += 1
+            stats["parameter_type"]["tp"] += 1
 
     # Return the collected differences as a string if there are any
     return "\n  ".join(detailed_diff) if detailed_diff else None
@@ -169,37 +226,39 @@ def compare_methods(methods1, methods2, missing):
         if not m1:
             missing.append(
                 f"  Method '{name}' exists only in GPT diagram.")
-            stats["moderate"]["fp"] += 1
+            stats["methods"]["fp"] += 1
             continue
         if not m2:
             missing.append(
                 f"  Method '{name}' exists only in Human diagram.")
-            stats["moderate"]["fn"] += 1
+            stats["methods"]["fn"] += 1
             continue
         # Add a tp
-        stats["moderate"]["tp"] += 1
+        stats["methods"]["tp"] += 1
 
         m1 = method_dict1[name]
         m2 = method_dict2[name]
         differences = []
+
         if m1['visibility'] != m2['visibility']:
             differences.append(
                 f"    Visibility (Human: '{m1['visibility']}', GPT: '{m2['visibility']}')")
             if m1['visibility'] == "<none>":
-                stats["minor"]["fp"] += 1
+                stats["access_modifiers"]["fp"] += 1
             elif m2['visibility'] == "<none>":
-                stats["minor"]["fn"] += 1
+                stats["access_modifiers"]["fn"] += 1
         else:
-            stats["minor"]["tp"] += 1
+            stats["access_modifiers"]["tp"] += 1
+
         if m1['methodType'] != m2['methodType']:
             differences.append(
                 f"    Return Type (Human: '{m1['methodType']}', GPT: '{m2['methodType']}')")
             if m1['methodType'] == "<none>":
-                stats["minor"]["fp"] += 1
+                stats["method_return_type"]["fp"] += 1
             elif m2['methodType'] == "<none>":
-                stats["minor"]["fn"] += 1
+                stats["method_return_type"]["fn"] += 1
         else:
-            stats["minor"]["tp"] += 1
+            stats["method_return_type"]["tp"] += 1
 
         param_diff = compare_parameters(m1["parameters"], m2["parameters"])
         if param_diff:
@@ -225,14 +284,14 @@ def compare_attributes(attrs1, attrs2, missing):
             visibility2, type2 = attr_dict2[name]
             missing.append(
                 f"  Attribute '{name}' of type '{type2}' missing in Human diagram.")
-            stats["moderate"]["fp"] += 1
+            stats["attributes"]["fp"] += 1
         elif name not in attr_dict2:
             visibility1, type1 = attr_dict1[name]
             missing.append(
                 f"  Attribute '{name}' of type '{type1}' missing in GPT diagram.")
-            stats["moderate"]["fn"] += 1
+            stats["attributes"]["fn"] += 1
         else:
-            stats["moderate"]["tp"] += 1
+            stats["attributes"]["tp"] += 1
             visibility1, type1 = attr_dict1[name]
             visibility2, type2 = attr_dict2[name]
             differences = []
@@ -240,21 +299,21 @@ def compare_attributes(attrs1, attrs2, missing):
                 differences.append(
                     f"    Visibility (Human: '{visibility1}', GPT: '{visibility2}')")
                 if visibility1 == "<none>":
-                    stats["minor"]["fp"] += 1
+                    stats["access_modifiers"]["fp"] += 1
                 elif visibility2 == "<none>":
-                    stats["minor"]["fn"] += 1
+                    stats["access_modifiers"]["fn"] += 1
             else:
-                stats["minor"]["tp"] += 1
+                stats["access_modifiers"]["tp"] += 1
 
             if type1 != type2:
                 differences.append(
                     f"    Type (Human: '{type1}', GPT: '{type2}')")
                 if type1 == "<none>":
-                    stats["minor"]["fp"] += 1
+                    stats["attribute_type"]["fp"] += 1
                 elif type2 == "<none>":
-                    stats["minor"]["fn"] += 1
+                    stats["attribute_type"]["fn"] += 1
             else:
-                stats["minor"]["tp"] += 1
+                stats["attribute_type"]["tp"] += 1
 
             if differences:
                 missing.append(f"  Attribute '{name}' has different: \n" +
@@ -277,14 +336,14 @@ def compare_classes(classes1, classes2):
                 classes1[cls]['attributes'], classes2[cls]['attributes'], missing[cls])
             compare_methods(classes1[cls]['methods'],
                             classes2[cls]['methods'], missing[cls])
-            stats["major"]["tp"] += 1
+            stats["classes"]["tp"] += 1
         else:
             if cls in classes1:
                 missing[cls].append(f"Class '{cls}' is only in Human diagram.")
-                stats["major"]["fn"] += 1
+                stats["classes"]["fn"] += 1
             else:
                 missing[cls].append(f"Class '{cls}' is only in GPT diagram.")
-                stats["major"]["fp"] += 1
+                stats["classes"]["fp"] += 1
     print("\n# CLASS DIFFERENCES")
 
     missing = dict(sorted(missing.items(), reverse=True, key=lambda s: (
@@ -351,45 +410,54 @@ def compare_relationships(rels1, rels2):
         if not rel1:
             errors.append(
                 f"Relationship from '{key[0]}' to '{key[1]}' exists only in the GPT diagram")
-            stats["major"]["fp"] += 1
+            stats["relationships"]["fp"] += 1
             continue
         if not rel2:
             errors.append(
                 f"Relationship from '{key[0]}' to '{key[1]}' exists only in the Human diagram")
-            stats["major"]["fn"] += 1
+            stats["relationships"]["fn"] += 1
             continue
         
         if rel1 and rel2 and reversible:
-            stats["major"]["tp"] += 1
+            stats["relationships"]["tp"] += 1
 
         # Compare each attribute within the relationship dictionaries
 
 
         differences = []
-        for attr in ["label", "text_from", "text_to", "rel_line", "rel_type_from", "rel_type_to"]:
+        for attr in ["text_from", "text_to", "rel_type_from", "rel_type_to"]:
             value1 = rel1.get(attr, "<none>")
             value2 = rel2.get(attr, "<none>")
 
-            if value1 != value2:
-                if (attr == "rel_type_from" or attr == "rel_type_to" ) and reversible: 
-                    stats["moderate"]["tp"] += 1
-                    continue
-                elif attr == "rel_type_from" and not reversible: 
-                    if value1 == "<none>":
-                         stats["moderate"]["fp"] += 1
-                    elif value2 == "<none>":
-                         stats["moderate"]["fn"] += 1
-                    else:
-                         stats["moderate"]["fp"] += 1
-                         stats["moderate"]["fn"] += 1
-                elif attr != "rel_type_to":
-                     if value1 == "<none>":
-                         stats["minor"]["fp"] += 1
-                     elif value2 == "<none>":
-                         stats["minor"]["fn"] += 1
-                     else:
-                         stats["minor"]["tp"] += 1
-
+            # if value1 != value2:
+                # if (attr == "rel_type_from" or attr == "rel_type_to" ) and reversible: 
+                #     stats["moderate"]["tp"] += 1
+                #     continue
+                # elif attr == "rel_type_from" and not reversible: 
+                #     if value1 == "<none>":
+                #          stats["moderate"]["fp"] += 1
+                #     elif value2 == "<none>":
+                #          stats["moderate"]["fn"] += 1
+                #     else:
+                #          stats["moderate"]["fp"] += 1
+                #          stats["moderate"]["fn"] += 1
+                # elif attr != "rel_type_to":
+                #      if value1 == "<none>":
+                #          stats["minor"]["fp"] += 1
+                #      elif value2 == "<none>":
+                #          stats["minor"]["fn"] += 1
+                #      else:
+                #          stats["minor"]["tp"] += 1
+            if attr == "text_from" or attr == "text_to":
+                if value1 != value2: 
+                   if value1 == "<none>":
+                     stats["multiplicity"]["fp"] += 1
+                   elif value2 == "<none>":
+                     stats["multiplicity"]["fn"] += 1
+                   else:
+                     stats["multiplicity"]["fp"] += 1
+                     stats["multiplicity"]["fn"] += 1
+ 
                 differences.append(
                     f"  {attr}: (Human: '{value1}', GPT: '{value2}')")
 
@@ -421,21 +489,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser("compare.py");
     parser.add_argument('human_diagram')
     parser.add_argument('gpt_diagram')
-    parser.add_argument('-f', '--file', action='store')
     parser.add_argument('-d', '--dir', action='store')
     
-    print("""
-________  ________  _____ ______   ________  ________  ________  _______       ________  ___    ___ 
-|\   ____\|\   __  \|\   _ \  _   \|\   __  \|\   __  \|\   __  \|\  ___ \     |\   __  \|\  \  /  /|
-\ \  \___|\ \  \|\  \ \  \\\__\ \  \ \  \|\  \ \  \|\  \ \  \|\  \ \   __/|    \ \  \|\  \ \  \/  / /
- \ \  \    \ \  \\\  \ \  \\|__| \  \ \   ____\ \   __  \ \   _  _\ \  \_|/__   \ \   ____\ \    / / 
-  \ \  \____\ \  \\\  \ \  \    \ \  \ \  \___|\ \  \ \  \ \  \\  \\ \  \_|\ \ __\ \  \___|\/  /  /  
-   \ \_______\ \_______\ \__\    \ \__\ \__\    \ \__\ \__\ \__\\ _\\ \_______\\__\ \__\ __/  / /    
-    \|_______|\|_______|\|__|     \|__|\|__|     \|__|\|__|\|__|\|__|\|_______\|__|\|__||\___/ /     
-                                                                                        \|___|/      
-
-          """)
-
     args = parser.parse_args()
     file1, file2 = args.human_diagram, args.gpt_diagram
     (classes_file1, rels_file1) = parse_plantuml(file1)
@@ -444,10 +499,11 @@ ________  ________  _____ ______   ________  ________  ________  _______       _
     compare_relationships(rels_file1, rels_file2)
     print_stats();
     
-    if(args.file):
+    if(args.dir):
         if args.dir and not os.path.exists(args.dir):
             os.makedirs(args.dir)
 
         dir = args.dir if args.dir else "."
-        with open(dir+'/'+args.file+'.stat', 'wb') as file:
+        filename = re.search(r"[-\w]+(?=.puml)", args.gpt_diagram)
+        with open(dir+'/'+filename.group()+'.stat', 'wb') as file:
             pickle.dump(stats, file)
