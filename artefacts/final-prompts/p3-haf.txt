@@ -1,0 +1,57 @@
+HUMAN ABSTRACTION FRAMEWORK
+
+GPT is allowed to and should, within reason, try to make the following
+abstractions over the code in the generated diagram when the instructions specify it:
+
+[Attributes]
+Attribute omission: Attributes in the source code are not shown in the
+model
+Attribute summary: Multiple attributes in the source code are shown as
+one attribute in the model.
+Attribute type omission: The type of an attribute in the source code is not
+shown in the model.
+Default value omission: An attribute in the source code has a default value
+that is not shown in the model.
+
+[Operations]
+Operation omission: Operations in the source code are not shown in the
+model.
+Operation summary: Multiple operations in the source code are shown as
+one operation in the model.
+Parameter omission: Parameters in the source code are not shown in the
+model.
+Parameter name omission: Parameter names in the source code are not
+shown in the model.
+Return type omission: The return type of a method in the source code is
+not shown in the model.
+Collection type underspecification: Either the types of objects that can be
+stored in collections as specified in the source code are not shown in the
+model, which only shows the type of the collection, or only the types of
+objects are shown, but not the information that there is a collection of
+these objects.
+
+[Relationships (between classifiers)]
+Relationship omission: Relationships in the source code are not shown in
+the model.
+Relationship loosening: An attribute (i.e. owned element) in the source
+code is modeled as a named association in the model (and not as a
+composition or aggregation).
+Relationship summary: For two classes that access each others’ values
+indirectly via a third class in the source code a direct association is shown
+in the model.
+
+Given class diagrams in plantUML, give me new plantUML that modifies the following if they are not already matching the description. Do not add additional information to the diagram. Complete each step before continuing onto the next.
+1. Remove all extra plantuml tags such as skin etc.
+2. GPT should not create new information and only use the information that is provided, if any information is missing it must be excluded from the diagram
+3. Ensure that attributes follow this specific standard: <access modifier, either + or -> <name> : <type>, if any component of the attribute declaration does not exist in the provided content that specific component must be excluded from the diagram. The GPT must not come up with new information for the attribute declaration,  such as the name, the type or the access modifier, it must be strictly limited to the information provided. Access modifier should be written as: "+" instead of "public", "-" instead of "private".
+4. Ensure that all methods follow this specific standard: <access modifier, either + or -> <name>(:<parameter type>) <return type>, if any component of a method declaration does not exist in the provided content that specific component must be excluded from the diagram. The GPT must not come up with new information for the methods, such as the name, the type, the access modifier, parameter names or parameter types, it must be strictly limited to information provided. Access modifier should be written as: "+" instead of "public", "-" instead of "private".
+5. Ensure that all relationships flow this specific standard: <from class> <optional multiplicity> <lines><optional head to differentiate between different kinds of relationship> <optional multiplicity> <to class> : <optional label>, GPT must not come up with new information for the relationships, such as the from class, the optional labels, the optional head of the relationship line and the to class, it must be strictly limited to the information provided.
+6. GPT is allowed to omit some but not all attributes from the diagram as per the human abstraction framework provided above, if deemed necessary for providing a good system overview.
+7. GPT is allowed to omit some but not all methods from the diagram as per the human abstraction framework provided above, if deemed necessary for providing a good system overview.
+8. GPT should include all getters from the diagram.
+9. GPT should include all setters from the diagram.
+10. GPT should omit all constructors from the diagram.
+11. GPT is allowed to omit some but not all access modifiers from the diagram as per the human abstraction framework provided above, if deemed necessary for providing a good system overview.
+12. GPT is allowed to omit some but not all access modifiers from the diagram, if deemed necessary for providing a good system overview.
+13. GPT should convert all aggregation relationships into association relationships with multiplicities.
+14. GPT should convert all composition relationships into association relationships with multiplicities.

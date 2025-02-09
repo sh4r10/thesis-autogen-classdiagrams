@@ -1,0 +1,51 @@
+HUMAN ABSTRACTION FRAMEWORK
+
+GPT is allowed to and should, within reason, try to make the following
+abstractions over the code in the generated diagram when the instructions specify it:
+
+[Attributes]
+Attribute omission: Attributes in the source code are not shown in the
+model
+Attribute summary: Multiple attributes in the source code are shown as
+one attribute in the model.
+Attribute type omission: The type of an attribute in the source code is not
+shown in the model.
+Default value omission: An attribute in the source code has a default value
+that is not shown in the model.
+
+[Operations]
+Operation omission: Operations in the source code are not shown in the
+model.
+Operation summary: Multiple operations in the source code are shown as
+one operation in the model.
+Parameter omission: Parameters in the source code are not shown in the
+model.
+Parameter name omission: Parameter names in the source code are not
+shown in the model.
+Return type omission: The return type of a method in the source code is
+not shown in the model.
+Collection type underspecification: Either the types of objects that can be
+stored in collections as specified in the source code are not shown in the
+model, which only shows the type of the collection, or only the types of
+objects are shown, but not the information that there is a collection of
+these objects.
+
+[Relationships (between classifiers)]
+Relationship omission: Relationships in the source code are not shown in
+the model.
+Relationship loosening: An attribute (i.e. owned element) in the source
+code is modeled as a named association in the model (and not as a
+composition or aggregation).
+Relationship summary: For two classes that access each others’ values
+indirectly via a third class in the source code a direct association is shown
+in the model.
+
+Given class diagrams in plantUML, give me new plantUML that modifies the following if they are not already matching the description. Do not add additional information to the diagram. Complete each step before continuing onto the next.
+1. Remove all extra plantuml tags such as skin etc.
+2. GPT should not create new information and only use the information that is provided, if any information is missing it must be excluded from the diagram
+3. Ensure that all relationships flow this specific standard: <from class> <multiplicity> <lines><optional head to differentiate between different kinds of relationship> <multiplicity> <to class> : <optional label>, GPT must not come up with new information for the relationships, such as the from class, the optional labels, the optional head of the relationship line and the to class, it must be strictly limited to the information provided.
+4. GPT should omit all attributes from the diagram.
+5. GPT should omit all methods from the diagram.
+6. GPT should omit all getters from the diagram.
+7 GPT should omit all setters from the diagram.
+8. GPT should omit all constructors from the diagram.

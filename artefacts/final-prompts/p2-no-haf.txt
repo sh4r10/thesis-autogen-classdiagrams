@@ -1,0 +1,13 @@
+Given class diagrams in plantUML, give me new plantUML that modifies the following if they are not already matching the description. Do not add additional information to the diagram. Complete each step before continuing onto the next.
+1. Remove all extra plantuml tags such as skin etc.
+2. GPT should not create new information and only use the information that is provided, if any information is missing it must be excluded from the diagram
+3. Ensure that attributes follow this specific standard: <name> : <type>, if any component of the attribute declaration does not exist in the provided content that specific component must be excluded from the diagram. The GPT must not come up with new information for the attribute declaration,  such as the name, the type or the access modifier, it must be strictly limited to the information provided. 
+4. Ensure that all methods follow this specific standard: <name>(<parameter name>:<parameter type>): <return type>, if any component of a method declaration does not exist in the provided content that specific component must be excluded from the diagram. The GPT must not come up with new information for the methods, such as the name, the type, the access modifier, parameter names or parameter types, it must be strictly limited to information provided.
+5. Ensure that all relationships flow this specific standard: <from class> <optional label> <lines><optional head to differentiate between different kinds of relationship><optional label> <to class> : <optional label>, GPT must not come up with new information for the relationships, such as the from class, the optional labels, the optional head of the relationship line and the to class, it must be strictly limited to the information provided.
+6. GPT is allowed to omit some but not all attributes from the diagram, if deemed necessary for providing a good system overview.
+7. GPT is allowed to omit some but not all methods from the diagram, if deemed necessary for providing a good system overview.
+8. GPT is allowed to omit some but not all relationships from the diagram, if deemed necessary for providing a good system overview.
+9. GPT should omit all getters from the diagram.
+10. GPT is allowed to omit some but not all setters from the diagram, if deemed necessary for providing a good system overview.
+11. GPT should omit all constructors from the diagram.
+12. GPT should omit all access modifiers from the diagram.
