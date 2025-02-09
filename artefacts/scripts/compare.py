@@ -362,43 +362,6 @@ def compare_relationships(rels1, rels2):
         if rel1 and rel2 and reversible:
             stats["major"]["tp"] += 1
 
-        # Compare each attribute within the relationship dictionaries
-
-
-        differences = []
-        for attr in ["label", "text_from", "text_to", "rel_line", "rel_type_from", "rel_type_to"]:
-            value1 = rel1.get(attr, "<none>")
-            value2 = rel2.get(attr, "<none>")
-
-            if value1 != value2:
-                if (attr == "rel_type_from" or attr == "rel_type_to" ) and reversible: 
-                    stats["moderate"]["tp"] += 1
-                    continue
-                elif attr == "rel_type_from" and not reversible: 
-                    if value1 == "<none>":
-                         stats["moderate"]["fp"] += 1
-                    elif value2 == "<none>":
-                         stats["moderate"]["fn"] += 1
-                    else:
-                         stats["moderate"]["fp"] += 1
-                         stats["moderate"]["fn"] += 1
-                elif attr != "rel_type_to":
-                     if value1 == "<none>":
-                         stats["minor"]["fp"] += 1
-                     elif value2 == "<none>":
-                         stats["minor"]["fn"] += 1
-                     else:
-                         stats["minor"]["tp"] += 1
-
-                differences.append(
-                    f"  {attr}: (Human: '{value1}', GPT: '{value2}')")
-
-        if differences:
-            errors.append(
-                f"Relationship from '{key[0]}' to '{key[1]}' has differences: \n" + "\n".join(differences) + ".")
-        else:
-            print(
-                f"Relationship from '{key[0]}' to '{key[1]}' is identical in both lists.")
     if len(errors) > 0:
         print("\n# RELATIONSHIP DIFFERENCES")
     for err in errors:
@@ -423,19 +386,6 @@ if __name__ == "__main__":
     parser.add_argument('gpt_diagram')
     parser.add_argument('-f', '--file', action='store')
     parser.add_argument('-d', '--dir', action='store')
-    
-    print("""
-________  ________  _____ ______   ________  ________  ________  _______       ________  ___    ___ 
-|\   ____\|\   __  \|\   _ \  _   \|\   __  \|\   __  \|\   __  \|\  ___ \     |\   __  \|\  \  /  /|
-\ \  \___|\ \  \|\  \ \  \\\__\ \  \ \  \|\  \ \  \|\  \ \  \|\  \ \   __/|    \ \  \|\  \ \  \/  / /
- \ \  \    \ \  \\\  \ \  \\|__| \  \ \   ____\ \   __  \ \   _  _\ \  \_|/__   \ \   ____\ \    / / 
-  \ \  \____\ \  \\\  \ \  \    \ \  \ \  \___|\ \  \ \  \ \  \\  \\ \  \_|\ \ __\ \  \___|\/  /  /  
-   \ \_______\ \_______\ \__\    \ \__\ \__\    \ \__\ \__\ \__\\ _\\ \_______\\__\ \__\ __/  / /    
-    \|_______|\|_______|\|__|     \|__|\|__|     \|__|\|__|\|__|\|__|\|_______\|__|\|__||\___/ /     
-                                                                                        \|___|/      
-
-          """)
-
     args = parser.parse_args()
     file1, file2 = args.human_diagram, args.gpt_diagram
     (classes_file1, rels_file1) = parse_plantuml(file1)
