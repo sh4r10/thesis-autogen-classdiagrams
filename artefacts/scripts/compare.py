@@ -60,14 +60,6 @@ stats = {
         "recall": 0.0,
         "f1": 0.0,
     },
-    "multiplicity": {
-        "tp": 0,
-        "fp": 0,
-        "fn": 0,
-        "precision": 0.0,
-        "recall": 0.0,
-        "f1": 0.0,
-    },
     "parameter_name": {
         "tp": 0,
         "fp": 0,
@@ -395,6 +387,8 @@ def compare_relationships(rels1, rels2):
         rel_head_to_1 = rel1.get("rel_type_to", "");
         rel_head_to_2 = rel2.get("rel_type_to", "");
         
+        if (rel_head_from_1 == "" and rel_head_to_2 == ""):
+            return True
         if (rel_head_from_1 != "<none>" or rel_head_to_2 != "<none>") and rel_head_from_1 == reversible_rels[rel_head_to_2]:
             return True
         elif (rel_head_to_1 != "<none>" or rel_head_from_2 != "<none>") and rel_head_to_1 == reversible_rels[rel_head_from_2]:
@@ -429,36 +423,7 @@ def compare_relationships(rels1, rels2):
             value1 = rel1.get(attr, "<none>")
             value2 = rel2.get(attr, "<none>")
 
-            # if value1 != value2:
-                # if (attr == "rel_type_from" or attr == "rel_type_to" ) and reversible: 
-                #     stats["moderate"]["tp"] += 1
-                #     continue
-                # elif attr == "rel_type_from" and not reversible: 
-                #     if value1 == "<none>":
-                #          stats["moderate"]["fp"] += 1
-                #     elif value2 == "<none>":
-                #          stats["moderate"]["fn"] += 1
-                #     else:
-                #          stats["moderate"]["fp"] += 1
-                #          stats["moderate"]["fn"] += 1
-                # elif attr != "rel_type_to":
-                #      if value1 == "<none>":
-                #          stats["minor"]["fp"] += 1
-                #      elif value2 == "<none>":
-                #          stats["minor"]["fn"] += 1
-                #      else:
-                #          stats["minor"]["tp"] += 1
-            if attr == "text_from" or attr == "text_to":
-                if value1 != value2: 
-                   if value1 == "<none>":
-                     stats["multiplicity"]["fp"] += 1
-                   elif value2 == "<none>":
-                     stats["multiplicity"]["fn"] += 1
-                   else:
-                     stats["multiplicity"]["fp"] += 1
-                     stats["multiplicity"]["fn"] += 1
- 
-                differences.append(
+            differences.append(
                     f"  {attr}: (Human: '{value1}', GPT: '{value2}')")
 
         if differences:
