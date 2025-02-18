@@ -1,77 +1,114 @@
 @startuml
 
-class Phase {
-    - name
-    - id
-    - p
-    + getProject(): Project
-    + setProject(Project proj)
-    + getName(): String
-    + getID(): String
-}
-
 class Employee {
-    - id
-    - name
-    - position
-    + addSchedule(Schedule sch)
-}
-
-class Project {
-    - id
-    - name
-    + addPhase(Phase newPhase)
-    + getName(): String
-    + getID(): String
-}
-
-class LaborBilling {
-    - id
-    - name
-    + getName(): String
-    + getId(): String
+  - id
+  - name
+  - position
+  - schedList
+  + addSchedule()
 }
 
 class Schedule {
-    - id
-    - p
-    - e
-    + getStartDate(): Calendar
-    + getEndDate(): Calendar
-    + getPattern(): Pattern
-    + getEmployee(): Employee
-}
-
-class PhaseLabor {
-    - id
-    - lb
-    - ph
-    - percentage
-    + getPhase(): Phase
-    + getLaborBilling(): LaborBilling
-    + getPercentage(): Float
+  - id
+  - start_date
+  - end_date
+  - p
+  - e
+  + getStartDate()
+  + getEndDate()
+  + getPattern()
+  + getEmployee()
 }
 
 class Pattern {
-    - noOfHours
-    + addPhL(PhaseLabor x)
-    + getPhL(int ind): PhaseLabor
-    + getNoOfHours(): Integer
-    + setNoOfHours(Integer noh)
-    + getPhaseLabor(LaborBilling lbS, Phase phS): PhaseLabor
+  - plArray
+  - noOfHours
+  + addPhL()
+  + getPhL()
+  + getArrayPhaseLabor()
+  + getNoOfHours()
+  + setNoOfHours()
+  + getPhaseLabor()
+}
+
+class PhaseLabor {
+  - id
+  - lb
+  - ph
+  - percentage
+  + getPhase()
+  + getLaborBilling()
+  + getPercentage()
+}
+
+class Phase {
+  - name
+  - id
+  - p
+  + getProject()
+  + setProject()
+  + getName()
+  + getID()
+}
+
+class LaborBilling {
+  - id
+  - name
+  + getName()
+  + getId()
+}
+
+class Project {
+  - id
+  - name
+  - phList
+  + addPhase()
+  + getName()
+  + getID()
 }
 
 class POIGenerator {
-    - month
-    - year
-    + generateDoc(String workbookname, int genmonth, int genyear)
+  - pEmp
+  - wb
+  - sablon
+  - month
+  - year
+  - schedEmp
+  - fileOut
+  - sheet1
+  - createHelper
+  - underFont
+  - style
+  - tablestyle
+  - tableheadstyle
+  - tableweekendstyle
+  - datestyle
+  - PhLArray
+  - getNextMonday()
+  - getPatternForDay()
+  - getListOfDistinctPhaseLabor()
+  - getListOfPatterns()
+  - generateHeader()
+  - getDateFrom()
+  - generateTableRow()
+  - generateWeek()
+  - howManyDays()
+  - styleMe()
+  - generateDocHeader()
+  + generateDoc()
 }
 
-' Relationships converted to associations with multiplicities
-Phase "1" -- "1" Project
-Schedule "1" -- "1" Employee
+Employee "1" -- "many" Schedule
 Schedule "1" -- "1" Pattern
+Schedule "1" -- "1" Employee
+Pattern "1" -- "many" PhaseLabor
 PhaseLabor "1" -- "1" LaborBilling
 PhaseLabor "1" -- "1" Phase
+Phase "1" -- "1" Project
+Project "1" -- "many" Phase
+POIGenerator "1" -- "1" Employee
+POIGenerator "1" -- "many" Schedule
+POIGenerator "1" -- "many" PhaseLabor
 
 @enduml
+

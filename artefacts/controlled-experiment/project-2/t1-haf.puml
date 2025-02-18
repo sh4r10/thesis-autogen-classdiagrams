@@ -1,79 +1,133 @@
 @startuml
+
 class DAO {
-}
-
-class Food {
-  int valuedog
-  int valuecat
-  int valuefish
-  int valuepenguin
-}
-
-class ItemVisitor {
-  visit(Food food): int
-  visit(Upgrade upgrade): int
-}
-
-class Job {
-  int id
-  int impactenergy
-  int impacthunger
-  int impacthygiene
-  int impactfun
-  String title
-  int length
-  String image
-  String client
-  String message
-  int reward
-  String species
-}
-
-class Pet {
-  int petid
-  int owner
-  String name
-  String type
-  String variant
-  int hunger
-  int energy
-  int fun
-  int hygiene
-  int age
-  String image
-  int money
-}
-
-class PetBuilder {
-  setOwner(int owner): PetBuilder
-  setName(String name): PetBuilder
-  setType(String type): PetBuilder
-  setVariant(String variant): PetBuilder
-  setImage(String image): PetBuilder
-  createPet(): Pet
-}
-
-class RaiseMeUp {
-}
-
-class Upgrade {
-  String property
-  String species
-  int value
+    users : Map<Integer, User>
+    pets : Map<Integer, Pet>
+    foods : Map<Integer, Food>
+    upgrades : Map<Integer, Upgrade>
+    jobs : Map<Integer, Job>
+    dbfile : String
+    addUser(user: User): boolean
+    getUser(): Map
+    checkIfUserExists(user: User): boolean
+    delUser(user: User): boolean
+    updateUser(user: User): boolean
+    addPet(pet: Pet): boolean
+    getPet(): Map
+    checkIfPetExists(pet: Pet): boolean
+    delPet(pet: Pet): boolean
+    updatePet(pet: Pet): boolean
+    addFood(food: Food): boolean
+    getFood(): Map
+    checkIfFoodExists(food: Food): boolean
+    delFood(food: Food): boolean
+    updateFood(food: Food): boolean
+    addUpgrade(upgrade: Upgrade): boolean
+    getUpgrade(): Map
+    checkIfUpgradeExists(upgrade: Upgrade): boolean
+    delUpgrade(upgrade: Upgrade): boolean
+    updateUpgrade(upgrade: Upgrade): boolean
+    addJob(job: Job): boolean
+    getJob(): Map
 }
 
 class User {
-  int id
-  String email
-  String username
-  String password
+    id : int
+    email : String
+    username : String
+    password : String
 }
 
 class UserBuilder {
-  setId(int id): UserBuilder
-  setEmail(String email): UserBuilder
-  setUsername(String username): UserBuilder
-  setPassword(String password): UserBuilder
-  createUser(): User
+    id : int
+    email : String
+    username : String
+    password : String
+    setId(id: int): UserBuilder
+    setEmail(email: String): UserBuilder
+    setUsername(username: String): UserBuilder
+    setPassword(password: String): UserBuilder
+    createUser(): User
 }
+
+class Pet {
+    petid : int
+    owner : int
+    name : String
+    type : String
+    variant : String
+    hunger : int
+    energy : int
+    fun : int
+    hygiene : int
+    age : int
+    image : String
+    money : int
+    owneditems : Map<Item, Integer>
+    ownedjobs : Map<Job, Integer>
+    getEmotion(): int
+}
+
+class PetBuilder {
+    owner : int
+    name : String
+    type : String
+    variant : String
+    image : String
+    setOwner(owner: int): PetBuilder
+    setName(name: String): PetBuilder
+    setType(type: String): PetBuilder
+    setVariant(variant: String): PetBuilder
+    setImage(image: String): PetBuilder
+    createPet(): Pet
+}
+
+class Job {
+    id : int
+    impactenergy : int
+    impacthunger : int
+    impacthygiene : int
+    impactfun : int
+    title : String
+    length : int
+    image : String
+    client : String
+    message : String
+    reward : int
+    species : String
+}
+
+class Food extends Item {
+    valuedog : int
+    valuecat : int
+    valuefish : int
+    valuepenguin : int
+}
+
+class Upgrade extends Item {
+    property : String
+    species : String
+    value : int
+}
+
+class ItemVisitor {
+    visit(food: Food): int
+    visit(upgrade: Upgrade): int
+}
+
+DAO --> User
+DAO --> Pet
+DAO --> Food
+DAO --> Upgrade
+DAO --> Job
+UserBuilder --> User
+PetBuilder --> Pet
+Pet --> Job : owns >
+Pet --> Item : owns >
+Food --|> Item
+Upgrade --|> Item
+ItemVisitor --> Food
+ItemVisitor --> Upgrade
+
 @enduml
+

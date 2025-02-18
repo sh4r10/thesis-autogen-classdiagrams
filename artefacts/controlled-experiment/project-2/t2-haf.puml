@@ -1,71 +1,231 @@
 @startuml
 
-class DAO {
-}
+package raisemeup.model.beans {
+    class User {
+        - int id
+        - String email
+        - String username
+        - String password
+        + int getId()
+        + void setId(int id)
+        + String getEmail()
+        + void setEmail(String email)
+        + String getUsername()
+        + void setUsername(String username)
+        + String getPassword()
+        + void setPassword(String password)
+    }
 
-class Food {
-    valuedog : int
-    valuecat : int
-    valuefish : int
-    valuepenguin : int
-}
+    class UserBuilder {
+        - int id
+        - String email
+        - String username
+        - String password
+        + UserBuilder setId(int id)
+        + UserBuilder setEmail(String email)
+        + UserBuilder setUsername(String username)
+        + UserBuilder setPassword(String password)
+        + User createUser()
+    }
 
-class ItemVisitor {
-}
+    class Pet {
+        - int petid
+        - int owner
+        - String name
+        - String type
+        - String variant
+        - int hunger
+        - int energy
+        - int fun
+        - int hygiene
+        - int age
+        - String image
+        - int money
+        - Map<Item, Integer> owneditems
+        - Map<Job, Integer> ownedjobs
+        + int getEmotion()
+        + String getName()
+        + void setName(String name)
+        + int getHunger()
+        + void setHunger(int hunger)
+        + int getEnergy()
+        + void setEnergy(int energy)
+        + int getFun()
+        + void setFun(int fun)
+        + int getHygiene()
+        + void setHygiene(int hygiene)
+        + int getAge()
+        + void setAge(int age)
+        + int getMoney()
+        + void setMoney(int money)
+        + String getType()
+        + void setType(String type)
+        + String getVariant()
+        + void setVariant(String variant)
+        + String getImage()
+        + void setImage(String image)
+        + int getOwner()
+        + void setOwner(int owner)
+        + int getPetid()
+        + void setPetid(int petid)
+        + Map<Item, Integer> getOwneditems()
+        + Map<Job, Integer> getOwnedjobs()
+    }
 
-class Job {
-    id : int
-    impactenergy : int
-    impacthunger : int
-    impacthygiene : int
-    impactfun : int
-    title : String
-    length : int
-    image : String
-    client : String
-    message : String
-    reward : int
-    species : String
-}
+    class PetBuilder {
+        - int owner
+        - String name
+        - String type
+        - String variant
+        - String image
+        + PetBuilder setOwner(int owner)
+        + PetBuilder setName(String name)
+        + PetBuilder setType(String type)
+        + PetBuilder setVariant(String variant)
+        + PetBuilder setImage(String image)
+        + Pet createPet()
+    }
 
-class Pet {
-    petid : int
-    owner : int
-    name : String
-    type : String
-    variant : String
-    hunger : int
-    energy : int
-    fun : int
-    hygiene : int
-    age : int
-    image : String
-    money : int
-}
+    class Item {
+        + int getPrice()
+    }
 
-class PetBuilder {
-}
+    class Food extends Item {
+        - int valuedog
+        - int valuecat
+        - int valuefish
+        - int valuepenguin
+        + int getValuedog()
+        + void setValuedog(int valuedog)
+        + int getValuecat()
+        + void setValuecat(int valuecat)
+        + int getValuefish()
+        + void setValuefish(int valuefish)
+        + int getValuepenguin()
+        + void setValuepenguin(int valuepenguin)
+    }
 
-class RaiseMeUp {
-}
+    class Upgrade extends Item {
+        - String property
+        - String species
+        - int value
+        + String getProperty()
+        + void setProperty(String property)
+        + String getSpecies()
+        + void setSpecies(String species)
+        + int getValue()
+        + void setValue(int value)
+    }
 
-class Upgrade {
-    property : String
-    species : String
-    value : int
-}
+    class Job {
+        - int id
+        - int impactenergy
+        - int impacthunger
+        - int impacthygiene
+        - int impactfun
+        - String title
+        - int length
+        - String image
+        - String client
+        - String message
+        - int reward
+        - String species
+        + int getId()
+        + void setId(int id)
+        + int getImpactenergy()
+        + void setImpactenergy(int impactenergy)
+        + int getImpacthunger()
+        + void setImpacthunger(int impacthunger)
+        + int getImpacthygiene()
+        + void setImpacthygiene(int impacthygiene)
+        + int getImpactfun()
+        + void setImpactfun(int impactfun)
+        + String getTitle()
+        + void setTitle(String title)
+        + String getImage()
+        + void setImage(String image)
+        + String getClient()
+        + void setClient(String client)
+        + String getMessage()
+        + void setMessage(String message)
+        + int getLength()
+        + void setLength(int length)
+        + int getReward()
+        + void setReward(int reward)
+        + String getSpecies()
+        + void setSpecies(String species)
+    }
 
-class User {
-    id : int
-    email : String
-    username : String
-    password : String
-}
+    class DAO {
+        - Map<Integer, User> users
+        - Map<Integer, Pet> pets
+        - Map<Integer, Food> foods
+        - Map<Integer, Upgrade> upgrades
+        - Map<Integer, Job> jobs
+        + boolean addUser(User u)
+        + Map<Integer, User> getUser()
+        + boolean delUser(User u)
+        + boolean updateUser(User u)
+        + boolean addPet(Pet p)
+        + Map<Integer, Pet> getPet()
+        + boolean delPet(Pet p)
+        + boolean updatePet(Pet p)
+        + boolean addFood(Food f)
+        + Map<Integer, Food> getFood()
+        + boolean delFood(Food f)
+        + boolean updateFood(Food f)
+        + boolean addUpgrade(Upgrade up)
+        + Map<Integer, Upgrade> getUpgrade()
+        + boolean delUpgrade(Upgrade up)
+        + boolean updateUpgrade(Upgrade u)
+        + boolean addJob(Job j)
+        + Map<Integer, Job> getJob()
+        + boolean delJob(Job j)
+        + boolean updateJob(Job j)
+    }
 
-class UserBuilder {
-}
+    class ItemVisitor {
+        + int visit(Food food)
+        + int visit(Upgrade upgrade)
+    }
 
-Food --|> Item
-Upgrade --|> Item
+    class RaiseMeUp {
+        - User currentUser
+        - Pet currentPet
+        - boolean onJob
+        - Job currentJob
+        - int jobprogress
+        + static void init()
+        + static void main(String[] args)
+        + static boolean newUser(int id, String email, String username, String password)
+        + static void bookMyNewAnimal(String animalname, String type, String variant, String imagestring)
+        + static boolean newFood(Food f)
+        + static boolean newUpgrade(Upgrade u)
+        + static boolean newJob(Job j)
+        + static boolean newFoodOwned(Pet p, Food f, int piece)
+        + static boolean newUpgradeOwned(Pet p, Upgrade u, int piece)
+        + static boolean newJobOwned(Pet p, Job j, int timeworked)
+    }
+
+    UserBuilder --> User
+    PetBuilder --> Pet
+    Food --|> Item
+    Upgrade --|> Item
+    Pet "1" --> "*" Job : owned jobs
+    Pet "1" --> "*" Item : owned items
+    DAO --> User
+    DAO --> Pet
+    DAO --> Food
+    DAO --> Upgrade
+    DAO --> Job
+    ItemVisitor --> Food
+    ItemVisitor --> Upgrade
+    RaiseMeUp --> DAO
+    RaiseMeUp --> User
+    RaiseMeUp --> Pet
+    RaiseMeUp --> Job
+
+}
 
 @enduml
+

@@ -1,80 +1,105 @@
 @startuml
+
 class Employee {
-    -id: Integer
-    -name: String
-    -position: String
-    +addSchedule(): void
+    - id
+    - name
+    - position
+    - schedList
+    + addSchedule()
 }
+
 class LaborBilling {
-    -id: String
-    -name: String
-    +getName(): String
-    +getId(): String
+    - id
+    - name
+    + getName(): String
+    + getId(): String
 }
+
 class Pattern {
-    -noOfHours: Integer
-    +addPhL(): void
-    +getPhL(): PhaseLabor
-    +getNoOfHours(): Integer
-    +setNoOfHours(): void
-    +getPhaseLabor(): PhaseLabor
+    - plArray
+    - noOfHours
+    + addPhL()
+    + getPhL(): PhaseLabor
+    + getArrayPhaseLabor(): ArrayList
+    + getNoOfHours(): Integer
+    + setNoOfHours()
+    + getPhaseLabor(): PhaseLabor
 }
+
 class Phase {
-    -name: String
-    -id: String
-    -p: Project
-    +getProject(): Project
-    +setProject(): void
-    +getName(): String
-    +getID(): String
+    - name
+    - id
+    - p
+    + getProject(): Project
+    + setProject()
+    + getName(): String
+    + getID(): String
 }
+
 class PhaseLabor {
-    -id: String
-    -lb: LaborBilling
-    -ph: Phase
-    -percentage: Float
-    +getPhase(): Phase
-    +getLaborBilling(): LaborBilling
-    +getPercentage(): Float
+    - id
+    - lb
+    - ph
+    - percentage
+    + getPhase(): Phase
+    + getLaborBilling(): LaborBilling
+    + getPercentage(): Float
 }
+
 class POIGenerator {
-    -month: int
-    -year: int
-    +getNextMonday(): Calendar
-    +getPatternForDay(): Pattern
-    +generateHeader(): void
-    +getDateFrom(): Calendar
-    +generateTableRow(): Float
-    +generateWeek(): void
-    +howManyDays(): int
-    +styleMe(): void
-    +generateDocHeader(): void
-    +generateDoc(): void
+    - pEmp
+    - wb
+    - sablon
+    - month
+    - year
+    - schedEmp
+    - fileOut
+    - sheet1
+    - createHelper
+    - underFont
+    - style
+    - tablestyle
+    - tableheadstyle
+    - tableweekendstyle
+    - datestyle
+    - PhLArray
+    - getNextMonday(): Calendar
+    - getPatternForDay(): Pattern
+    - getListOfDistinctPhaseLabor(): ArrayList
+    - getListOfPatterns(): ArrayList
+    - generateHeader()
+    - getDateFrom(): Calendar
+    - generateTableRow(): Float
+    - generateWeek()
+    - howManyDays(): int
+    - styleMe()
+    - generateDocHeader()
+    + generateDoc()
 }
+
 class Project {
-    -id: String
-    -name: String
-    +addPhase(): void
-    +getName(): String
-    +getID(): String
+    - id
+    - name
+    - phList
+    + addPhase()
+    + getName(): String
+    + getID(): String
 }
+
 class Schedule {
-    -id: Integer
-    -p: Pattern
-    -e: Employee
-    +getStartDate(): Calendar
-    +getEndDate(): Calendar
-    +getPattern(): Pattern
-    +getEmployee(): Employee
+    + getStartDate(): Date
+    + getEndDate(): Date
+    + getPattern(): Pattern
 }
-Employee "1" -- "0..*" Schedule
-Pattern "1" -- "*" PhaseLabor
-Pattern "1" -- "*" LaborBilling
-Pattern "1" -- "*" Phase
-Phase "1" -- "0..1" Project
+
+Employee "1" -- "many" Schedule
+LaborBilling "1" -- "many" PhaseLabor
+Phase "1" -- "many" PhaseLabor
+Project "1" -- "many" Phase
 PhaseLabor "1" -- "1" LaborBilling
 PhaseLabor "1" -- "1" Phase
-Project "1" -- "*" Phase
-Schedule "1" -- "1" Pattern
-Schedule "1" -- "1" Employee
+Pattern "1" -- "many" PhaseLabor
+POIGenerator "1" -- "1" Employee
+
 @enduml
+

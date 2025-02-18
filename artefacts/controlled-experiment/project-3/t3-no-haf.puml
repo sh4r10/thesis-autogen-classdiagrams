@@ -1,54 +1,100 @@
 @startuml
 
-abstract class BaseController {
-    +buildCheckingAccount() : CheckingAccount
-    +getBalance() : BigDecimal
-    +getWeeklyExpense() : BigDecimal
-}
-abstract class BaseUI {
-    +displayBalance()
-    +buildBaseController() : BaseController
-    +show()
-    +showHeader()
-    +showFooter()
-    +getTitle() : String
-    +showContent()
-}
-class CheckingAccount {
-    +getBalance() : BigDecimal
-    +getExpensesTotal() : BigDecimal
-    +getIncomesTotal() : BigDecimal
-    +setValue(inicial : BigDecimal)
-    +getValue() : BigDecimal
-    +add(income : Income)
-    +add(expense : Expense)
-    +getWeeklyExpense() : BigDecimal
-}
-class Income {
-    -incomeType : IncomeType
-    -dateOccurred : Date
-    +getDateOccurred() : Date
-    +getIncomeType() : IncomeType
-    +setDateOccurred(dateOccurred : Date)
-    +setIncomeType(incomeType : IncomeType)
-}
-class IncomeRepository {
-    +save(income : Income)
-}
-class IncomeTypeRepository {
-    -list : List<IncomeType>
-    +save(incomeType : IncomeType)
-    +getIncomeTypes() : List<IncomeType>
-}
-class RegisterIncomeController {
-    +getIncomeTypes() : List<IncomeType>
-    +createIncome(amount : BigDecimal, incomeType : IncomeType, what : String, date : Date)
-    +buildCheckingAccount() : CheckingAccount
-}
-class RegisterIncomeUI {
-    +showContent()
-    +getTitle() : String
-    +buildBaseController() : BaseController
+package Controllers {
+    abstract class BaseController {
+        +buildCheckingAccount() : CheckingAccount
+        +getBalance() : BigDecimal
+        +getWeeklyExpense() : BigDecimal
+    }
+    
+    class RegisterIncomeController {
+        -incomeTypeRepository : IncomeTypeRepository
+        +getIncomeTypes() : List<IncomeType>
+        +createIncome(:BigDecimal, :IncomeType, :String, :Date) : void
+        +buildCheckingAccount() : CheckingAccount
+    }
+    
+    BaseController <|-- RegisterIncomeController
 }
 
+package Presentation {
+    abstract class BaseUI {
+        +show() : void
+        +showHeader() : void
+        +showFooter() : void
+        +getTitle() : String
+        +showContent() : void
+        +buildBaseController() : BaseController
+    }
+    
+    class RegisterIncomeUI {
+        -controller : RegisterIncomeController
+        -listIncomeType : List<IncomeType>
+        +showContent() : void
+        -readAmount() : BigDecimal
+        -readDate() : Date
+        -readDescription() : String
+        -selectIncomeType(:List<IncomeType>) : IncomeType
+        +getTitle() : String
+        +buildBaseController() : BaseController
+    }
+    
+    BaseUI <|-- RegisterIncomeUI
+}
+
+package Model {
+    class CheckingAccount {
+        -incomeRepo : IncomeRepository
+        -expenseRepo : ExpenseRepository
+        +getBalance() : BigDecimal
+        +getExpensesTotal() : BigDecimal
+        +getIncomesTotal() : BigDecimal
+        +setValue(:BigDecimal) : void
+        +getValue() : BigDecimal
+        +add(:Income) : void
+        +add(:Expense) : void
+        +getWeeklyExpense() : BigDecimal
+    }
+    
+    class Income {
+        -incomeType : IncomeType
+        -dateOccurred : Date
+        +getDateOccurred() : Date
+        +getIncomeType() : IncomeType
+        +setDateOccurred(:Date) : void
+        +setIncomeType(:IncomeType) : void
+    }
+    
+    CheckingAccount o-- IncomeRepository
+    CheckingAccount o-- ExpenseRepository
+    CheckingAccount o-- StartingBalanceRepository
+    Income *-- IncomeType
+}
+
+package Persistence {
+    class IncomeRepository {
+        -instance : IncomeRepository
+        -listIncome : List<Income>
+        +getInstance() : IncomeRepository
+        +save(:Income) : void
+        +getListIncome() : List<Income>
+    }
+    
+    class IncomeTypeRepository {
+        -instance : IncomeTypeRepository
+        -list : List<IncomeType>
+        +getInstance() : IncomeTypeRepository
+        +save(:IncomeType) : void
+        +getIncomeTypes() : List<IncomeType>
+    }
+
+    IncomeRepository "1" *-- "many" Income
+    IncomeTypeRepository "1" *-- "many" IncomeType
+}
+
+RegisterIncomeController --> CheckingAccount
+RegisterIncomeController --> IncomeTypeRepository
+RegisterIncomeUI --> RegisterIncomeController
+
 @enduml
+

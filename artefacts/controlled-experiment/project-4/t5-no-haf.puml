@@ -1,74 +1,99 @@
 @startuml
-
 class Employee {
-  +id: Integer
-  +name: String
-  +position: String
-  +addSchedule()
-}
-
-class LaborBilling {
-  +id: String
-  +name: String
-  +getName(): String
-  +getId(): String
-}
-
-class Pattern {
-  +noOfHours: Integer
-  +addPhL()
-  +getPhL(): PhaseLabor
-  +getNoOfHours(): Integer
-  +setNoOfHours()
-  +getPhaseLabor()
-}
-
-class Phase {
-  +name: String
-  +id: String
-  +p: Project
-  +getProject(): Project
-  +setProject()
-  +getName(): String
-  +getID(): String
-}
-
-class PhaseLabor {
-  +id: String
-  +lb: LaborBilling
-  +ph: Phase
-  +percentage: Float
-  +getPhase(): Phase
-  +getLaborBilling(): LaborBilling
-  +getPercentage(): Float
-}
-
-class POIGenerator {
-  +month: int
-  +year: int
-  +generateDoc()
-}
-
-class Project {
-  +id: String
-  +name: String
-  +addPhase()
-  +getName(): String
-  +getID(): String
+    - id
+    - name
+    - position
+    - schedList
+    + addSchedule()
 }
 
 class Schedule {
-  +id: Integer
-  +p: Pattern
-  +e: Employee
-  +getStartDate(): Calendar
-  +getEndDate(): Calendar
-  +getPattern(): Pattern
-  +getEmployee(): Employee
+    - id
+    - start_date
+    - end_date
+    - p
+    - e
+    + getStartDate()
+    + getEndDate()
+    + getPattern()
+    + getEmployee()
 }
 
-Employee "1" -- "*" Project : works on
-Phase "1" -- "*" PhaseLabor
-Schedule "1" -- "*" Employee : schedules
+class Pattern {
+    - plArray
+    - noOfHours
+    + addPhL()
+    + getPhL()
+    + getArrayPhaseLabor()
+    + getNoOfHours()
+    + setNoOfHours()
+    + getPhaseLabor()
+}
 
+class PhaseLabor {
+    - id
+    - lb
+    - ph
+    - percentage
+    + getPhase()
+    + getLaborBilling()
+    + getPercentage()
+}
+
+class LaborBilling {
+    - id
+    - name
+    + getName()
+    + getId()
+}
+
+class Phase {
+    - name
+    - id
+    - p
+    + getProject()
+    + setProject()
+    + getName()
+    + getID()
+}
+
+class Project {
+    - id
+    - name
+    - phList
+    + addPhase()
+    + getName()
+    + getID()
+}
+
+class POIGenerator {
+    - pEmp
+    - wb
+    - sablon
+    - month
+    - year
+    - schedEmp
+    - fileOut
+    - sheet1
+    - createHelper
+    - underFont
+    - style
+    - tablestyle
+    - tableheadstyle
+    - tableweekendstyle
+    - datestyle
+    - PhLArray
+    + generateDoc()
+}
+
+Employee "1" -- "many" Schedule : has >
+Schedule "1" -- "1" Pattern : uses >
+Schedule "1" -- "1" Employee : assigned to >
+Pattern "1" -- "many" PhaseLabor : contains >
+PhaseLabor "1" -- "1" LaborBilling : refers to >
+PhaseLabor "1" -- "1" Phase : assigned to >
+Phase "1" -- "1" Project : belongs to >
+Project "1" -- "many" Phase : includes >
+POIGenerator "1" -- "1" Employee : generates for >
 @enduml
+

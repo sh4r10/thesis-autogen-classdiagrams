@@ -1,43 +1,111 @@
 @startuml
 
 class Employee {
-  +id
-  +name
-  +position
-  +schedList
-  +addSchedule()
+    - id
+    - name
+    - position
+    - schedList
+    + addSchedule()
 }
 
 class LaborBilling {
-  -id
-  -name
-  +getName(): String
-  +getId(): String
+    - id
+    - name
+    + getName()
+    + getId()
 }
 
 class Pattern {
-  +plArray
-  +noOfHours
-  +addPhL()
-  +getPhL(): PhaseLabor
-  +getArrayPhaseLabor(): ArrayList
-  +getNoOfHours(): Integer
-  +setNoOfHours()
-  +getPhaseLabor(): PhaseLabor
+    - plArray
+    - noOfHours
+    + addPhL()
+    + getPhL()
+    + getArrayPhaseLabor()
+    + getNoOfHours()
+    + setNoOfHours()
+    + getPhaseLabor()
 }
 
 class Phase {
-  -name
-  -id
-  +p
-  +getProject(): Project
-  +setProject()
-  +getName(): String
-  +getID(): String
+    - name
+    - id
+    - p
+    + getProject()
+    + setProject()
+    + getName()
+    + getID()
 }
 
-Employee "contains" -- Schedule
-Pattern "contains" -- PhaseLabor
-Phase "uses" -- Project
+class PhaseLabor {
+    - id
+    - lb
+    - ph
+    - percentage
+    + getPhase()
+    + getLaborBilling()
+    + getPercentage()
+}
+
+class POIGenerator {
+    - pEmp
+    - wb
+    - sablon
+    - month
+    - year
+    - schedEmp
+    - fileOut
+    - sheet1
+    - createHelper
+    - underFont
+    - style
+    - tablestyle
+    - tableheadstyle
+    - tableweekendstyle
+    - datestyle
+    - PhLArray
+    - getNextMonday()
+    - getPatternForDay()
+    - getListOfDistinctPhaseLabor()
+    - getListOfPatterns()
+    - generateHeader()
+    - getDateFrom()
+    - generateTableRow()
+    - generateWeek()
+    - howManyDays()
+    - styleMe()
+    - generateDocHeader()
+    + generateDoc()
+}
+
+class Project {
+    - id
+    - name
+    - phList
+    + addPhase()
+    + getName()
+    + getID()
+}
+
+class Schedule {
+    - id
+    - start_date
+    - end_date
+    - p
+    - e
+    + getStartDate()
+    + getEndDate()
+    + getPattern()
+    + getEmployee()
+}
+
+Employee --> "*" Schedule : schedList
+Schedule --> Pattern : p
+Schedule --> Employee : e
+Pattern --> "*" PhaseLabor : plArray
+PhaseLabor --> LaborBilling : lb
+PhaseLabor --> Phase : ph
+Phase --> Project : p
+Project --> "*" Phase : phList
 
 @enduml
+

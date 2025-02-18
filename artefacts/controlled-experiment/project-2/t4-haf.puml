@@ -1,86 +1,134 @@
 @startuml
 
-class DAO {
-}
+package raisemeup.model.beans {
+    class User {
+        id : int
+        email : String
+        username : String
+        password : String
+    }
 
-class Food {
-    valuedog : int
-    valuecat : int
-    valuefish : int
-    valuepenguin : int
-}
+    class UserBuilder {
+        id : int
+        email : String
+        username : String
+        password : String
+        setId(id : int) : UserBuilder
+        setEmail(email : String) : UserBuilder
+        setUsername(username : String) : UserBuilder
+        setPassword(password : String) : UserBuilder
+        createUser() : User
+    }
 
-class ItemVisitor {
-    visit(food : Food) : int
-    visit(upgrade : Upgrade) : int
-}
+    class Pet {
+        petid : int
+        owner : int
+        name : String
+        type : String
+        variant : String
+        hunger : int
+        energy : int
+        fun : int
+        hygiene : int
+        age : int
+        image : String
+        money : int
+        owneditems : Map<Item, Integer>
+        ownedjobs : Map<Job, Integer>
+        getEmotion() : int
+    }
 
-class Job {
-    id : int
-    impactenergy : int
-    impacthunger : int
-    impacthygiene : int
-    impactfun : int
-    title : String
-    length : int
-    image : String
-    client : String
-    message : String
-    reward : int
-    species : String
-}
+    class PetBuilder {
+        owner : int
+        name : String
+        type : String
+        variant : String
+        image : String
+        setOwner(owner : int) : PetBuilder
+        setName(name : String) : PetBuilder
+        setType(type : String) : PetBuilder
+        setVariant(variant : String) : PetBuilder
+        setImage(image : String) : PetBuilder
+        createPet() : Pet
+    }
 
-class Pet {
-    petid : int
-    owner : int
-    name : String
-    type : String
-    variant : String
-    hunger : int
-    energy : int
-    fun : int
-    hygiene : int
-    age : int
-    image : String
-    money : int
-}
+    class Food extends Item {
+        valuedog : int
+        valuecat : int
+        valuefish : int
+        valuepenguin : int
+    }
 
-class PetBuilder {
-    setOwner(owner : int) : PetBuilder
-    setName(name : String) : PetBuilder
-    setType(type : String) : PetBuilder
-    setVariant(variant : String) : PetBuilder
-    setImage(image : String) : PetBuilder
-    createPet() : Pet
-}
+    class Upgrade extends Item {
+        property : String
+        species : String
+        value : int
+    }
 
-class RaiseMeUp {
-}
+    class Job {
+        id : int
+        impactenergy : int
+        impacthunger : int
+        impacthygiene : int
+        impactfun : int
+        title : String
+        length : int
+        image : String
+        client : String
+        message : String
+        reward : int
+        species : String
+    }
 
-class Upgrade {
-    property : String
-    species : String
-    value : int
-}
+    class ItemVisitor {
+        visit(food : Food) : int
+        visit(upgrade : Upgrade) : int
+    }
 
-class User {
-    id : int
-    email : String
-    username : String
-    password : String
-}
+    class DAO {
+        users : Map<Integer, User>
+        pets : Map<Integer, Pet>
+        foods : Map<Integer, Food>
+        upgrades : Map<Integer, Upgrade>
+        jobs : Map<Integer, Job>
+        addUser(u : User) : boolean
+        getUser() : Map<Integer, User>
+        checkIfUserExists(u : User) : boolean
+        delUser(u : User) : boolean
+        updateUser(u : User) : boolean
+        addPet(p : Pet) : boolean
+        getPet() : Map<Integer, Pet>
+        checkIfPetExists(p : Pet) : boolean
+        delPet(p : Pet) : boolean
+        updatePet(p : Pet) : boolean
+        addFood(f : Food) : boolean
+        getFood() : Map<Integer, Food>
+        checkIfFoodExists(f : Food) : boolean
+        delFood(f : Food) : boolean
+        updateFood(f : Food) : boolean
+        addUpgrade(up : Upgrade) : boolean
+        getUpgrade() : Map<Integer, Upgrade>
+        checkIfUpgradeExists(up : Upgrade) : boolean
+        delUpgrade(up : Upgrade) : boolean
+        updateUpgrade(up : Upgrade) : boolean
+        addJob(j : Job) : boolean
+        getJob() : Map<Integer, Job>
+    }
 
-class UserBuilder {
-    setId(id : int) : UserBuilder
-    setEmail(email : String) : UserBuilder
-    setUsername(username : String) : UserBuilder
-    setPassword(password : String) : UserBuilder
-    createUser() : User
+    UserBuilder --> User
+    PetBuilder --> Pet
+    Food --> Item
+    Upgrade --> Item
+    Pet --> Job : "ownedjobs"
+    Pet --> Item : "owneditems"
+    DAO --> User : "manages"
+    DAO --> Pet : "manages"
+    DAO --> Food : "manages"
+    DAO --> Upgrade : "manages"
+    DAO --> Job : "manages"
+    ItemVisitor --> Food
+    ItemVisitor --> Upgrade
 }
-
-ItemVisitor -- Upgrade
-ItemVisitor -- Food
-PetBuilder -- Pet
-UserBuilder -- User
 
 @enduml
+

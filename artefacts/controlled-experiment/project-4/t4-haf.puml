@@ -1,96 +1,110 @@
 @startuml
-
 class Employee {
-    + id
-    + name
-    + position
-    + schedList
+    - id
+    - name
+    - position
+    - schedList
     + addSchedule()
 }
 
-class LaborBilling {
-    + id
-    + name
-    + getName(): String
-    + getId(): String
+class Schedule {
+    - id
+    - start_date
+    - end_date
+    - p
+    - e
+    + getStartDate()
+    + getEndDate()
+    + getPattern()
+    + getEmployee()
 }
 
 class Pattern {
-    + plArray
-    + noOfHours
+    - plArray
+    - noOfHours
     + addPhL()
     + getPhL()
     + getArrayPhaseLabor()
-    + getNoOfHours(): Integer
+    + getNoOfHours()
     + setNoOfHours()
     + getPhaseLabor()
 }
 
-class Phase {
-    + name
-    + id
-    + p
-    + getProject(): Project
-    + setProject()
-    + getName(): String
-    + getID(): String
-}
-
 class PhaseLabor {
-    + id
-    + lb
-    + ph
-    + percentage
-    + getPhase(): Phase
-    + getLaborBilling(): LaborBilling
-    + getPercentage(): Float
+    - id
+    - lb
+    - ph
+    - percentage
+    + getPhase()
+    + getLaborBilling()
+    + getPercentage()
 }
 
-class POIGenerator {
-    + month
-    + year
-    + getNextMonday()
-    + getPatternForDay()
-    + getListOfDistinctPhaseLabor()
-    + getListOfPatterns()
-    + generateHeader()
-    + getDateFrom()
-    + generateTableRow(): Float
-    + generateWeek()
-    + howManyDays(): int
-    + styleMe()
-    + generateDocHeader()
-    + generateDoc()
+class LaborBilling {
+    - id
+    - name
+    + getName()
+    + getId()
+}
+
+class Phase {
+    - name
+    - id
+    - p
+    + getProject()
+    + setProject()
+    + getName()
+    + getID()
 }
 
 class Project {
-    + id
-    + name
-    + phList
+    - id
+    - name
+    - phList
     + addPhase()
-    + getName(): String
-    + getID(): String
+    + getName()
+    + getID()
 }
 
-class Schedule {
-    + id
-    + p
-    + e
-    + getStartDate()
-    + getEndDate()
-    + getPattern(): Pattern
-    + getEmployee(): Employee
+class POIGenerator {
+    - pEmp
+    - wb
+    - sablon
+    - month
+    - year
+    - schedEmp
+    - fileOut
+    - sheet1
+    - createHelper
+    - underFont
+    - style
+    - tablestyle
+    - tableheadstyle
+    - tableweekendstyle
+    - datestyle
+    - PhLArray
+    - getNextMonday()
+    - getPatternForDay()
+    - getListOfDistinctPhaseLabor()
+    - getListOfPatterns()
+    - generateHeader()
+    - getDateFrom()
+    - generateTableRow()
+    - generateWeek()
+    - howManyDays()
+    - styleMe()
+    - generateDocHeader()
+    + generateDoc()
 }
 
-Employee -- "0..*" Schedule
-Schedule -- "1" Employee
-Pattern -- "0..*" Schedule
-Schedule -- "1" Pattern
-Phase -- "0..*" PhaseLabor
-PhaseLabor -- "1" Phase
-LaborBilling -- "0..*" PhaseLabor
-PhaseLabor -- "1" LaborBilling
-Project -- "0..*" Phase
-Phase -- "1" Project
-
+Employee "1" -- "many" Schedule
+Schedule "1" -- "1" Pattern
+Schedule "1" -- "1" Employee
+Pattern "1" -- "many" PhaseLabor
+PhaseLabor "1" -- "1" LaborBilling
+PhaseLabor "1" -- "1" Phase
+Phase "1" -- "1" Project
+Project "1" -- "many" Phase
+POIGenerator "1" -- "1" Employee
 @enduml
+

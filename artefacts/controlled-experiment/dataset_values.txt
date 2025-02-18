@@ -1,0 +1,279 @@
+Processing category: classes
+Processing source directory: project-1/stats-no-haf
+The max score for the classes category is 1.0, in t3-no-haf.stat
+Copied t3-no-haf.stat to p1-t3-no-haf.stat
+Processing source directory: project-1/stats-haf
+The max score for the classes category is 0.9090909090909091, in t3-haf.stat
+Copied t3-haf.stat to p1-t3-haf.stat
+Processing source directory: project-2/stats-no-haf
+The max score for the classes category is 0.9523809523809523, in t1-no-haf.stat
+Copied t1-no-haf.stat to p2-t1-no-haf.stat
+Processing source directory: project-2/stats-haf
+The max score for the classes category is 0.8181818181818182, in t2-haf.stat
+Copied t2-haf.stat to p2-t2-haf.stat
+Processing source directory: project-3/stats-no-haf
+The max score for the classes category is 0.8571428571428571, in t2-no-haf.stat
+Copied t2-no-haf.stat to p3-t2-no-haf.stat
+Processing source directory: project-3/stats-haf
+The max score for the classes category is 0.8571428571428571, in t3-haf.stat
+Copied t3-haf.stat to p3-t3-haf.stat
+Processing source directory: project-4/stats-no-haf
+The max score for the classes category is 1.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p4-t2-no-haf.stat
+Processing source directory: project-4/stats-haf
+The max score for the classes category is 1.0, in t3-haf.stat
+Copied t3-haf.stat to p4-t3-haf.stat
+Processing source directory: project-5/stats-no-haf
+The max score for the classes category is 1.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p5-t2-no-haf.stat
+Processing source directory: project-5/stats-haf
+The max score for the classes category is 1.0, in t3-haf.stat
+Copied t3-haf.stat to p5-t3-haf.stat
+Processing category: relationships
+Processing source directory: project-1/stats-no-haf
+The max score for the relationships category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p1-t2-no-haf.stat
+Processing source directory: project-1/stats-haf
+The max score for the relationships category is 0.0, in t3-haf.stat
+Copied t3-haf.stat to p1-t3-haf.stat
+Processing source directory: project-2/stats-no-haf
+The max score for the relationships category is 0.2666666666666667, in t2-no-haf.stat
+Copied t2-no-haf.stat to p2-t2-no-haf.stat
+Processing source directory: project-2/stats-haf
+The max score for the relationships category is 0.0, in t3-haf.stat
+Copied t3-haf.stat to p2-t3-haf.stat
+Processing source directory: project-3/stats-no-haf
+The max score for the relationships category is 0.4, in t1-no-haf.stat
+Copied t1-no-haf.stat to p3-t1-no-haf.stat
+Processing source directory: project-3/stats-haf
+The max score for the relationships category is 0.22222222222222224, in t3-haf.stat
+Copied t3-haf.stat to p3-t3-haf.stat
+Processing source directory: project-4/stats-no-haf
+The max score for the relationships category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p4-t2-no-haf.stat
+Processing source directory: project-4/stats-haf
+The max score for the relationships category is 0.0, in t3-haf.stat
+Copied t3-haf.stat to p4-t3-haf.stat
+Processing source directory: project-5/stats-no-haf
+The max score for the relationships category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p5-t2-no-haf.stat
+Processing source directory: project-5/stats-haf
+The max score for the relationships category is 0.0, in t3-haf.stat
+Copied t3-haf.stat to p5-t3-haf.stat
+Processing category: attributes
+Processing source directory: project-1/stats-no-haf
+The max score for the attributes category is 0.8421052631578948, in t2-no-haf.stat
+Copied t2-no-haf.stat to p1-t2-no-haf.stat
+Processing source directory: project-1/stats-haf
+The max score for the attributes category is 0.5925925925925926, in t3-haf.stat
+Copied t3-haf.stat to p1-t3-haf.stat
+Processing source directory: project-2/stats-no-haf
+The max score for the attributes category is 0.7692307692307692, in t4-no-haf.stat
+Copied t4-no-haf.stat to p2-t4-no-haf.stat
+Processing source directory: project-2/stats-haf
+The max score for the attributes category is 0.7945205479452054, in t5-haf.stat
+Copied t5-haf.stat to p2-t5-haf.stat
+Processing source directory: project-3/stats-no-haf
+The max score for the attributes category is 0.631578947368421, in t2-no-haf.stat
+Copied t2-no-haf.stat to p3-t2-no-haf.stat
+Processing source directory: project-3/stats-haf
+The max score for the attributes category is 0.631578947368421, in t3-haf.stat
+Copied t3-haf.stat to p3-t3-haf.stat
+Processing source directory: project-4/stats-no-haf
+The max score for the attributes category is 0.5555555555555556, in t2-no-haf.stat
+Copied t2-no-haf.stat to p4-t2-no-haf.stat
+Processing source directory: project-4/stats-haf
+The max score for the attributes category is 0.5555555555555556, in t3-haf.stat
+Copied t3-haf.stat to p4-t3-haf.stat
+Processing source directory: project-5/stats-no-haf
+The max score for the attributes category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p5-t2-no-haf.stat
+Processing source directory: project-5/stats-haf
+The max score for the attributes category is 0.0, in t3-haf.stat
+Copied t3-haf.stat to p5-t3-haf.stat
+Processing category: methods
+Processing source directory: project-1/stats-no-haf
+The max score for the methods category is 0.8, in t4-no-haf.stat
+Copied t4-no-haf.stat to p1-t4-no-haf.stat
+Processing source directory: project-1/stats-haf
+The max score for the methods category is 0.5357142857142857, in t2-haf.stat
+Copied t2-haf.stat to p1-t2-haf.stat
+Processing source directory: project-2/stats-no-haf
+The max score for the methods category is 0.5454545454545454, in t5-no-haf.stat
+Copied t5-no-haf.stat to p2-t5-no-haf.stat
+Processing source directory: project-2/stats-haf
+The max score for the methods category is 0.634920634920635, in t1-haf.stat
+Copied t1-haf.stat to p2-t1-haf.stat
+Processing source directory: project-3/stats-no-haf
+The max score for the methods category is 0.8260869565217391, in t3-no-haf.stat
+Copied t3-no-haf.stat to p3-t3-no-haf.stat
+Processing source directory: project-3/stats-haf
+The max score for the methods category is 0.7142857142857143, in t3-haf.stat
+Copied t3-haf.stat to p3-t3-haf.stat
+Processing source directory: project-4/stats-no-haf
+The max score for the methods category is 0.7142857142857143, in t2-no-haf.stat
+Copied t2-no-haf.stat to p4-t2-no-haf.stat
+Processing source directory: project-4/stats-haf
+The max score for the methods category is 0.7142857142857143, in t2-haf.stat
+Copied t2-haf.stat to p4-t2-haf.stat
+Processing source directory: project-5/stats-no-haf
+The max score for the methods category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p5-t2-no-haf.stat
+Processing source directory: project-5/stats-haf
+The max score for the methods category is 0.0, in t3-haf.stat
+Copied t3-haf.stat to p5-t3-haf.stat
+Processing category: access_modifiers
+Processing source directory: project-1/stats-no-haf
+The max score for the access_modifiers category is 1.0, in t4-no-haf.stat
+Copied t4-no-haf.stat to p1-t4-no-haf.stat
+Processing source directory: project-1/stats-haf
+The max score for the access_modifiers category is 1.0, in t3-haf.stat
+Copied t3-haf.stat to p1-t3-haf.stat
+Processing source directory: project-2/stats-no-haf
+The max score for the access_modifiers category is 1.0, in t4-no-haf.stat
+Copied t4-no-haf.stat to p2-t4-no-haf.stat
+Processing source directory: project-2/stats-haf
+The max score for the access_modifiers category is 0.9908256880733944, in t3-haf.stat
+Copied t3-haf.stat to p2-t3-haf.stat
+Processing source directory: project-3/stats-no-haf
+The max score for the access_modifiers category is 0.8095238095238095, in t3-no-haf.stat
+Copied t3-no-haf.stat to p3-t3-no-haf.stat
+Processing source directory: project-3/stats-haf
+The max score for the access_modifiers category is 0.7647058823529412, in t3-haf.stat
+Copied t3-haf.stat to p3-t3-haf.stat
+Processing source directory: project-4/stats-no-haf
+The max score for the access_modifiers category is 1.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p4-t2-no-haf.stat
+Processing source directory: project-4/stats-haf
+The max score for the access_modifiers category is 1.0, in t3-haf.stat
+Copied t3-haf.stat to p4-t3-haf.stat
+Processing source directory: project-5/stats-no-haf
+The max score for the access_modifiers category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p5-t2-no-haf.stat
+Processing source directory: project-5/stats-haf
+The max score for the access_modifiers category is 0.0, in t3-haf.stat
+Copied t3-haf.stat to p5-t3-haf.stat
+Processing category: attribute_type
+Processing source directory: project-1/stats-no-haf
+The max score for the attribute_type category is 1.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p1-t2-no-haf.stat
+Processing source directory: project-1/stats-haf
+The max score for the attribute_type category is 1.0, in t3-haf.stat
+Copied t3-haf.stat to p1-t3-haf.stat
+Processing source directory: project-2/stats-no-haf
+The max score for the attribute_type category is 1.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p2-t2-no-haf.stat
+Processing source directory: project-2/stats-haf
+The max score for the attribute_type category is 1.0, in t3-haf.stat
+Copied t3-haf.stat to p2-t3-haf.stat
+Processing source directory: project-3/stats-no-haf
+The max score for the attribute_type category is 1.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p3-t2-no-haf.stat
+Processing source directory: project-3/stats-haf
+The max score for the attribute_type category is 1.0, in t3-haf.stat
+Copied t3-haf.stat to p3-t3-haf.stat
+Processing source directory: project-4/stats-no-haf
+The max score for the attribute_type category is 1.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p4-t2-no-haf.stat
+Processing source directory: project-4/stats-haf
+The max score for the attribute_type category is 1.0, in t3-haf.stat
+Copied t3-haf.stat to p4-t3-haf.stat
+Processing source directory: project-5/stats-no-haf
+The max score for the attribute_type category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p5-t2-no-haf.stat
+Processing source directory: project-5/stats-haf
+The max score for the attribute_type category is 0.0, in t3-haf.stat
+Copied t3-haf.stat to p5-t3-haf.stat
+Processing category: method_return_type
+Processing source directory: project-1/stats-no-haf
+The max score for the method_return_type category is 1.0, in t4-no-haf.stat
+Copied t4-no-haf.stat to p1-t4-no-haf.stat
+Processing source directory: project-1/stats-haf
+The max score for the method_return_type category is 1.0, in t3-haf.stat
+Copied t3-haf.stat to p1-t3-haf.stat
+Processing source directory: project-2/stats-no-haf
+The max score for the method_return_type category is 1.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p2-t2-no-haf.stat
+Processing source directory: project-2/stats-haf
+The max score for the method_return_type category is 1.0, in t3-haf.stat
+Copied t3-haf.stat to p2-t3-haf.stat
+Processing source directory: project-3/stats-no-haf
+The max score for the method_return_type category is 0.9600000000000001, in t2-no-haf.stat
+Copied t2-no-haf.stat to p3-t2-no-haf.stat
+Processing source directory: project-3/stats-haf
+The max score for the method_return_type category is 0.9600000000000001, in t2-haf.stat
+Copied t2-haf.stat to p3-t2-haf.stat
+Processing source directory: project-4/stats-no-haf
+The max score for the method_return_type category is 1.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p4-t2-no-haf.stat
+Processing source directory: project-4/stats-haf
+The max score for the method_return_type category is 1.0, in t3-haf.stat
+Copied t3-haf.stat to p4-t3-haf.stat
+Processing source directory: project-5/stats-no-haf
+The max score for the method_return_type category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p5-t2-no-haf.stat
+Processing source directory: project-5/stats-haf
+The max score for the method_return_type category is 0.0, in t3-haf.stat
+Copied t3-haf.stat to p5-t3-haf.stat
+Processing category: parameter_name
+Processing source directory: project-1/stats-no-haf
+The max score for the parameter_name category is 1.0, in t3-no-haf.stat
+Copied t3-no-haf.stat to p1-t3-no-haf.stat
+Processing source directory: project-1/stats-haf
+The max score for the parameter_name category is 1.0, in t2-haf.stat
+Copied t2-haf.stat to p1-t2-haf.stat
+Processing source directory: project-2/stats-no-haf
+The max score for the parameter_name category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p2-t2-no-haf.stat
+Processing source directory: project-2/stats-haf
+The max score for the parameter_name category is 0.15384615384615383, in t3-haf.stat
+Copied t3-haf.stat to p2-t3-haf.stat
+Processing source directory: project-3/stats-no-haf
+The max score for the parameter_name category is 1.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p3-t2-no-haf.stat
+Processing source directory: project-3/stats-haf
+The max score for the parameter_name category is 1.0, in t3-haf.stat
+Copied t3-haf.stat to p3-t3-haf.stat
+Processing source directory: project-4/stats-no-haf
+The max score for the parameter_name category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p4-t2-no-haf.stat
+Processing source directory: project-4/stats-haf
+The max score for the parameter_name category is 0.0, in t3-haf.stat
+Copied t3-haf.stat to p4-t3-haf.stat
+Processing source directory: project-5/stats-no-haf
+The max score for the parameter_name category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p5-t2-no-haf.stat
+Processing source directory: project-5/stats-haf
+The max score for the parameter_name category is 0.0, in t3-haf.stat
+Copied t3-haf.stat to p5-t3-haf.stat
+Processing category: parameter_type
+Processing source directory: project-1/stats-no-haf
+The max score for the parameter_type category is 1.0, in t3-no-haf.stat
+Copied t3-no-haf.stat to p1-t3-no-haf.stat
+Processing source directory: project-1/stats-haf
+The max score for the parameter_type category is 0.9285714285714286, in t2-haf.stat
+Copied t2-haf.stat to p1-t2-haf.stat
+Processing source directory: project-2/stats-no-haf
+The max score for the parameter_type category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p2-t2-no-haf.stat
+Processing source directory: project-2/stats-haf
+The max score for the parameter_type category is 0.08333333333333333, in t3-haf.stat
+Copied t3-haf.stat to p2-t3-haf.stat
+Processing source directory: project-3/stats-no-haf
+The max score for the parameter_type category is 1.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p3-t2-no-haf.stat
+Processing source directory: project-3/stats-haf
+The max score for the parameter_type category is 1.0, in t3-haf.stat
+Copied t3-haf.stat to p3-t3-haf.stat
+Processing source directory: project-4/stats-no-haf
+The max score for the parameter_type category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p4-t2-no-haf.stat
+Processing source directory: project-4/stats-haf
+The max score for the parameter_type category is 0.0, in t3-haf.stat
+Copied t3-haf.stat to p4-t3-haf.stat
+Processing source directory: project-5/stats-no-haf
+The max score for the parameter_type category is 0.0, in t2-no-haf.stat
+Copied t2-no-haf.stat to p5-t2-no-haf.stat
+Processing source directory: project-5/stats-haf
+The max score for the parameter_type category is 0.0, in t3-haf.stat
+Copied t3-haf.stat to p5-t3-haf.stat
