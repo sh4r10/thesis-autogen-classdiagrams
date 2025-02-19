@@ -1,0 +1,9 @@
+Classes            tp:8     fp:0    fn:0        precision:1     recall:1    f1:1
+Relationships      tp:0     fp:9    fn:0        precision:0     recall:0    f1:0
+Attributes         tp:16    fp:23   fn:0        precision:0.41  recall:1    f1:0.58
+Methods            tp:18    fp:25   fn:0        precision:0.41  recall:1    f1:0.58
+Access modifiers   tp:33    fp:0    fn:0        precision:1     recall:1    f1:1
+Attribute type     tp:0     fp:15   fn:0        precision:0     recall:0    f1:0
+Method return type tp:0     fp:18   fn:0        precision:0     recall:0    f1:0
+Parameter name     tp:0     fp:0    fn:0        precision:0     recall:0    f1:0
+Parameter type     tp:0     fp:11   fn:0        precision:0     recall:0    f1:0

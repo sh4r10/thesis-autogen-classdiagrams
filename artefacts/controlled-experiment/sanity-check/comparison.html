@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Comparing the effects of using the second custom gpt</title>
+  <style>
+    body {
+      font-family: "Times New Roman";
+      max-width: 900px;
+    }
+    table {
+      border-collapse: collapse;
+      margin-bottom: 40px;
+      width: 100%;
+    }
+    table, th, td {
+      border: 1px solid #333;
+    }
+    th, td {
+      padding: 8px;
+      text-align: center;
+    }
+    h2 {
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Comparing the difference in scores after between the first and second
+      GPTs</h1>
+  <h2>Scores after only using the first Custom GPT</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Precision</th>
+        <th>Recall</th>
+        <th>F1</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Classes</td>
+        <td>1.00</td>
+        <td>1.00</td>
+        <td>1.00</td>
+      </tr>
+      <tr>
+        <td>Relationships</td>
+        <td>0.00</td>
+        <td>0.00</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>Attributes</td>
+        <td>0.41</td>
+        <td>1.00</td>
+        <td>0.58</td>
+      </tr>
+      <tr>
+        <td>Methods</td>
+        <td>0.41</td>
+        <td>1.00</td>
+        <td>0.58</td>
+      </tr>
+      <tr>
+        <td>Access modifiers</td>
+        <td>1.00</td>
+        <td>1.00</td>
+        <td>1.00</td>
+      </tr>
+      <tr>
+        <td>Attribute type</td>
+        <td>0.00</td>
+        <td>0.00</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>Method return type</td>
+        <td>0.00</td>
+        <td>0.00</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>Parameter name</td>
+        <td>0.00</td>
+        <td>0.00</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>Parameter type</td>
+        <td>0.00</td>
+        <td>0.00</td>
+        <td>0.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Scores after using both GPTs in the chain</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Precision</th>
+        <th>Recall</th>
+        <th>F1</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Classes</td>
+        <td>1.00</td>
+        <td>1.00</td>
+        <td>1.00</td>
+      </tr>
+      <tr>
+        <td>Relationships</td>
+        <td>0.00</td>
+        <td>0.00</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>Attributes</td>
+        <td>0.38</td>
+        <td>1.00</td>
+        <td>0.56</td>
+      </tr>
+      <tr>
+        <td>methods</td>
+        <td>0.46</td>
+        <td>0.89</td>
+        <td>0.60</td>
+      </tr>
+      <tr>
+        <td>Access modifiers</td>
+        <td>1.00</td>
+        <td>1.00</td>
+        <td>1.00</td>
+      </tr>
+      <tr>
+        <td>Attribute type</td>
+        <td>1.00</td>
+        <td>1.00</td>
+        <td>1.00</td>
+      </tr>
+      <tr>
+        <td>Method return type</td>
+        <td>1.00</td>
+        <td>1.00</td>
+        <td>1.00</td>
+      </tr>
+      <tr>
+        <td>Parameter name</td>
+        <td>0.00</td>
+        <td>0.00</td>
+        <td>0.00</td>
+      </tr>
+      <tr>
+        <td>Parameter type</td>
+        <td>0.00</td>
+        <td>0.00</td>
+        <td>0.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>
+
