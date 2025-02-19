@@ -87,8 +87,8 @@ for mode in results:
         for group in ["coarse", "medium", "fine"]:
             if project in results[mode][group]:
                 aggregated = aggregate_stats(results[mode][group][project])
-                print(f"  {group.capitalize()}: Precision: {aggregated['precision']:.3f}, "
-                      f"Recall: {aggregated['recall']:.3f}, F1: {aggregated['f1']:.3f}")
+                print(f"  {group.capitalize()}: Precision: {aggregated['precision']:.2f}, "
+                      f"Recall: {aggregated['recall']:.2f}, F1: {aggregated['f1']:.2f}")
             else:
                 print(f"  {group.capitalize()}: No data")
 

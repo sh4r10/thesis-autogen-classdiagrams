@@ -1,0 +1,76 @@
+@startuml
+
+@startuml
+
+class DAO {
+    delUpgradeOwned(p : Pet, u : Upgrade) : boolean
+    checkIfJobExists(j : Job) : boolean
+    addFood(f : Food) : boolean
+    addJobOwned(p : Pet, j : Job, timeworked : int) : boolean
+    addUser(u : User) : boolean
+    updateUpgradeOwned(p : Pet, u : Upgrade, piece : int) : boolean
+    delFoodOwned(p : Pet, f : Food) : boolean
+    addUpgrade(up : Upgrade) : boolean
+    delUpgrade(up : Upgrade) : boolean
+    delJobOwned(p : Pet, j : Job) : boolean
+    delJob(j : Job) : boolean
+    updateFood(f : Food) : boolean
+    updateJob(j : Job) : boolean
+    checkIfFoodExists(f : Food) : boolean
+    delFood(f : Food) : boolean
+    checkIfPetExists(p : Pet) : boolean
+    updateJobOwned(p : Pet, j : Job, timeworked : int) : boolean
+    addUpgradeOwned(p : Pet, u : Upgrade, piece : int) : boolean
+    checkIfUserExists(u : User) : boolean
+    addFoodOwned(p : Pet, f : Food, piece : int) : boolean
+    updateUpgrade(u : Upgrade) : boolean
+    addPet(p : Pet) : boolean
+    delUser(u : User) : boolean
+    checkIfUpgradeExists(up : Upgrade) : boolean
+    updatePet(p : Pet) : boolean
+    delPet(p : Pet) : boolean
+    addJob(j : Job) : boolean
+    updateFoodOwned(p : Pet, f : Food, piece : int) : boolean
+    updateUser(u : User) : boolean
+}
+
+@enduml
+
+
+class Food {
+    valuefish : int
+    valuepenguin : int
+    value : int
+}
+
+class Upgrade {
+    value : int
+    property : String
+    species : String
+    setValue(value : int)
+    setSpecies(species : String)
+    setProperty(property : String)
+    getProperty() : String
+    getSpecies() : String
+}
+
+class User {
+    email : String
+    username : String
+    id : int
+    password : String
+}
+
+class UserBuilder {
+    email : String
+    username : String
+    id : int
+    password : String
+    setId(id : int) : UserBuilder
+    createUser() : User
+    setUsername(username : String) : UserBuilder
+    setEmail(email : String) : UserBuilder
+    setPassword(password : String) : UserBuilder
+}
+
+@enduml

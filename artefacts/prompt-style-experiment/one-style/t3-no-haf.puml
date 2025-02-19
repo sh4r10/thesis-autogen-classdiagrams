@@ -1,0 +1,173 @@
+@startuml
+
+package raisemeup.model {
+    class DAO {
+        users : Map<Integer, User>
+        pets : Map<Integer, Pet>
+        foods : Map<Integer, Food>
+        upgrades : Map<Integer, Upgrade>
+        jobs : Map<Integer, Job>
+        dbfile : String
+        SQL_addUser : String
+        SQL_queryUser : String
+        SQL_delUser : String
+        SQL_listUsers : String
+        SQL_updateUser : String
+        addUser(u: User): boolean
+        checkIfUserExists(u: User): boolean
+        delUser(u: User): boolean
+        updateUser(u: User): boolean
+        addPet(p: Pet): boolean
+        checkIfPetExists(p: Pet): boolean
+        delPet(p: Pet): boolean
+        updatePet(p: Pet): boolean
+        addFood(f: Food): boolean
+        checkIfFoodExists(f: Food): boolean
+        delFood(f: Food): boolean
+        updateFood(f: Food): boolean
+        addUpgrade(u: Upgrade): boolean
+        checkIfUpgradeExists(u: Upgrade): boolean
+        delUpgrade(u: Upgrade): boolean
+        updateUpgrade(u: Upgrade): boolean
+        addJob(j: Job): boolean
+    }
+}
+
+package raisemeup.model.beans {
+    class User {
+        id : int
+        email : String
+        username : String
+        password : String
+        setId(id: int)
+        setEmail(email: String)
+        setUsername(username: String)
+        setPassword(password: String)
+    }
+
+    class UserBuilder {
+        id : int
+        email : String
+        username : String
+        password : String
+        setId(id: int): UserBuilder
+        setEmail(email: String): UserBuilder
+        setUsername(username: String): UserBuilder
+        setPassword(password: String): UserBuilder
+        createUser(): User
+    }
+
+    class Pet {
+        petid : int
+        owner : int
+        name : String
+        type : String
+        variant : String
+        hunger : int
+        energy : int
+        fun : int
+        hygiene : int
+        age : int
+        money : int
+        image : String
+        owneditems : Map<Item, Integer>
+        ownedjobs : Map<Job, Integer>
+        setName(name: String)
+        setHunger(hunger: int)
+        setEnergy(energy: int)
+        setFun(fun: int)
+        setHygiene(hygiene: int)
+        setAge(age: int)
+        setMoney(money: int)
+        setType(type: String)
+        setVariant(variant: String)
+        setImage(image: String)
+        setOwner(owner: int)
+        setPetid(petid: int)
+    }
+
+    class PetBuilder {
+        owner : int
+        name : String
+        type : String
+        variant : String
+        image : String
+        setOwner(owner: int): PetBuilder
+        setName(name: String): PetBuilder
+        setType(type: String): PetBuilder
+        setVariant(variant: String): PetBuilder
+        setImage(image: String): PetBuilder
+        createPet(): Pet
+    }
+
+    class Food extends Item {
+        valuedog : int
+        valuecat : int
+        valuefish : int
+        valuepenguin : int
+        setValuedog(valuedog: int)
+        setValuecat(valuecat: int)
+        setValuefish(valuefish: int)
+        setValuepenguin(valuepenguin: int)
+    }
+
+    class Upgrade extends Item {
+        property : String
+        species : String
+        value : int
+        setProperty(property: String)
+        setSpecies(species: String)
+        setValue(value: int)
+    }
+
+    class Job {
+        id : int
+        impactenergy : int
+        impacthunger : int
+        impacthygiene : int
+        impactfun : int
+        title : String
+        length : int
+        image : String
+        client : String
+        message : String
+        reward : int
+        species : String
+        setId(id: int)
+        setImpactenergy(impactenergy: int)
+        setImpacthunger(impacthunger: int)
+        setImpacthygiene(impacthygiene: int)
+        setImpactfun(impactfun: int)
+        setTitle(title: String)
+        setLength(length: int)
+        setImage(image: String)
+        setClient(client: String)
+        setMessage(message: String)
+        setReward(reward: int)
+        setSpecies(species: String)
+    }
+}
+
+package raisemeup.model {
+    class ItemVisitor {
+        visit(food: Food): int
+        visit(upgrade: Upgrade): int
+    }
+}
+
+DAO --> User
+DAO --> Pet
+DAO --> Food
+DAO --> Upgrade
+DAO --> Job
+UserBuilder --> User
+PetBuilder --> Pet
+Food --|> Item
+Upgrade --|> Item
+Pet --> Job : ownedjobs
+Pet --> Item : owneditems
+ItemVisitor --> Food
+ItemVisitor --> Upgrade
+
+@enduml
+

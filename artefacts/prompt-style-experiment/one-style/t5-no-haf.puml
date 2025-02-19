@@ -1,0 +1,153 @@
+@startuml
+
+package raisemeup.model.beans {
+    class User {
+        id : int
+        email : String
+        username : String
+        password : String
+    }
+
+    class UserBuilder {
+        id : int
+        email : String
+        username : String
+        password : String
+        setId(id:int) : UserBuilder
+        setEmail(email:String) : UserBuilder
+        setUsername(username:String) : UserBuilder
+        setPassword(password:String) : UserBuilder
+        createUser() : User
+    }
+
+    class Pet {
+        petid : int
+        owner : int
+        name : String
+        type : String
+        variant : String
+        hunger : int
+        energy : int
+        fun : int
+        hygiene : int
+        age : int
+        image : String
+        money : int
+        owneditems : Map<Item, Integer>
+        ownedjobs : Map<Job, Integer>
+        getEmotion() : int
+    }
+
+    class PetBuilder {
+        owner : int
+        name : String
+        type : String
+        variant : String
+        image : String
+        setOwner(owner:int) : PetBuilder
+        setName(name:String) : PetBuilder
+        setType(type:String) : PetBuilder
+        setVariant(variant:String) : PetBuilder
+        setImage(image:String) : PetBuilder
+        createPet() : Pet
+    }
+
+    class Job {
+        id : int
+        impactenergy : int
+        impacthunger : int
+        impacthygiene : int
+        impactfun : int
+        title : String
+        length : int
+        image : String
+        client : String
+        message : String
+        reward : int
+        species : String
+    }
+
+    class Item {
+    }
+
+    class Food extends Item {
+        valuedog : int
+        valuecat : int
+        valuefish : int
+        valuepenguin : int
+    }
+
+    class Upgrade extends Item {
+        property : String
+        species : String
+        value : int
+    }
+
+    class ItemVisitor {
+        visit(food:Food) : int
+        visit(upgrade:Upgrade) : int
+    }
+}
+
+package raisemeup.model {
+    class DAO {
+        users : Map<Integer, User>
+        pets : Map<Integer, Pet>
+        foods : Map<Integer, Food>
+        upgrades : Map<Integer, Upgrade>
+        jobs : Map<Integer, Job>
+        addUser(u:User) : boolean
+        delUser(u:User) : boolean
+        updateUser(u:User) : boolean
+        addPet(p:Pet) : boolean
+        delPet(p:Pet) : boolean
+        updatePet(p:Pet) : boolean
+        addFood(f:Food) : boolean
+        delFood(f:Food) : boolean
+        updateFood(f:Food) : boolean
+        addUpgrade(up:Upgrade) : boolean
+        delUpgrade(up:Upgrade) : boolean
+        updateUpgrade(u:Upgrade) : boolean
+        addJob(j:Job) : boolean
+        delJob(j:Job) : boolean
+        updateJob(j:Job) : boolean
+    }
+}
+
+package raisemeup.control {
+    class RaiseMeUp {
+        dao : static DAO
+        currentUser : static User
+        currentPet : static Pet
+        currentJob : static Job
+        init() : static void
+        main(args:String[]) : static void
+        newUser(id:int, email:String, username:String, password:String) : static boolean
+        newFood(f:Food) : static boolean
+        newUpgrade(u:Upgrade) : static boolean
+        newJob(j:Job) : static boolean
+        newFoodOwned(p:Pet, f:Food, piece:int) : static boolean
+        newUpgradeOwned(p:Pet, u:Upgrade, piece:int) : static boolean
+        newJobOwned(p:Pet, j:Job, timeworked:int) : static boolean
+    }
+}
+
+DAO --> User
+DAO --> Pet
+DAO --> Food
+DAO --> Upgrade
+DAO --> Job
+
+UserBuilder --> User
+PetBuilder --> Pet
+
+Pet "1" --> "many" Item : owns >
+Pet "1" --> "many" Job : has >
+
+Food --|> Item
+Upgrade --|> Item
+ItemVisitor --> Food
+ItemVisitor --> Upgrade
+
+@enduml
+

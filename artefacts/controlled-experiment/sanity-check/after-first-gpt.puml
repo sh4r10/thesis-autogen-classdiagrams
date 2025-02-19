@@ -1,0 +1,117 @@
+@startuml
+class Employee {
+    - Integer id
+    - String name
+    - String position
+    - ArrayList<Schedule> schedList
+    + Employee(Integer, String, String)
+    + void addSchedule(Schedule)
+}
+
+class Schedule {
+    - Integer id
+    - Date start_date
+    - Date end_date
+    - Pattern p
+    - Employee e
+    + Schedule(Date, Date, Pattern, Employee)
+    + Calendar getStartDate()
+    + Calendar getEndDate()
+    + Pattern getPattern()
+    + Employee getEmployee()
+}
+
+class Pattern {
+    - ArrayList<PhaseLabor> plArray
+    - Integer noOfHours
+    + Pattern(int)
+    + void addPhL(PhaseLabor)
+    + PhaseLabor getPhL(int)
+    + ArrayList<PhaseLabor> getArrayPhaseLabor()
+    + Integer getNoOfHours()
+    + void setNoOfHours(Integer)
+    + PhaseLabor getPhaseLabor(LaborBilling, Phase)
+}
+
+class PhaseLabor {
+    - String id
+    - LaborBilling lb
+    - Phase ph
+    - Float percentage
+    + PhaseLabor(String, LaborBilling, Phase, Float)
+    + Phase getPhase()
+    + LaborBilling getLaborBilling()
+    + Float getPercentage()
+}
+
+class LaborBilling {
+    - String id
+    - String name
+    + LaborBilling(String, String)
+    + String getName()
+    + String getId()
+}
+
+class Phase {
+    - String name
+    - String id
+    - Project p
+    + Phase(String, String, Project)
+    + Project getProject()
+    + void setProject(Project)
+    + String getName()
+    + String getID()
+}
+
+class Project {
+    - String id
+    - String name
+    - ArrayList<Phase> phList
+    + Project(String, String)
+    + void addPhase(Phase)
+    + String getName()
+    + String getID()
+}
+
+class POIGenerator {
+    - Employee pEmp
+    - Workbook wb
+    - Pattern sablon
+    - int month
+    - int year
+    - ArrayList<Schedule> schedEmp
+    - FileOutputStream fileOut
+    - Sheet sheet1
+    - CreationHelper createHelper
+    - Font underFont
+    - CellStyle style
+    - CellStyle tablestyle
+    - CellStyle tableheadstyle
+    - CellStyle tableweekendstyle
+    - CellStyle datestyle
+    - ArrayList<PhaseLabor> PhLArray
+    + POIGenerator(Employee)
+    - Calendar getNextMonday(Calendar)
+    - Pattern getPatternForDay(Calendar)
+    - ArrayList<PhaseLabor> getListOfDistinctPhaseLabor(ArrayList<Pattern>)
+    - ArrayList<Pattern> getListOfPatterns(Calendar, Integer, Integer)
+    - void generateHeader(Integer)
+    - Calendar getDateFrom(Integer, Calendar)
+    - Float generateTableRow(Integer, int, Integer, Integer, Calendar)
+    - void generateWeek(Integer, Integer, Integer, Calendar)
+    - int howManyDays(Calendar)
+    - void styleMe()
+    - void generateDocHeader()
+    + void generateDoc(String, int, int)
+}
+
+Employee "1" -- "many" Schedule
+Schedule "1" -- "1" Pattern
+Schedule "1" -- "1" Employee
+Pattern "1" -- "many" PhaseLabor
+PhaseLabor "1" -- "1" LaborBilling
+PhaseLabor "1" -- "1" Phase
+Phase "1" -- "1" Project
+Project "1" -- "many" Phase
+POIGenerator "1" -- "1" Employee
+

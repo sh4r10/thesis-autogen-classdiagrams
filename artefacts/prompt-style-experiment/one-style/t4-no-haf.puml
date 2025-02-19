@@ -1,0 +1,138 @@
+@startuml
+
+package raisemeup.model.beans {
+    class User {
+        id : int
+        email : String
+        username : String
+        password : String
+    }
+
+    class UserBuilder {
+        id : int
+        email : String
+        username : String
+        password : String
+        setId(id: int) : UserBuilder
+        setEmail(email: String) : UserBuilder
+        setUsername(username: String) : UserBuilder
+        setPassword(password: String) : UserBuilder
+        createUser() : User
+    }
+
+    class Pet {
+        petid : int
+        owner : int
+        name : String
+        type : String
+        variant : String
+        hunger : int
+        energy : int
+        fun : int
+        hygiene : int
+        age : int
+        money : int
+        image : String
+        owneditems : Map<Item, Integer>
+        ownedjobs : Map<Job, Integer>
+        getEmotion() : int
+    }
+
+    class PetBuilder {
+        owner : int
+        name : String
+        type : String
+        variant : String
+        image : String
+        setOwner(owner: int) : PetBuilder
+        setName(name: String) : PetBuilder
+        setType(type: String) : PetBuilder
+        setVariant(variant: String) : PetBuilder
+        setImage(image: String) : PetBuilder
+        createPet() : Pet
+    }
+
+    class Job {
+        id : int
+        impactenergy : int
+        impacthunger : int
+        impacthygiene : int
+        impactfun : int
+        title : String
+        length : int
+        image : String
+        client : String
+        message : String
+        reward : int
+        species : String
+    }
+
+    class Item
+
+    class Food extends Item {
+        valuedog : int
+        valuecat : int
+        valuefish : int
+        valuepenguin : int
+    }
+
+    class Upgrade extends Item {
+        property : String
+        species : String
+        value : int
+    }
+}
+
+package raisemeup.model {
+    class DAO {
+        users : Map<Integer, User>
+        pets : Map<Integer, Pet>
+        foods : Map<Integer, Food>
+        upgrades : Map<Integer, Upgrade>
+        jobs : Map<Integer, Job>
+        addUser(u: User) : boolean
+        getUser() : Map<Integer, User>
+        checkIfUserExists(u: User) : boolean
+        delUser(u: User) : boolean
+        updateUser(u: User) : boolean
+        addPet(p: Pet) : boolean
+        getPet() : Map<Integer, Pet>
+        checkIfPetExists(p: Pet) : boolean
+        delPet(p: Pet) : boolean
+        updatePet(p: Pet) : boolean
+        addFood(f: Food) : boolean
+        getFood() : Map<Integer, Food>
+        checkIfFoodExists(f: Food) : boolean
+        delFood(f: Food) : boolean
+        updateFood(f: Food) : boolean
+        addUpgrade(up: Upgrade) : boolean
+        getUpgrade() : Map<Integer, Upgrade>
+        checkIfUpgradeExists(up: Upgrade) : boolean
+        delUpgrade(up: Upgrade) : boolean
+        updateUpgrade(u: Upgrade) : boolean
+        addJob(j: Job) : boolean
+        getJob() : Map<Integer, Job>
+    }
+
+    class ItemVisitor {
+        visit(food: Food) : int
+        visit(upgrade: Upgrade) : int
+    }
+}
+
+UserBuilder --> User : "creates"
+PetBuilder --> Pet : "creates"
+DAO --> User : "manages"
+DAO --> Pet : "manages"
+DAO --> Food : "manages"
+DAO --> Upgrade : "manages"
+DAO --> Job : "manages"
+Pet --> Job : "has jobs (Map<Job, Integer>)"
+Pet --> Item : "owns items (Map<Item, Integer>)"
+Food --|> Item
+Upgrade --|> Item
+ItemVisitor --> Food
+ItemVisitor --> Upgrade
+
+@enduml
+

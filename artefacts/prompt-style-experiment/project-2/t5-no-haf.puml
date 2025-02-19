@@ -1,0 +1,98 @@
+@startuml
+
+class DAO {
+    addUser(u:User): boolean
+    checkIfUserExists(u:User): boolean
+    delUser(u:User): boolean
+    updateUser(u:User): boolean
+    addPet(p:Pet): boolean
+    checkIfPetExists(p:Pet): boolean
+    delPet(p:Pet): boolean
+    updatePet(p:Pet): boolean
+    addFood(f:Food): boolean
+    checkIfFoodExists(f:Food): boolean
+    delFood(f:Food): boolean
+    updateFood(f:Food): boolean
+    addUpgrade(up:Upgrade): boolean
+    checkIfUpgradeExists(up:Upgrade): boolean
+    delUpgrade(up:Upgrade): boolean
+    updateUpgrade(u:Upgrade): boolean
+    addJob(j:Job): boolean
+    checkIfJobExists(j:Job): boolean
+    delJob(j:Job): boolean
+    updateJob(j:Job): boolean
+    addFoodOwned(p:Pet, f:Food, piece:int): boolean
+    addUpgradeOwned(p:Pet, u:Upgrade, piece:int): boolean
+    updateFoodOwned(p:Pet, f:Food, piece:int): boolean
+    updateUpgradeOwned(p:Pet, u:Upgrade, piece:int): boolean
+    delFoodOwned(p:Pet, f:Food): boolean
+    delUpgradeOwned(p:Pet, u:Upgrade): boolean
+    addJobOwned(p:Pet, j:Job, timeworked:int): boolean
+    updateJobOwned(p:Pet, j:Job, timeworked:int): boolean
+    delJobOwned(p:Pet, j:Job): boolean
+}
+
+class Food {
+    valuedog: int
+    valuecat: int
+    valuefish: int
+    valuepenguin: int
+}
+
+class ItemVisitor {
+    visit(food:Food): int
+    visit(upgrade:Upgrade): int
+}
+
+class Job {
+    id: int
+    impactenergy: int
+    energyneeded: int
+    fun: int
+    hygiene: int
+    age: int
+    money: int
+    type: String
+    variant: String
+    image: String
+    owner: int
+    petid: int
+}
+
+class PetBuilder {
+    setOwner(owner:int): PetBuilder
+    setName(name:String): PetBuilder
+    setType(type:String): PetBuilder
+    setVariant(variant:String): PetBuilder
+    setImage(image:String): PetBuilder
+    createPet(): Pet
+}
+
+class RaiseMeUp {
+}
+
+class Upgrade {
+    property: String
+    species: String
+    value: int
+}
+
+class User {
+    id: int
+    email: String
+    username: String
+    password: String
+}
+
+class UserBuilder {
+    setId(id:int): UserBuilder
+    setEmail(email:String): UserBuilder
+    setUsername(username:String): UserBuilder
+    setPassword(password:String): UserBuilder
+    createUser(): User
+}
+
+Item <|-- Food
+Item <|-- Upgrade
+
+@enduml
