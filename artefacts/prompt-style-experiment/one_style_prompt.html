@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlantUML Diagram</title>
+    <title>PlantUML Modification Guidelines</title>
 </head>
 <body>
-    <h1>PlantUML Class Diagram</h1>
-    <pre>
-@startuml
-class ClassName {
-    attribute1 : Type
-    attribute2 : Type
-    method1(param1:Type):ReturnType
-    method2(param2:Type):ReturnType
-}
-
-ClassA --|> ClassB : label
-ClassB --> ClassC : label
-@enduml
-    </pre>
+    <h1>PlantUML Modification Guidelines</h1>
+    <ol>
+        <li>Remove all extra PlantUML tags such as skin etc.</li>
+        <li>Do not create new information; only use the provided information. If any information is missing, exclude it from the diagram.</li>
+        <li>Ensure attributes follow this standard: <code>&lt;name&gt; : &lt;type&gt;</code>. If any component is missing, exclude that component without generating new information.</li>
+        <li>Ensure methods follow this standard: <code>&lt;name&gt;(&lt;parameter name&gt;:&lt;parameter type&gt;): &lt;return type&gt;</code>. If any component is missing, exclude that component without generating new information.</li>
+        <li>Ensure relationships follow this standard: <code>&lt;from class&gt; &lt;optional label&gt; &lt;lines&gt;&lt;optional head&gt;&lt;optional label&gt; &lt;to class&gt; : &lt;optional label&gt;</code>. Do not create new relationship details.</li>
+        <li>Omit some but not all attributes if necessary for a good system overview.</li>
+        <li>Omit some but not all methods if necessary for a good system overview.</li>
+        <li>Omit some but not all relationships if necessary for a good system overview.</li>
+        <li>Omit all getters from the diagram.</li>
+        <li>Omit some but not all setters if necessary for a good system overview.</li>
+        <li>Omit all constructors from the diagram.</li>
+        <li>Omit all access modifiers from the diagram.</li>
+    </ol>
 </body>
 </html>
